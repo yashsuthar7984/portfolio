@@ -1,0 +1,93 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+---
+<BaseLayout title="Contact">
+  <section class="contact-section">
+    <div class="content-wrapper">
+      <h1 class="title">Contact</h1>
+      <p class="description">
+        Reach out for software contracts or creative collaborations.
+      </p>
+      
+      <form class="contact-form">
+        <input type="text" placeholder="Name" required />
+        <input type="email" placeholder="Email" required />
+        <textarea placeholder="Message" rows="5" required></textarea>
+        <button type="button">Send Message</button>
+      </form>
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  .contact-section {
+    padding: var(--space-2xl) 0;
+    display: flex;
+    justify-content: center;
+    min-height: 70vh;
+  }
+  
+  .content-wrapper {
+    max-width: 600px; /* Slightly narrower to make the form look proportional */
+    width: 100%;
+    margin: 0 auto;
+    padding: 0 var(--space-md);
+    text-align: center;
+  }
+
+  .title {
+    font-size: clamp(3rem, 6vw, 5rem);
+    margin-bottom: var(--space-md);
+    letter-spacing: -0.02em;
+  }
+
+  .description {
+    color: var(--color-text-muted);
+    font-size: 1.15rem;
+    margin-bottom: var(--space-lg);
+  }
+
+  .contact-form {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-md);
+    text-align: left; /* Keeps typing text aligned left inside the inputs */
+  }
+
+  .contact-form input,
+  .contact-form textarea {
+    padding: var(--space-md);
+    background: var(--color-surface);
+    border: var(--divider);
+    color: var(--color-text-primary);
+    font-family: var(--font-text);
+    font-size: 1rem;
+    border-radius: 4px;
+    width: 100%;
+  }
+
+  .contact-form input:focus,
+  .contact-form textarea:focus {
+    outline: none;
+    border-color: var(--color-accent);
+  }
+
+  .contact-form button {
+    padding: var(--space-md);
+    background: var(--color-accent);
+    color: white;
+    border: none;
+    cursor: pointer;
+    font-family: var(--font-display);
+    text-transform: uppercase;
+    font-size: 1rem;
+    letter-spacing: 0.05em;
+    border-radius: 4px;
+    transition: opacity var(--transition-smooth);
+    margin-top: var(--space-sm);
+  }
+
+  .contact-form button:hover {
+    opacity: 0.85;
+  }
+</style>

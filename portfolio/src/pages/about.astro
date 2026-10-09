@@ -1,0 +1,48 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+---
+<BaseLayout title="About">
+  <section class="about-section">
+    <div class="content-wrapper">
+      <h1 class="title">About</h1>
+      <p class="bio">
+        I am a software developer focused on building robust, scalable systems using Python and Java. I enjoy tackling complex architectural problems and writing clean, efficient code. 
+      </p>
+      <p class="bio">
+        When I step away from the IDE, I spend my time behind a camera. I am an avid cinematic video creator and content creator, which serves as my creative outlet and keeps my eye for detail sharp.
+      </p>
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  .about-section {
+    padding: var(--space-2xl) 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 70vh; /* Pushes the footer down and centers vertically */
+  }
+  
+  .content-wrapper {
+    max-width: 700px; /* Constrains the text width for better reading */
+    width: 100%;
+    margin: 0 auto;
+    padding: 0 var(--space-md);
+  }
+
+  .title {
+    font-size: clamp(3rem, 6vw, 5rem);
+    margin-bottom: var(--space-lg);
+    text-align: center; /* Centers the heading */
+    letter-spacing: -0.02em;
+  }
+
+  .bio {
+    color: var(--color-text-muted);
+    font-size: 1.15rem;
+    line-height: 1.8;
+    margin-bottom: var(--space-md);
+    text-align: center; /* Centers the paragraph text */
+  }
+</style>

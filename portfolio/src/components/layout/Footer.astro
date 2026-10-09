@@ -1,0 +1,13 @@
+---
+import { siteConfig } from '../../data/site.js';
+const year = new Date().getFullYear();
+---
+<footer class="site-footer">
+  <div class="footer-inner">
+    <p>&copy; {year} {siteConfig.name}. All rights reserved.</p>
+  </div>
+</footer>
+<style>
+  .site-footer { border-top: var(--divider); padding: var(--space-lg); text-align: center; margin-top: var(--space-2xl); }
+  .footer-inner p { color: var(--color-text-muted); font-size: 0.875rem; }
+</style>

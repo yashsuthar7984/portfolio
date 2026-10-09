@@ -1,0 +1,82 @@
+---
+import BaseLayout from '../../../layouts/BaseLayout.astro';
+---
+<BaseLayout title="Hobbies">
+  <section class="hobbies-section">
+    <div class="content-wrapper">
+      <h1 class="title">Hobbies</h1>
+      <p class="description">
+        Cinematic video editing, visual storytelling, and content creation.
+      </p>
+      
+      <!-- Instagram External Link -->
+      <a href="https://www.instagram.com/framed.by.yash/" target="_blank" rel="noopener noreferrer" class="social-link">
+        View My Instagram ↗
+      </a>
+      
+      <div class="placeholder-box">
+        <h3>Video Reel 01 [Placeholder]</h3>
+        <p>Embedded cinematic video or gallery goes here.</p>
+      </div>
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  .hobbies-section {
+    padding: var(--space-2xl) 0;
+    display: flex;
+    justify-content: center;
+    min-height: 70vh;
+  }
+  
+  .content-wrapper {
+    max-width: 800px;
+    width: 100%;
+    margin: 0 auto;
+    padding: 0 var(--space-md);
+    text-align: center;
+  }
+
+  .title {
+    font-size: clamp(3rem, 6vw, 5rem);
+    margin-bottom: var(--space-md);
+    letter-spacing: -0.02em;
+  }
+
+  .description {
+    color: var(--color-text-muted);
+    font-size: 1.15rem;
+    margin-bottom: var(--space-md);
+  }
+
+  .social-link {
+    display: inline-block;
+    padding: var(--space-sm) var(--space-lg);
+    border: 1px solid var(--color-accent);
+    color: var(--color-text-primary);
+    font-family: var(--font-display);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    border-radius: 4px;
+    transition: all var(--transition-smooth);
+    margin-bottom: var(--space-xl);
+  }
+
+  .social-link:hover {
+    background: var(--color-accent);
+    color: white;
+  }
+
+  .placeholder-box {
+    margin-top: var(--space-lg);
+    border: var(--divider);
+    padding: var(--space-xl) var(--space-lg);
+    background: rgba(255, 255, 255, 0.02);
+    border-radius: 8px;
+  }
+  
+  .placeholder-box h3 {
+    margin-bottom: var(--space-sm);
+  }
+</style>

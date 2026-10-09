@@ -1,0 +1,20 @@
+{
+  "name": "portfolio-secure",
+  "type": "module",
+  "version": "1.0.0",
+  "scripts": {
+    "dev": "astro dev",
+    "build": "node scripts/optimize-images.js && astro check && astro build && node scripts/check-build-output.js",
+    "preview": "astro preview",
+    "astro": "astro"
+  },
+  "dependencies": {
+    "astro": "4.4.0",
+    "gsap": "3.12.5"
+  },
+  "devDependencies": {
+    "@astrojs/check": "0.5.4",
+    "sharp": "0.33.2",
+    "typescript": "5.3.3"
+  }
+}

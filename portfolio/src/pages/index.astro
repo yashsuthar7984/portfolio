@@ -1,0 +1,181 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+---
+
+<BaseLayout title="Home">
+  <section class="hero">
+    <!-- Animated Tech Grid Background -->
+    <div class="tech-grid"></div>
+
+    <div class="hero-content">
+      <div class="reveal-mask">
+        <span class="label">System.out.println("Hello, World!");</span>
+      </div>
+      <div class="reveal-mask">
+        <h1 class="display-title">Yash Suthar</h1>
+      </div>
+      
+      <div class="reveal-mask">
+        <!-- Terminal Code Block Bio -->
+        <div class="terminal-block">
+          <div class="terminal-header">
+            <span class="dot red"></span>
+            <span class="dot yellow"></span>
+            <span class="dot green"></span>
+            <span class="file-name">developer.py</span>
+          </div>
+          <div class="terminal-body">
+            <p class="code-text">
+              <span class="keyword">class</span> <span class="class-name">Developer</span>:<br/>
+              &nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">def</span> <span class="function">__init__</span>(<span class="variable">self</span>):<br/>
+              &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="variable">self</span>.core_stack = [<span class="string">"Python"</span>, <span class="string">"Java"</span>]<br/>
+              &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="variable">self</span>.hobbies = [<span class="string">"Cinematic Video Editing"</span>, <span class="string">"Content Creation"</span>]<br/>
+              <br/>
+              &nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">def</span> <span class="function">mission</span>(<span class="variable">self</span>):<br/>
+              &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">return</span> <span class="string">"Writing clean, secure, and scalable systems."</span>
+            </p>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+</BaseLayout>
+
+<!-- GSAP Animation Scripts -->
+<script is:inline src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+<script is:inline>
+  document.addEventListener("DOMContentLoaded", () => {
+    // Animate the grid scrolling downwards continuously
+    gsap.to(".tech-grid", {
+      backgroundPosition: "0 50px",
+      duration: 3,
+      repeat: -1,
+      ease: "none"
+    });
+
+    // Stagger the text sliding up
+    gsap.from(".reveal-mask > *", {
+      y: 120,
+      opacity: 0,
+      duration: 1.2,
+      stagger: 0.15,
+      ease: "power4.out",
+      delay: 0.2
+    });
+  });
+</script>
+
+<style>
+  /* Import a monospace font for the code aesthetic */
+  @import url('https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;500&display=swap');
+
+  /* Layout */
+  .hero {
+    position: relative;
+    min-height: calc(100vh - 80px);
+    display: flex;
+    align-items: center;
+    padding: 0 var(--space-lg);
+    margin-top: -80px; /* Pull up underneath header */
+    overflow: hidden;
+  }
+
+  /* Animated Grid Background */
+  .tech-grid {
+    position: absolute;
+    inset: 0;
+    z-index: -1;
+    background-size: 50px 50px;
+    background-image: 
+      linear-gradient(to right, rgba(255, 255, 255, 0.04) 1px, transparent 1px),
+      linear-gradient(to bottom, rgba(255, 255, 255, 0.04) 1px, transparent 1px);
+    /* Fade the grid out at the bottom */
+    -webkit-mask-image: linear-gradient(to bottom, rgba(0,0,0,1) 40%, rgba(0,0,0,0) 100%);
+    mask-image: linear-gradient(to bottom, rgba(0,0,0,1) 40%, rgba(0,0,0,0) 100%);
+  }
+
+  /* Content Styling */
+  .hero-content {
+    position: relative;
+    z-index: 2;
+    max-width: 1400px;
+    margin: 0 auto;
+    width: 100%;
+    padding-top: 10vh;
+  }
+
+  .reveal-mask {
+    overflow: hidden;
+  }
+
+  .label {
+    font-family: 'Fira Code', monospace;
+    font-size: 0.875rem;
+    color: var(--color-text-muted);
+    display: block;
+    margin-bottom: var(--space-md);
+  }
+
+  .display-title {
+    font-family: 'Oswald', sans-serif;
+    font-size: clamp(3.5rem, 10vw, 9rem);
+    text-transform: uppercase;
+    line-height: 0.95;
+    margin-bottom: var(--space-md);
+    letter-spacing: -0.02em;
+  }
+
+  /* Terminal Window UI */
+  .terminal-block {
+    background: #111;
+    border: 1px solid rgba(255,255,255,0.1);
+    border-radius: 8px;
+    max-width: 650px;
+    margin-top: var(--space-lg);
+    box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+  }
+
+  .terminal-header {
+    background: #1a1a1a;
+    padding: 12px 15px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    border-bottom: 1px solid rgba(255,255,255,0.05);
+    border-top-left-radius: 8px;
+    border-top-right-radius: 8px;
+  }
+
+  .dot { width: 12px; height: 12px; border-radius: 50%; }
+  .dot.red { background: #ff5f56; }
+  .dot.yellow { background: #ffbd2e; }
+  .dot.green { background: #27c93f; }
+  
+  .file-name {
+    margin-left: auto;
+    margin-right: auto;
+    font-family: 'Fira Code', monospace;
+    font-size: 0.75rem;
+    color: var(--color-text-muted);
+  }
+
+  .terminal-body {
+    padding: var(--space-lg);
+    overflow-x: auto;
+  }
+
+  /* Code Syntax Highlighting (One Dark Pro Theme) */
+  .code-text {
+    font-family: 'Fira Code', monospace;
+    font-size: clamp(0.85rem, 1.5vw, 1rem);
+    line-height: 1.7;
+    margin: 0;
+    color: #abb2bf;
+  }
+  .keyword { color: #c678dd; } /* Purple */
+  .class-name { color: #e5c07b; } /* Yellow */
+  .function { color: #61afef; } /* Blue */
+  .variable { color: #e06c75; } /* Red */
+  .string { color: #98c379; } /* Green */
+</style>
