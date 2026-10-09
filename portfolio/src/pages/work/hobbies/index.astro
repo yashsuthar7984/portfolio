@@ -1,12 +1,12 @@
 ---
 import BaseLayout from '../../../layouts/BaseLayout.astro';
 ---
-<BaseLayout title="Hobbies">
+<BaseLayout title="Content Creation">
   <section class="hobbies-section">
     <div class="content-wrapper">
-      <h1 class="title">Hobbies</h1>
+      <h1 class="title">Content Creation</h1>
       <p class="description">
-        Cinematic video editing, visual storytelling, and content creation.
+        Cinematic video editing, visual storytelling, and digital media production.
       </p>
       
       <!-- Instagram External Link -->
@@ -14,15 +14,54 @@ import BaseLayout from '../../../layouts/BaseLayout.astro';
         View My Instagram ↗
       </a>
       
-      <div class="placeholder-box">
-        <h3>Video Reel 01 [Placeholder]</h3>
-        <p>Embedded cinematic video or gallery goes here.</p>
+      <!-- Media Showcase -->
+      <div class="media-showcase">
+        
+        <!-- Featured 16:9 Video (Matches the Terminal UI from Home) -->
+        <div class="media-frame">
+          <div class="frame-header">
+            <span class="dot red"></span>
+            <span class="dot yellow"></span>
+            <span class="dot green"></span>
+            <span class="file-name">REC // FEATURED_EDIT.MP4</span>
+          </div>
+          <div class="frame-body">
+            <div class="video-player">
+              <div class="play-button">▶</div>
+              <p>Embed your main cinematic YouTube/Vimeo link here</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- 9:16 Reels / Shorts Grid -->
+        <div class="reels-grid">
+          <!-- Reel 1 -->
+          <div class="media-frame">
+            <div class="frame-header">
+              <span class="file-name">REEL_01.MP4</span>
+            </div>
+            <div class="frame-body short-video">
+              <div class="play-button small">▶</div>
+            </div>
+          </div>
+          <!-- Reel 2 -->
+          <div class="media-frame">
+            <div class="frame-header">
+              <span class="file-name">REEL_02.MP4</span>
+            </div>
+            <div class="frame-body short-video">
+              <div class="play-button small">▶</div>
+            </div>
+          </div>
+        </div>
+
       </div>
     </div>
   </section>
 </BaseLayout>
 
 <style>
+  /* Base Layout */
   .hobbies-section {
     padding: var(--space-2xl) 0;
     display: flex;
@@ -31,13 +70,14 @@ import BaseLayout from '../../../layouts/BaseLayout.astro';
   }
   
   .content-wrapper {
-    max-width: 800px;
+    max-width: 900px; /* Made slightly wider to comfortably fit the video grid */
     width: 100%;
     margin: 0 auto;
     padding: 0 var(--space-md);
     text-align: center;
   }
 
+  /* Typography */
   .title {
     font-size: clamp(3rem, 6vw, 5rem);
     margin-bottom: var(--space-md);
@@ -50,6 +90,7 @@ import BaseLayout from '../../../layouts/BaseLayout.astro';
     margin-bottom: var(--space-md);
   }
 
+  /* Instagram Link Button */
   .social-link {
     display: inline-block;
     padding: var(--space-sm) var(--space-lg);
@@ -68,15 +109,108 @@ import BaseLayout from '../../../layouts/BaseLayout.astro';
     color: white;
   }
 
-  .placeholder-box {
-    margin-top: var(--space-lg);
-    border: var(--divider);
-    padding: var(--space-xl) var(--space-lg);
-    background: rgba(255, 255, 255, 0.02);
-    border-radius: 8px;
+  /* --- MEDIA SHOWCASE UI (Matches Home Page Terminal) --- */
+  .media-showcase {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-lg);
   }
-  
-  .placeholder-box h3 {
+
+  .media-frame {
+    background: #111;
+    border: 1px solid rgba(255,255,255,0.1);
+    border-radius: 8px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+    overflow: hidden;
+    text-align: left;
+  }
+
+  .frame-header {
+    background: #1a1a1a;
+    padding: 12px 15px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    border-bottom: 1px solid rgba(255,255,255,0.05);
+  }
+
+  /* Dots from the Home Page IDE */
+  .dot { width: 12px; height: 12px; border-radius: 50%; }
+  .dot.red { background: #ff5f56; }
+  .dot.yellow { background: #ffbd2e; }
+  .dot.green { background: #27c93f; }
+
+  .file-name {
+    margin-left: auto;
+    margin-right: auto;
+    font-family: monospace;
+    font-size: 0.75rem;
+    color: var(--color-text-muted);
+    letter-spacing: 0.05em;
+  }
+
+  .frame-body {
+    background: #050505;
+    padding: 0;
+  }
+
+  /* Video Players Placeholder Styling */
+  .video-player {
+    aspect-ratio: 16 / 9;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    background: linear-gradient(45deg, #0a0a0a, #1a1a1a);
+    color: var(--color-text-muted);
+  }
+
+  .short-video {
+    aspect-ratio: 9 / 16;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: linear-gradient(45deg, #0a0a0a, #1a1a1a);
+  }
+
+  /* Interactive Play Buttons */
+  .play-button {
+    width: 70px;
+    height: 70px;
+    background: var(--color-accent);
+    color: white;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.5rem;
     margin-bottom: var(--space-sm);
+    cursor: pointer;
+    transition: transform var(--transition-smooth);
+    padding-left: 5px; /* Optically centers the play triangle */
+  }
+
+  .play-button.small {
+    width: 50px;
+    height: 50px;
+    font-size: 1.2rem;
+  }
+
+  .play-button:hover {
+    transform: scale(1.1);
+  }
+
+  /* Grid for Reels / Shorts */
+  .reels-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: var(--space-lg);
+  }
+
+  /* Responsive Mobile Adjustment */
+  @media (max-width: 600px) {
+    .reels-grid {
+      grid-template-columns: 1fr;
+    }
   }
 </style>
