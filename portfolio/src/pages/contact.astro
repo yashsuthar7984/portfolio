@@ -6,14 +6,25 @@ import BaseLayout from '../layouts/BaseLayout.astro';
     <div class="content-wrapper">
       <h1 class="title">Contact</h1>
       <p class="description">
-        Reach out for software contracts or creative collaborations.
+        Reach out for software contracts, creative collaborations, or general inquiries.
       </p>
+
+      <!-- Direct Contact Details -->
+      <div class="contact-details">
+        <h3>Yash Suthar</h3>
+        <a href="mailto:yashsuthar7984@gmail.com" class="email-link">
+          yashsuthar7984@gmail.com
+        </a>
+      </div>
       
-      <form class="contact-form">
-        <input type="text" placeholder="Name" required />
-        <input type="email" placeholder="Email" required />
-        <textarea placeholder="Message" rows="5" required></textarea>
-        <button type="button">Send Message</button>
+      <!-- Secure Contact Form (Basic HTML Method) -->
+      <form action="https://formspree.io/f/xjygrgzn" method="POST" class="contact-form">
+        <input type="text" name="name" placeholder="Name" required />
+        <input type="email" name="email" placeholder="Email" required />
+        <textarea name="message" placeholder="Message" rows="5" required></textarea>
+        <!-- Formspree hidden configuration -->
+        <input type="hidden" name="_subject" value="New submission from your portfolio!" />
+        <button type="submit">Send Message</button>
       </form>
     </div>
   </section>
@@ -28,7 +39,7 @@ import BaseLayout from '../layouts/BaseLayout.astro';
   }
   
   .content-wrapper {
-    max-width: 600px; /* Slightly narrower to make the form look proportional */
+    max-width: 600px;
     width: 100%;
     margin: 0 auto;
     padding: 0 var(--space-md);
@@ -47,11 +58,39 @@ import BaseLayout from '../layouts/BaseLayout.astro';
     margin-bottom: var(--space-lg);
   }
 
+  /* Direct Contact Details Styling */
+  .contact-details {
+    margin-bottom: var(--space-xl);
+    padding: var(--space-lg);
+    background: rgba(255, 255, 255, 0.02);
+    border: var(--divider);
+    border-radius: 8px;
+  }
+
+  .contact-details h3 {
+    margin-bottom: var(--space-xs);
+    font-size: 1.5rem;
+    letter-spacing: 0.05em;
+  }
+
+  .email-link {
+    color: var(--color-accent);
+    font-family: var(--font-text);
+    font-size: 1.1rem;
+    transition: opacity var(--transition-smooth);
+  }
+
+  .email-link:hover {
+    opacity: 0.8;
+    text-decoration: underline;
+  }
+
+  /* Form Styling */
   .contact-form {
     display: flex;
     flex-direction: column;
     gap: var(--space-md);
-    text-align: left; /* Keeps typing text aligned left inside the inputs */
+    text-align: left;
   }
 
   .contact-form input,
