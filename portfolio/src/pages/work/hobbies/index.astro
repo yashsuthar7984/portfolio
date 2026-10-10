@@ -2,20 +2,32 @@
 import BaseLayout from '../../../layouts/BaseLayout.astro';
 ---
 <BaseLayout title="Content Creation">
-  <section class="hobbies-section">
+  <section class="cinematic-hero">
     <div class="content-wrapper">
-      <h1 class="title">Content Creation</h1>
-      <p class="description">
-        Cinematic video editing, visual storytelling, and digital media production.
-      </p>
       
-      <!-- Instagram External Link -->
-      <a href="https://www.instagram.com/framed.by.yash/" target="_blank" rel="noopener noreferrer" class="social-link">
-        View My Instagram ↗
-      </a>
+      <div class="reveal-mask">
+        <span class="label">02 // Digital Portfolio</span>
+      </div>
+      
+      <div class="reveal-mask">
+        <h1 class="display-title">Content Creation</h1>
+      </div>
+      
+      <div class="reveal-mask">
+        <p class="description">
+          Cinematic video editing, visual storytelling, and digital media production.
+        </p>
+      </div>
+      
+      <div class="reveal-mask">
+        <!-- Instagram External Link -->
+        <a href="https://www.instagram.com/framed.by.yash/" target="_blank" rel="noopener noreferrer" class="social-link">
+          View My Instagram ↗
+        </a>
+      </div>
       
       <!-- Media Showcase -->
-      <div class="media-showcase">
+      <div class="media-showcase fade-in-up">
         
         <!-- Featured 16:9 Video -->
         <div class="media-frame">
@@ -63,34 +75,81 @@ import BaseLayout from '../../../layouts/BaseLayout.astro';
   </section>
 </BaseLayout>
 
+<!-- GSAP Animation Scripts -->
+<script is:inline src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+<script is:inline>
+  document.addEventListener("DOMContentLoaded", () => {
+    // Stagger the text sliding up smoothly
+    gsap.from(".reveal-mask > *", {
+      y: 120,
+      opacity: 0,
+      duration: 1.2,
+      stagger: 0.15,
+      ease: "power4.out",
+      delay: 0.1
+    });
+    
+    // Float the video player up from the bottom
+    gsap.from(".fade-in-up", {
+      y: 60,
+      opacity: 0,
+      duration: 1.5,
+      ease: "power3.out",
+      delay: 0.6
+    });
+  });
+</script>
+
 <style>
-  /* Base Layout */
-  .hobbies-section {
-    padding: var(--space-2xl) 0;
+  /* Cinematic Hero Layout */
+  .cinematic-hero {
+    position: relative;
+    min-height: 100vh; /* Fills the entire screen */
     display: flex;
-    justify-content: center;
-    min-height: 70vh;
+    flex-direction: column;
+    justify-content: flex-start;
+    padding: 15vh var(--space-lg) var(--space-2xl);
+    margin-top: -80px; /* Pulls the content up underneath the transparent header */
   }
   
   .content-wrapper {
-    max-width: 900px;
+    max-width: 1000px; /* Widened slightly to make it feel more expansive */
     width: 100%;
     margin: 0 auto;
-    padding: 0 var(--space-md);
     text-align: center;
   }
 
-  /* Typography */
-  .title {
-    font-size: clamp(3rem, 6vw, 5rem);
+  /* GSAP Masks */
+  .reveal-mask {
+    overflow: hidden;
+  }
+
+  /* Upgraded Homepage Typography */
+  .label {
+    font-family: 'Oswald', sans-serif;
+    font-size: 0.875rem;
+    text-transform: uppercase;
+    letter-spacing: 0.15em;
+    color: var(--color-accent);
+    display: block;
+    margin-bottom: var(--space-md);
+  }
+
+  .display-title {
+    font-size: clamp(3.5rem, 8vw, 7.5rem); /* Massive scaling title */
     margin-bottom: var(--space-md);
     letter-spacing: -0.02em;
+    text-transform: uppercase;
+    line-height: 0.95;
   }
 
   .description {
     color: var(--color-text-muted);
-    font-size: 1.15rem;
-    margin-bottom: var(--space-md);
+    font-size: clamp(1.1rem, 2vw, 1.35rem);
+    margin-bottom: var(--space-xl);
+    max-width: 600px;
+    margin-left: auto;
+    margin-right: auto;
   }
 
   /* Instagram Link Button */
@@ -104,7 +163,7 @@ import BaseLayout from '../../../layouts/BaseLayout.astro';
     letter-spacing: 0.05em;
     border-radius: 4px;
     transition: all var(--transition-smooth);
-    margin-bottom: var(--space-xl);
+    margin-bottom: var(--space-2xl);
   }
 
   .social-link:hover {
@@ -123,7 +182,7 @@ import BaseLayout from '../../../layouts/BaseLayout.astro';
     background: #111;
     border: 1px solid rgba(255,255,255,0.1);
     border-radius: 8px;
-    box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+    box-shadow: 0 25px 50px rgba(0,0,0,0.8); /* Deep shadow for a floating feel */
     overflow: hidden;
     text-align: left;
   }
