@@ -14,16 +14,12 @@ const { title } = Astro.props;
     <title>{title} | {siteConfig.name}</title>
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     
-    
     <!-- Load Editorial Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500&family=Oswald:wght@500;700&display=swap" rel="stylesheet">
   </head>
   <body>
-    <!-- Film Grain Overlay -->
-    <div class="film-grain"></div>
-
     <Header />
     <main id="main-content">
       <slot />
@@ -32,15 +28,3 @@ const { title } = Astro.props;
     <script src="/src/scripts/main.js"></script>
   </body>
 </html>
-
-<style>
-  /* Subtle film grain effect applied globally */
-  .film-grain {
-    position: fixed;
-    top: 0; left: 0; right: 0; bottom: 0;
-    pointer-events: none;
-    z-index: 9999;
-    opacity: 0.05;
-    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
-  }
-</style>
