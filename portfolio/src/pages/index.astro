@@ -4,9 +4,6 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 
 <BaseLayout title="Home">
   <section class="hero">
-    <!-- Animated Tech Grid Background -->
-    <div class="tech-grid"></div>
-
     <div class="hero-content">
       <div class="reveal-mask">
         <span class="label">System.out.println("Hello, World!");</span>
@@ -38,6 +35,13 @@ import BaseLayout from '../layouts/BaseLayout.astro';
         </div>
       </div>
 
+      <!-- Quick Action Buttons -->
+      <div class="reveal-mask action-links">
+        <a href="/work/code" class="action-btn primary">Explore Code ↗</a>
+        <a href="/work/hobbies" class="action-btn secondary">Cinematic Video ↗</a>
+        <a href="/about" class="action-btn outline">About & Reviews</a>
+      </div>
+
     </div>
   </section>
 </BaseLayout>
@@ -46,19 +50,11 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 <script is:inline src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
 <script is:inline>
   document.addEventListener("DOMContentLoaded", () => {
-    // Animate the grid scrolling downwards continuously
-    gsap.to(".tech-grid", {
-      backgroundPosition: "0 50px",
-      duration: 3,
-      repeat: -1,
-      ease: "none"
-    });
-
-    // Stagger the text sliding up
+    // Stagger the text and terminal sliding up
     gsap.from(".reveal-mask > *", {
-      y: 120,
+      y: 80,
       opacity: 0,
-      duration: 1.2,
+      duration: 1.1,
       stagger: 0.15,
       ease: "power4.out",
       delay: 0.2
@@ -67,9 +63,6 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 </script>
 
 <style>
-  /* Import a monospace font for the code aesthetic */
-  @import url('https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;500&display=swap');
-
   /* Layout */
   .hero {
     position: relative;
@@ -77,22 +70,8 @@ import BaseLayout from '../layouts/BaseLayout.astro';
     display: flex;
     align-items: center;
     padding: 0 var(--space-lg);
-    margin-top: -80px; /* Pull up underneath header */
+    margin-top: -80px;
     overflow: hidden;
-  }
-
-  /* Animated Grid Background */
-  .tech-grid {
-    position: absolute;
-    inset: 0;
-    z-index: -1;
-    background-size: 50px 50px;
-    background-image: 
-      linear-gradient(to right, rgba(255, 255, 255, 0.04) 1px, transparent 1px),
-      linear-gradient(to bottom, rgba(255, 255, 255, 0.04) 1px, transparent 1px);
-    /* Fade the grid out at the bottom */
-    -webkit-mask-image: linear-gradient(to bottom, rgba(0,0,0,1) 40%, rgba(0,0,0,0) 100%);
-    mask-image: linear-gradient(to bottom, rgba(0,0,0,1) 40%, rgba(0,0,0,0) 100%);
   }
 
   /* Content Styling */
@@ -128,21 +107,22 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 
   /* Terminal Window UI */
   .terminal-block {
-    background: #111;
-    border: 1px solid rgba(255,255,255,0.1);
+    background: rgba(17, 17, 17, 0.85);
+    border: 1px solid rgba(255, 255, 255, 0.1);
     border-radius: 8px;
     max-width: 650px;
     margin-top: var(--space-lg);
-    box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+    backdrop-filter: blur(10px);
   }
 
   .terminal-header {
-    background: #1a1a1a;
+    background: rgba(26, 26, 26, 0.9);
     padding: 12px 15px;
     display: flex;
     align-items: center;
     gap: 8px;
-    border-bottom: 1px solid rgba(255,255,255,0.05);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
     border-top-left-radius: 8px;
     border-top-right-radius: 8px;
   }
@@ -165,7 +145,7 @@ import BaseLayout from '../layouts/BaseLayout.astro';
     overflow-x: auto;
   }
 
-  /* Code Syntax Highlighting (One Dark Pro Theme) */
+  /* Code Syntax Highlighting */
   .code-text {
     font-family: 'Fira Code', monospace;
     font-size: clamp(0.85rem, 1.5vw, 1rem);
@@ -173,9 +153,78 @@ import BaseLayout from '../layouts/BaseLayout.astro';
     margin: 0;
     color: #abb2bf;
   }
-  .keyword { color: #c678dd; } /* Purple */
-  .class-name { color: #e5c07b; } /* Yellow */
-  .function { color: #61afef; } /* Blue */
-  .variable { color: #e06c75; } /* Red */
-  .string { color: #98c379; } /* Green */
+  .keyword { color: #c678dd; }
+  .class-name { color: #e5c07b; }
+  .function { color: #61afef; }
+  .variable { color: #e06c75; }
+  .string { color: #98c379; }
+
+  /* Action Links */
+  .action-links {
+    display: flex;
+    gap: var(--space-md);
+    margin-top: var(--space-xl);
+    flex-wrap: wrap;
+  }
+
+  .action-btn {
+    display: inline-flex;
+    align-items: center;
+    padding: 10px 22px;
+    border-radius: 4px;
+    font-family: var(--font-display);
+    font-size: 0.95rem;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    transition: all var(--transition-smooth);
+  }
+
+  .action-btn.primary {
+    background: var(--color-accent);
+    color: #ffffff;
+    border: 1px solid transparent;
+  }
+
+  .action-btn.primary:hover {
+    background: #d60000;
+    box-shadow: 0 4px 18px rgba(179, 0, 0, 0.4);
+    transform: translateY(-2px);
+  }
+
+  .action-btn.secondary {
+    background: rgba(255, 255, 255, 0.04);
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    color: var(--color-text-primary);
+  }
+
+  .action-btn.secondary:hover {
+    background: rgba(255, 255, 255, 0.1);
+    border-color: rgba(255, 255, 255, 0.3);
+    transform: translateY(-2px);
+  }
+
+  .action-btn.outline {
+    background: transparent;
+    border: 1px solid var(--divider);
+    color: var(--color-text-muted);
+  }
+
+  .action-btn.outline:hover {
+    color: var(--color-text-primary);
+    border-color: rgba(255, 255, 255, 0.3);
+    transform: translateY(-2px);
+  }
+
+  @media (max-width: 640px) {
+    .hero {
+      padding: 0 var(--space-md);
+    }
+    .action-links {
+      flex-direction: column;
+      align-items: stretch;
+    }
+    .action-btn {
+      justify-content: center;
+    }
+  }
 </style>

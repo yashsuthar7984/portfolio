@@ -5,26 +5,123 @@ import '../styles/base/typography.css';
 import Header from '../components/layout/Header.astro';
 import Footer from '../components/layout/Footer.astro';
 import { siteConfig } from '../data/site.js';
-const { title } = Astro.props;
+
+interface Props {
+  title?: string;
+  description?: string;
+  image?: string;
+  canonicalUrl?: string;
+}
+
+const { 
+  title,
+  description = siteConfig.description,
+  canonicalUrl = new URL(Astro.url.pathname, siteConfig.url).href
+} = Astro.props;
+
+const pageTitle = !title || title === 'Home' 
+  ? `${siteConfig.name} | ${siteConfig.role}` 
+  : `${title} | ${siteConfig.name}`;
+
+const jsonLd = {
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "WebSite",
+      "@id": `${siteConfig.url}/#website`,
+      "url": siteConfig.url,
+      "name": siteConfig.name,
+      "description": siteConfig.description
+    },
+    {
+      "@type": "Person",
+      "@id": `${siteConfig.url}/#person`,
+      "name": siteConfig.name,
+      "jobTitle": siteConfig.role,
+      "url": siteConfig.url,
+      "sameAs": siteConfig.socials.map((s) => s.url),
+      "description": siteConfig.description
+    }
+  ]
+};
 ---
+<!DOCTYPE html>
 <html lang="en">
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>{title} | {siteConfig.name}</title>
+    <title>{pageTitle}</title>
+
+    <!-- SEO Meta Tags -->
+    <meta name="description" content={description} />
+    <meta name="author" content={siteConfig.name} />
+    <meta name="robots" content="index, follow" />
+    <meta name="google-site-verification" content="google01317096ec7f4e8a" />
+    <link rel="canonical" href={canonicalUrl} />
+    <link rel="sitemap" href="/sitemap.xml" />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-    
-    <!-- Load Editorial Fonts -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500&family=Oswald:wght@500;700&display=swap" rel="stylesheet">
+
+    <!-- Open Graph (Facebook / LinkedIn) -->
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content={pageTitle} />
+    <meta property="og:description" content={description} />
+    <meta property="og:url" content={canonicalUrl} />
+    <meta property="og:site_name" content={siteConfig.name} />
+
+    <!-- Twitter Cards -->
+    <meta name="twitter:card" content="summary" />
+    <meta name="twitter:title" content={pageTitle} />
+    <meta name="twitter:description" content={description} />
+
+    <!-- Google Structured Data (JSON-LD) -->
+    <script type="application/ld+json" set:html={JSON.stringify(jsonLd)} />
+
+    <!-- Load Editorial & Code Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;500&family=Inter:wght@400;500&family=Oswald:wght@500;700&display=swap"
+      rel="stylesheet"
+    />
   </head>
   <body>
+    <!-- Unified Global Ambient Glow & Tech Grid -->
+    <div class="site-ambient-glow" aria-hidden="true"></div>
+    <div class="site-grid-overlay" aria-hidden="true"></div>
+
     <Header />
     <main id="main-content">
       <slot />
     </main>
     <Footer />
     <script src="/src/scripts/main.js"></script>
+
+    <style is:global>
+      .site-ambient-glow {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100vw;
+        height: 100vh;
+        background: radial-gradient(circle at 15% 20%, rgba(179, 0, 0, 0.08) 0%, transparent 45%),
+                    radial-gradient(circle at 85% 75%, rgba(179, 0, 0, 0.05) 0%, transparent 50%);
+        z-index: -2;
+        pointer-events: none;
+      }
+
+      .site-grid-overlay {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100vw;
+        height: 100vh;
+        background-image: 
+          linear-gradient(rgba(255, 255, 255, 0.03) 1px, transparent 1px),
+          linear-gradient(90deg, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
+        background-size: 60px 60px;
+        z-index: -1;
+        pointer-events: none;
+      }
+    </style>
   </body>
 </html>

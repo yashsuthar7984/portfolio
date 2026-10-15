@@ -1,48 +1,777 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
+import { reviews } from '../data/reviews.js';
 ---
-<BaseLayout title="About">
-  <section class="about-section">
-    <div class="content-wrapper">
-      <h1 class="title">About</h1>
-      <p class="bio">
-        I am a software developer focused on building robust, scalable systems using Python and Java. I enjoy tackling complex architectural problems and writing clean, efficient code. 
-      </p>
-      <p class="bio">
-        When I step away from the IDE, I spend my time behind a camera. I am an avid cinematic video creator and content creator, which serves as my creative outlet and keeps my eye for detail sharp.
-      </p>
+
+<BaseLayout 
+  title="About & Reviews"
+  description="About Yash Suthar - Software developer specializing in Python and Java, cinematic video creator, and client reviews."
+>
+  <section class="about-page">
+    <div class="content-container">
+
+      <!-- Page Header -->
+      <header class="page-header fade-in">
+        <div class="badge-row">
+          <span class="terminal-badge">
+            <span class="status-dot"></span>
+            <code>// ABOUT // CLIENT_FEEDBACK</code>
+          </span>
+        </div>
+        <h1 class="main-title">About & Reviews</h1>
+        <p class="main-subtitle">
+          Software engineering systems and cinematic visual storytelling — backed by verified client feedback.
+        </p>
+      </header>
+
+      <!-- Bio / Profile Block -->
+      <div class="bio-card fade-in">
+        <div class="bio-header">
+          <div class="dots-row">
+            <span class="dot red"></span>
+            <span class="dot yellow"></span>
+            <span class="dot green"></span>
+            <span class="bio-tag">profile.md</span>
+          </div>
+        </div>
+        <div class="bio-body">
+          <p class="bio-text">
+            I am a software developer focused on building robust, scalable systems using <strong>Python</strong> and <strong>Java</strong>. I enjoy tackling complex architectural problems, engineering resilient backend services, and writing clean, secure code that performs under load.
+          </p>
+          <p class="bio-text">
+            When I step away from the IDE, I spend my time behind a camera. I am an avid cinematic video creator and digital storyteller (<strong>@framed.by.yash</strong>). Directing and editing high-retention video content serves as my creative outlet and keeps my attention to detail sharp across both code and visuals.
+          </p>
+          
+          <div class="skills-row">
+            <span class="skill-pill">Python</span>
+            <span class="skill-pill">Java</span>
+            <span class="skill-pill">Backend Architecture</span>
+            <span class="skill-pill">API Security</span>
+            <span class="skill-pill">Cinematic 4K Editing</span>
+            <span class="skill-pill">Color Grading</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Reviews Section -->
+      <section class="reviews-section fade-in" id="reviews">
+        <div class="section-heading">
+          <div class="badge-row">
+            <span class="terminal-badge">
+              <span class="status-dot green-dot"></span>
+              <code>// VERIFIED_TESTIMONIALS</code>
+            </span>
+          </div>
+          <h2 class="sub-title">Client Reviews</h2>
+          <p class="sub-desc">
+            Direct feedback from teams, founders, and creators on tech and video editing projects.
+          </p>
+        </div>
+
+        <!-- Published Reviews (or Clean Empty State) -->
+        {reviews.length > 0 ? (
+          <div class="reviews-grid">
+            {reviews.map((rev) => (
+              <article class="review-card">
+                <div class="card-header">
+                  <div class="client-meta">
+                    <span class="avatar-circle">{rev.clientName ? rev.clientName.charAt(0) : 'C'}</span>
+                    <h3 class="client-name">{rev.clientName}</h3>
+                  </div>
+                  <span class={`type-badge ${rev.projectType && rev.projectType.toLowerCase().includes('edit') ? 'type-editing' : 'type-tech'}`}>
+                    {rev.projectType}
+                  </span>
+                </div>
+
+                <div class="stars-system" aria-label={`${rev.rating} out of 5 stars`}>
+                  <div class="stars-gold">
+                    {Array.from({ length: rev.rating || 5 }).map(() => (
+                      <span class="star-char">&#9733;</span>
+                    ))}
+                  </div>
+                  <span class="rating-num">{(rev.rating || 5).toFixed(1)} / 5.0</span>
+                </div>
+
+                <p class="review-quote">
+                  "{rev.comment}"
+                </p>
+
+                <div class="card-footer">
+                  <span class="verified-indicator">&#10003; Verified Project</span>
+                </div>
+              </article>
+            ))}
+          </div>
+        ) : (
+          <div class="empty-reviews-state">
+            <div class="empty-star-badge">&#9733;</div>
+            <div class="empty-code">
+              <code>// STATUS: AWAITING_FIRST_VERIFIED_REVIEW</code>
+            </div>
+            <h3>No Reviews Published Yet</h3>
+            <p>
+              Have we collaborated on a tech or video editing project? 
+              Share your feedback below to be the first client featured on this page!
+            </p>
+            <a href="#review-form" class="scroll-btn">
+              Leave a Review &darr;
+            </a>
+          </div>
+        )}
+
+        <!-- Terminal Form to Submit a Review -->
+        <div class="review-form-window" id="review-form">
+          <div class="window-header">
+            <div class="dots-row">
+              <span class="dot red"></span>
+              <span class="dot yellow"></span>
+              <span class="dot green"></span>
+              <span class="window-title">leave_review.sh</span>
+            </div>
+          </div>
+
+          <div class="window-content">
+            <h3>Leave a Review</h3>
+            <p class="form-help">
+              Collaborated on software engineering or cinematic video editing? Submit your review below.
+            </p>
+
+            <form action="https://formsubmit.co/yashsuthar7984@gmail.com" method="POST" class="styled-review-form">
+              <input type="hidden" name="_subject" value="New Client Review for Yash Suthar" />
+              <input type="hidden" name="_autoresponse" value="Thank you for sharing your review! It will be verified and added to the About & Reviews page." />
+              <input type="hidden" name="_template" value="table" />
+
+              <!-- 1. Client Name -->
+              <div class="form-group">
+                <label for="clientName">Client Name *</label>
+                <input 
+                  type="text" 
+                  id="clientName" 
+                  name="client_name" 
+                  placeholder="Your Full Name (e.g. Alex Morgan)" 
+                  required 
+                />
+              </div>
+
+              <!-- 2. Project Type -->
+              <div class="form-group">
+                <label for="projectType">Project Type *</label>
+                <select id="projectType" name="project_type" required>
+                  <option value="" disabled selected>Select project type...</option>
+                  <option value="Tech-related">Tech-related (Software, Backend, Python, Java)</option>
+                  <option value="Editing">Editing (Cinematic Video, Social Media, Reels)</option>
+                </select>
+              </div>
+
+              <!-- 3. Interactive Clickable Stars System -->
+              <div class="form-group">
+                <label>Stars Rating (Click to Rate) *</label>
+                <div class="interactive-star-rating" id="interactiveStarRating" role="radiogroup" aria-label="Select star rating">
+                  <button type="button" class="star-click-btn active" data-value="1" title="1 Star - Poor" aria-label="1 star">&#9733;</button>
+                  <button type="button" class="star-click-btn active" data-value="2" title="2 Stars - Fair" aria-label="2 stars">&#9733;</button>
+                  <button type="button" class="star-click-btn active" data-value="3" title="3 Stars - Good" aria-label="3 stars">&#9733;</button>
+                  <button type="button" class="star-click-btn active" data-value="4" title="4 Stars - Very Good" aria-label="4 stars">&#9733;</button>
+                  <button type="button" class="star-click-btn active" data-value="5" title="5 Stars - Exceptional" aria-label="5 stars">&#9733;</button>
+                  <span class="rating-text-feedback" id="ratingTextFeedback">5 / 5 Stars (Exceptional)</span>
+                </div>
+                <input type="hidden" id="starRatingHidden" name="stars_rating" value="5" required />
+              </div>
+
+              <!-- 4. Written Review Text -->
+              <div class="form-group">
+                <label for="reviewMessage">Write Your Review *</label>
+                <textarea 
+                  id="reviewMessage" 
+                  name="review_text" 
+                  rows="4" 
+                  placeholder="Write your review regarding project deliverables, communication, turnaround speed, code quality, or editing style..." 
+                  required
+                ></textarea>
+              </div>
+
+              <button type="submit" class="submit-action-btn">
+                <span>Submit Review</span>
+                <span class="btn-arrow">&rarr;</span>
+              </button>
+            </form>
+          </div>
+        </div>
+
+      </section>
+
     </div>
   </section>
 </BaseLayout>
 
+<script is:inline>
+  document.addEventListener("DOMContentLoaded", () => {
+    const starContainer = document.getElementById("interactiveStarRating");
+    if (!starContainer) return;
+
+    const stars = starContainer.querySelectorAll(".star-click-btn");
+    const hiddenInput = document.getElementById("starRatingHidden");
+    const feedbackText = document.getElementById("ratingTextFeedback");
+
+    const labels = {
+      1: "1 / 5 Stars (Poor)",
+      2: "2 / 5 Stars (Fair)",
+      3: "3 / 5 Stars (Good)",
+      4: "4 / 5 Stars (Very Good)",
+      5: "5 / 5 Stars (Exceptional)"
+    };
+
+    let selectedRating = 5;
+
+    function updateStarsDisplay(rating, isHovering) {
+      stars.forEach((star) => {
+        const val = parseInt(star.getAttribute("data-value"), 10);
+        if (isHovering) {
+          if (val <= rating) {
+            star.classList.add("hover-active");
+          } else {
+            star.classList.remove("hover-active");
+            star.classList.remove("active");
+          }
+        } else {
+          star.classList.remove("hover-active");
+          if (val <= rating) {
+            star.classList.add("active");
+          } else {
+            star.classList.remove("active");
+          }
+        }
+      });
+
+      if (feedbackText && labels[rating]) {
+        feedbackText.textContent = labels[rating];
+      }
+    }
+
+    stars.forEach((star) => {
+      // Click to choose rating
+      star.addEventListener("click", () => {
+        selectedRating = parseInt(star.getAttribute("data-value"), 10);
+        if (hiddenInput) {
+          hiddenInput.value = selectedRating;
+        }
+        updateStarsDisplay(selectedRating, false);
+      });
+
+      // Hover to preview
+      star.addEventListener("mouseenter", () => {
+        const hoverVal = parseInt(star.getAttribute("data-value"), 10);
+        updateStarsDisplay(hoverVal, true);
+      });
+    });
+
+    // Reset when mouse leaves star container
+    starContainer.addEventListener("mouseleave", () => {
+      updateStarsDisplay(selectedRating, false);
+    });
+
+    // Initial render
+    updateStarsDisplay(5, false);
+  });
+</script>
+
 <style>
-  .about-section {
-    padding: var(--space-2xl) 0;
+  .about-page {
+    padding: var(--space-2xl) var(--space-md);
+    min-height: 80vh;
+  }
+
+  .content-container {
+    max-width: 780px;
+    margin: 0 auto;
+  }
+
+  /* Header */
+  .page-header {
+    text-align: center;
+    margin-bottom: var(--space-2xl);
+  }
+
+  .badge-row {
     display: flex;
     justify-content: center;
+    margin-bottom: var(--space-sm);
+  }
+
+  .terminal-badge {
+    display: inline-flex;
     align-items: center;
-    min-height: 70vh; /* Pushes the footer down and centers vertically */
-  }
-  
-  .content-wrapper {
-    max-width: 700px; /* Constrains the text width for better reading */
-    width: 100%;
-    margin: 0 auto;
-    padding: 0 var(--space-md);
-  }
-
-  .title {
-    font-size: clamp(3rem, 6vw, 5rem);
-    margin-bottom: var(--space-lg);
-    text-align: center; /* Centers the heading */
-    letter-spacing: -0.02em;
-  }
-
-  .bio {
+    gap: 8px;
+    padding: 5px 14px;
+    background: rgba(255, 255, 255, 0.04);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 20px;
+    font-family: 'Fira Code', monospace;
+    font-size: 0.8rem;
     color: var(--color-text-muted);
-    font-size: 1.15rem;
+    letter-spacing: 0.04em;
+  }
+
+  .status-dot {
+    width: 7px;
+    height: 7px;
+    background-color: var(--color-accent);
+    border-radius: 50%;
+    box-shadow: 0 0 8px rgba(179, 0, 0, 0.7);
+  }
+
+  .status-dot.green-dot {
+    background-color: #27c93f;
+    box-shadow: 0 0 8px rgba(39, 201, 63, 0.6);
+  }
+
+  .main-title {
+    font-size: clamp(2.8rem, 7vw, 4.8rem);
+    letter-spacing: -0.02em;
+    margin-bottom: var(--space-xs);
+    line-height: 1.1;
+  }
+
+  .main-subtitle {
+    color: var(--color-text-muted);
+    font-size: 1.1rem;
+    line-height: 1.6;
+    max-width: 580px;
+    margin: 0 auto;
+  }
+
+  /* Bio Card */
+  .bio-card {
+    background: rgba(18, 18, 18, 0.75);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: 8px;
+    overflow: hidden;
+    backdrop-filter: blur(10px);
+    margin-bottom: var(--space-2xl);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
+  }
+
+  .bio-header {
+    background: rgba(26, 26, 26, 0.9);
+    padding: 10px 16px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+  }
+
+  .dots-row {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .dot {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+  }
+
+  .dot.red { background: #ff5f56; }
+  .dot.yellow { background: #ffbd2e; }
+  .dot.green { background: #27c93f; }
+
+  .bio-tag {
+    font-family: 'Fira Code', monospace;
+    font-size: 0.75rem;
+    color: var(--color-text-muted);
+    margin-left: 6px;
+  }
+
+  .bio-body {
+    padding: var(--space-xl) var(--space-lg);
+  }
+
+  .bio-text {
+    color: var(--color-text-muted);
+    font-size: 1.05rem;
     line-height: 1.8;
     margin-bottom: var(--space-md);
-    text-align: center; /* Centers the paragraph text */
+  }
+
+  .bio-text strong {
+    color: var(--color-text-primary);
+  }
+
+  .skills-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-top: var(--space-lg);
+    padding-top: var(--space-md);
+    border-top: var(--divider);
+  }
+
+  .skill-pill {
+    font-family: 'Fira Code', monospace;
+    font-size: 0.75rem;
+    padding: 4px 12px;
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 16px;
+    color: var(--color-text-primary);
+  }
+
+  /* Reviews Section */
+  .reviews-section {
+    padding-top: var(--space-xl);
+    border-top: var(--divider);
+  }
+
+  .section-heading {
+    text-align: center;
+    margin-bottom: var(--space-xl);
+  }
+
+  .sub-title {
+    font-size: clamp(2.2rem, 5vw, 3.2rem);
+    letter-spacing: -0.02em;
+    margin-bottom: var(--space-xs);
+  }
+
+  .sub-desc {
+    color: var(--color-text-muted);
+    font-size: 1rem;
+    max-width: 520px;
+    margin: 0 auto;
+  }
+
+  /* Reviews Grid */
+  .reviews-grid {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-md);
+    margin-bottom: var(--space-2xl);
+  }
+
+  .review-card {
+    background: rgba(18, 18, 18, 0.75);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: 8px;
+    padding: var(--space-lg);
+    backdrop-filter: blur(10px);
+    transition: transform var(--transition-smooth), border-color var(--transition-smooth);
+  }
+
+  .review-card:hover {
+    transform: translateY(-2px);
+    border-color: rgba(255, 255, 255, 0.2);
+  }
+
+  .card-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: var(--space-sm);
+    gap: 12px;
+  }
+
+  .client-meta {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+
+  .avatar-circle {
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    background: #202020;
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: var(--font-display);
+    font-weight: 600;
+    font-size: 0.95rem;
+  }
+
+  .client-name {
+    margin: 0;
+    font-size: 1.15rem;
+    font-family: var(--font-display);
+  }
+
+  .type-badge {
+    font-family: 'Fira Code', monospace;
+    font-size: 0.72rem;
+    padding: 3px 10px;
+    border-radius: 12px;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+  }
+
+  .type-tech {
+    background: rgba(97, 175, 239, 0.1);
+    color: #61afef;
+    border: 1px solid rgba(97, 175, 239, 0.25);
+  }
+
+  .type-editing {
+    background: rgba(229, 192, 123, 0.1);
+    color: #e5c07b;
+    border: 1px solid rgba(229, 192, 123, 0.25);
+  }
+
+  /* Stars System */
+  .stars-system {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: var(--space-sm);
+  }
+
+  .stars-gold {
+    color: #ffb800;
+    font-size: 1.1rem;
+    letter-spacing: 2px;
+  }
+
+  .rating-num {
+    font-family: 'Fira Code', monospace;
+    font-size: 0.75rem;
+    color: var(--color-text-muted);
+  }
+
+  .review-quote {
+    font-family: var(--font-text);
+    font-size: 0.98rem;
+    line-height: 1.7;
+    color: var(--color-text-primary);
+    margin-bottom: var(--space-md);
+  }
+
+  .card-footer {
+    display: flex;
+    justify-content: flex-end;
+    border-top: var(--divider);
+    padding-top: var(--space-xs);
+  }
+
+  .verified-indicator {
+    font-family: 'Fira Code', monospace;
+    font-size: 0.72rem;
+    color: #27c93f;
+  }
+
+  /* Empty State */
+  .empty-reviews-state {
+    background: rgba(18, 18, 18, 0.55);
+    border: 1px dashed rgba(255, 255, 255, 0.15);
+    border-radius: 8px;
+    padding: var(--space-xl) var(--space-lg);
+    text-align: center;
+    margin-bottom: var(--space-2xl);
+    backdrop-filter: blur(8px);
+  }
+
+  .empty-star-badge {
+    font-size: 2rem;
+    color: var(--color-accent);
+    margin-bottom: var(--space-xs);
+  }
+
+  .empty-code {
+    font-family: 'Fira Code', monospace;
+    font-size: 0.75rem;
+    color: var(--color-text-muted);
+    margin-bottom: var(--space-sm);
+  }
+
+  .empty-reviews-state h3 {
+    font-size: 1.4rem;
+    margin-bottom: var(--space-xs);
+  }
+
+  .empty-reviews-state p {
+    color: var(--color-text-muted);
+    font-size: 0.95rem;
+    line-height: 1.6;
+    margin-bottom: var(--space-md);
+  }
+
+  .scroll-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 8px 20px;
+    background: rgba(255, 255, 255, 0.04);
+    border: 1px solid var(--color-accent);
+    color: var(--color-text-primary);
+    font-family: var(--font-display);
+    font-size: 0.85rem;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    border-radius: 4px;
+    transition: all var(--transition-smooth);
+  }
+
+  .scroll-btn:hover {
+    background: var(--color-accent);
+    color: #ffffff;
+    box-shadow: 0 4px 15px rgba(179, 0, 0, 0.35);
+  }
+
+  /* Review Submission Window */
+  .review-form-window {
+    background: #0f0f0f;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+    margin: 0 auto;
+  }
+
+  .window-header {
+    background: #181818;
+    padding: 10px 16px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+  }
+
+  .window-title {
+    font-family: 'Fira Code', monospace;
+    font-size: 0.75rem;
+    color: var(--color-text-muted);
+    margin-left: 8px;
+  }
+
+  .window-content {
+    padding: var(--space-lg);
+  }
+
+  .window-content h3 {
+    font-size: 1.4rem;
+    margin-bottom: var(--space-xs);
+  }
+
+  .form-help {
+    color: var(--color-text-muted);
+    font-size: 0.9rem;
+    margin-bottom: var(--space-lg);
+  }
+
+  .styled-review-form {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-md);
+  }
+
+  .form-group {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+  }
+
+  .form-group label {
+    font-family: 'Fira Code', monospace;
+    font-size: 0.8rem;
+    color: var(--color-text-primary);
+  }
+
+  .form-group input,
+  .form-group select,
+  .form-group textarea {
+    padding: 12px 14px;
+    background: var(--color-surface);
+    border: var(--divider);
+    color: var(--color-text-primary);
+    font-family: var(--font-text);
+    font-size: 0.95rem;
+    border-radius: 4px;
+    width: 100%;
+    transition: border-color var(--transition-smooth), background var(--transition-smooth);
+  }
+
+  .form-group select {
+    appearance: none;
+    background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%238c8c8c' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3e%3cpolyline points='6 9 12 15 18 9'%3e%3c/polyline%3e%3c/svg%3e");
+    background-repeat: no-repeat;
+    background-position: right 14px center;
+    background-size: 16px;
+    cursor: pointer;
+  }
+
+  .form-group input:focus,
+  .form-group select:focus,
+  .form-group textarea:focus {
+    outline: none;
+    border-color: var(--color-accent);
+    background: #181818;
+  }
+
+  .submit-action-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    padding: 12px;
+    background: var(--color-accent);
+    color: #ffffff;
+    border: none;
+    cursor: pointer;
+    font-family: var(--font-display);
+    text-transform: uppercase;
+    font-size: 0.95rem;
+    letter-spacing: 0.05em;
+    border-radius: 4px;
+    transition: all var(--transition-smooth);
+    margin-top: var(--space-xs);
+  }
+
+  .submit-action-btn:hover {
+    background: #d60000;
+    box-shadow: 0 4px 18px rgba(179, 0, 0, 0.35);
+    transform: translateY(-2px);
+  }
+
+  .btn-arrow {
+    transition: transform var(--transition-smooth);
+  }
+
+  .submit-action-btn:hover .btn-arrow {
+    transform: translateX(4px);
+  }
+
+  /* Interactive Clickable Star Rating */
+  .interactive-star-rating {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    background: var(--color-surface);
+    border: var(--divider);
+    padding: 8px 14px;
+    border-radius: 4px;
+    user-select: none;
+    flex-wrap: wrap;
+  }
+
+  .star-click-btn {
+    background: transparent;
+    border: none;
+    font-size: 1.65rem;
+    line-height: 1;
+    color: rgba(255, 255, 255, 0.2);
+    cursor: pointer;
+    padding: 2px 4px;
+    transition: color 0.15s ease, transform 0.15s ease;
+  }
+
+  .star-click-btn:hover {
+    transform: scale(1.22);
+  }
+
+  .star-click-btn.active,
+  .star-click-btn.hover-active {
+    color: #ffb800;
+    text-shadow: 0 0 10px rgba(255, 184, 0, 0.45);
+  }
+
+  .rating-text-feedback {
+    font-family: 'Fira Code', monospace;
+    font-size: 0.8rem;
+    color: var(--color-text-primary);
+    margin-left: 8px;
+    letter-spacing: 0.02em;
   }
 </style>

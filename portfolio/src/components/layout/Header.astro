@@ -4,20 +4,72 @@ import { siteConfig } from '../../data/site.js';
 <header class="site-header">
   <div class="header-inner">
     <a href="/" class="logo">{siteConfig.name}</a>
-<nav class="site-nav">
-  <a href="/">Home</a>
-  <a href="/work/code">Code</a>
-  <a href="/work/hobbies">Social</a>
-  <a href="/about">About</a>
-  <a href="/contact">Contact</a>
-</nav>
+    <nav class="site-nav" aria-label="Main Navigation">
+      <a href="/">Home</a>
+      <a href="/work/code">Code</a>
+      <a href="/work/hobbies">Social</a>
+      <a href="/contact">Contact</a>
+      <a href="/about">About & Reviews</a>
+    </nav>
   </div>
 </header>
+
 <style>
-  .site-header { border-bottom: var(--divider); padding: var(--space-md) var(--space-lg); position: sticky; top: 0; background: var(--color-bg); z-index: 10; }
-  .header-inner { display: flex; justify-content: space-between; align-items: center; max-width: 1400px; margin: 0 auto; }
-  .logo { font-family: var(--font-display); font-weight: 600; font-size: 1.25rem; text-transform: uppercase; }
-  .site-nav { display: flex; gap: var(--space-lg); }
-  .site-nav a { font-family: var(--font-display); font-size: 0.875rem; text-transform: uppercase; color: var(--color-text-muted); transition: color var(--transition-smooth); }
-  .site-nav a:hover { color: var(--color-text-primary); }
+  .site-header {
+    border-bottom: var(--divider);
+    padding: var(--space-md) var(--space-lg);
+    position: sticky;
+    top: 0;
+    background: rgba(10, 10, 10, 0.92);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    z-index: 100;
+  }
+  .header-inner {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    max-width: 1400px;
+    margin: 0 auto;
+  }
+  .logo {
+    font-family: var(--font-display);
+    font-weight: 600;
+    font-size: 1.25rem;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+  }
+  .site-nav {
+    display: flex;
+    gap: var(--space-lg);
+    align-items: center;
+  }
+  .site-nav a {
+    font-family: var(--font-display);
+    font-size: 0.875rem;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    color: var(--color-text-muted);
+    transition: color var(--transition-smooth);
+    padding: var(--space-xs) 0;
+  }
+  .site-nav a:hover {
+    color: var(--color-text-primary);
+  }
+
+  @media (max-width: 640px) {
+    .site-header {
+      padding: var(--space-sm) var(--space-md);
+    }
+    .header-inner {
+      flex-direction: column;
+      gap: var(--space-sm);
+      align-items: center;
+    }
+    .site-nav {
+      gap: var(--space-md);
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+  }
 </style>

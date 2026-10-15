@@ -1,3 +1,4 @@
 User-agent: *
 Allow: /
-Sitemap: https://your-project-name.vercel.app/sitemap.xml
+
+Sitemap: https://portfolio-sand-five-3td0prma5g.vercel.app/sitemap.xml

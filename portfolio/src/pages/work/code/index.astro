@@ -1,82 +1,248 @@
 ---
 import BaseLayout from '../../../layouts/BaseLayout.astro';
 ---
-<BaseLayout title="Code Work">
+
+<BaseLayout 
+  title="Code Work"
+  description="Software development projects, backend systems, and technical repositories by Yash Suthar."
+>
   <section class="code-section">
     <div class="content-wrapper">
-      <h1 class="title">Code</h1>
-      <p class="description">
-        Engineering secure and performant systems.
-      </p>
       
-      <!-- GitHub External Link -->
-      <a href="https://github.com/yashsuthar7984" target="_blank" rel="noopener noreferrer" class="social-link">
-        View My GitHub ↗
-      </a>
+      <!-- Header -->
+      <header class="section-header fade-in">
+        <div class="badge-row">
+          <span class="terminal-badge">
+            <span class="status-dot"></span>
+            <code>// SOFTWARE_SYSTEMS // REPOSITORIES</code>
+          </span>
+        </div>
+        <h1 class="title">Code</h1>
+        <p class="description">
+          Engineering secure, resilient, and performant backend systems in Python and Java.
+        </p>
+
+        <a href="https://github.com/yashsuthar7984" target="_blank" rel="noopener noreferrer" class="github-cta-btn">
+          <span>Explore My GitHub</span>
+          <span class="btn-arrow">↗</span>
+        </a>
+      </header>
       
-      <div class="placeholder-box">
-        <h3>Project 01 [Placeholder]</h3>
-        <p>Case study details go here.</p>
+      <!-- Honest Repositories Status Card (No Demo/Fake Projects) -->
+      <div class="repo-window fade-in">
+        <div class="window-header">
+          <div class="dots-row">
+            <span class="dot red"></span>
+            <span class="dot yellow"></span>
+            <span class="dot green"></span>
+            <span class="window-title">github_sync.py</span>
+          </div>
+        </div>
+
+        <div class="window-body">
+          <div class="empty-repo-icon">&#128187;</div>
+          <div class="status-code-tag">
+            <code>// STATUS: PROJECTS_IN_DEVELOPMENT</code>
+          </div>
+          <h3>Repositories In Active Development</h3>
+          <p class="repo-note">
+            Personal software architectures, backend tools, and open-source utilities are currently being prepared for release. All live code commits, experiments, and source files are tracked directly on GitHub.
+          </p>
+
+          <a href="https://github.com/yashsuthar7984" target="_blank" rel="noopener noreferrer" class="view-profile-btn">
+            View @yashsuthar7984 on GitHub &rarr;
+          </a>
+        </div>
       </div>
+
     </div>
   </section>
 </BaseLayout>
 
 <style>
   .code-section {
-    padding: var(--space-2xl) 0;
+    padding: var(--space-2xl) var(--space-md);
     display: flex;
     justify-content: center;
-    min-height: 70vh;
+    min-height: 80vh;
   }
   
   .content-wrapper {
-    max-width: 800px;
+    max-width: 740px;
     width: 100%;
     margin: 0 auto;
-    padding: 0 var(--space-md);
     text-align: center;
   }
 
+  .section-header {
+    margin-bottom: var(--space-xl);
+  }
+
+  .badge-row {
+    display: flex;
+    justify-content: center;
+    margin-bottom: var(--space-xs);
+  }
+
+  .terminal-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 5px 14px;
+    background: rgba(255, 255, 255, 0.04);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 20px;
+    font-family: 'Fira Code', monospace;
+    font-size: 0.8rem;
+    color: var(--color-text-muted);
+  }
+
+  .status-dot {
+    width: 7px;
+    height: 7px;
+    background-color: var(--color-accent);
+    border-radius: 50%;
+    box-shadow: 0 0 8px rgba(179, 0, 0, 0.7);
+  }
+
   .title {
-    font-size: clamp(3rem, 6vw, 5rem);
-    margin-bottom: var(--space-md);
+    font-size: clamp(3rem, 6vw, 4.8rem);
+    margin-bottom: var(--space-xs);
     letter-spacing: -0.02em;
+    line-height: 1.1;
   }
 
   .description {
     color: var(--color-text-muted);
-    font-size: 1.15rem;
-    margin-bottom: var(--space-md);
+    font-size: 1.1rem;
+    line-height: 1.6;
+    max-width: 580px;
+    margin: 0 auto var(--space-lg);
   }
 
-  .social-link {
-    display: inline-block;
-    padding: var(--space-sm) var(--space-lg);
+  .github-cta-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 10px 24px;
     border: 1px solid var(--color-accent);
     color: var(--color-text-primary);
     font-family: var(--font-display);
     text-transform: uppercase;
     letter-spacing: 0.05em;
+    font-size: 0.95rem;
     border-radius: 4px;
     transition: all var(--transition-smooth);
-    margin-bottom: var(--space-xl);
+    background: rgba(179, 0, 0, 0.08);
   }
 
-  .social-link:hover {
+  .github-cta-btn:hover {
     background: var(--color-accent);
     color: white;
+    box-shadow: 0 4px 18px rgba(179, 0, 0, 0.4);
+    transform: translateY(-2px);
   }
 
-  .placeholder-box {
-    margin-top: var(--space-lg);
-    border: var(--divider);
-    padding: var(--space-xl) var(--space-lg);
-    background: rgba(255, 255, 255, 0.02);
-    border-radius: 8px;
+  .btn-arrow {
+    transition: transform var(--transition-smooth);
   }
-  
-  .placeholder-box h3 {
-    margin-bottom: var(--space-sm);
+
+  .github-cta-btn:hover .btn-arrow {
+    transform: translate(2px, -2px);
+  }
+
+  /* Repo Window */
+  .repo-window {
+    background: #0f0f0f;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+    text-align: center;
+    margin-top: var(--space-lg);
+  }
+
+  .window-header {
+    background: #181818;
+    padding: 10px 16px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+    display: flex;
+    align-items: center;
+  }
+
+  .dots-row {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .dot {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+  }
+
+  .dot.red { background: #ff5f56; }
+  .dot.yellow { background: #ffbd2e; }
+  .dot.green { background: #27c93f; }
+
+  .window-title {
+    font-family: 'Fira Code', monospace;
+    font-size: 0.75rem;
+    color: var(--color-text-muted);
+    margin-left: 8px;
+  }
+
+  .window-body {
+    padding: var(--space-2xl) var(--space-lg);
+  }
+
+  .empty-repo-icon {
+    font-size: 2.4rem;
+    margin-bottom: var(--space-xs);
+  }
+
+  .status-code-tag {
+    font-family: 'Fira Code', monospace;
+    font-size: 0.75rem;
+    color: var(--color-text-muted);
+    margin-bottom: var(--space-md);
+  }
+
+  .repo-window h3 {
+    font-size: 1.5rem;
+    margin-bottom: var(--space-xs);
+    letter-spacing: 0.02em;
+  }
+
+  .repo-note {
+    color: var(--color-text-muted);
+    font-size: 0.95rem;
+    line-height: 1.7;
+    max-width: 520px;
+    margin: 0 auto var(--space-lg);
+  }
+
+  .view-profile-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 8px 20px;
+    background: rgba(255, 255, 255, 0.04);
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    color: var(--color-text-primary);
+    font-family: var(--font-display);
+    font-size: 0.85rem;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    border-radius: 4px;
+    transition: all var(--transition-smooth);
+  }
+
+  .view-profile-btn:hover {
+    background: rgba(255, 255, 255, 0.1);
+    border-color: rgba(255, 255, 255, 0.3);
+    color: #ffffff;
+    transform: translateY(-2px);
   }
 </style>
