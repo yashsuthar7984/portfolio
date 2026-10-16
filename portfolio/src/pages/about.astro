@@ -108,43 +108,47 @@ import { reviews } from '../data/reviews.js';
         <!-- Published Reviews (or Clean Empty State) -->
         {reviews.length > 0 ? (
           <div class="reviews-grid">
-            {reviews.map((rev) => (
-              <article class="review-card">
-                <div class="card-header">
-                  <div class="client-meta">
-                    <span class="avatar-circle">{rev.clientName ? rev.clientName.charAt(0) : 'C'}</span>
-                    <h3 class="client-name">{rev.clientName}</h3>
+            {reviews.map((rev) => {
+              const t = (rev.projectType || '').toLowerCase();
+              const category = t.includes('auto') || t.includes('car') || t.includes('shoot')
+                ? 'automotive'
+                : (t.includes('edit') ? 'editing' : 'tech');
+
+              return (
+                <article class={`review-card card-${category}`}>
+                  <div class="card-header">
+                    <div class="client-meta">
+                      <span class={`avatar-circle avatar-${category}`}>{rev.clientName ? rev.clientName.charAt(0) : 'C'}</span>
+                      <h3 class="client-name">{rev.clientName}</h3>
+                    </div>
+                    <span class={`type-badge type-${category}`}>
+                      {rev.projectType}
+                    </span>
                   </div>
-                  <span class={`type-badge ${rev.projectType && rev.projectType.toLowerCase().includes('edit') ? 'type-editing' : 'type-tech'}`}>
-                    {rev.projectType}
-                  </span>
-                </div>
 
-                <div class="stars-system" aria-label={`${rev.rating} out of 5 stars`}>
-                  <div class="stars-gold">
-                    {Array.from({ length: rev.rating || 5 }).map(() => (
-                      <span class="star-char">&#9733;</span>
-                    ))}
+                  <div class="stars-system" aria-label={`${rev.rating} out of 5 stars`}>
+                    <div class="stars-gold">
+                      {Array.from({ length: rev.rating || 5 }).map(() => (
+                        <span class="star-char">&#9733;</span>
+                      ))}
+                    </div>
+                    <span class="rating-num">{(rev.rating || 5).toFixed(1)} / 5.0</span>
                   </div>
-                  <span class="rating-num">{(rev.rating || 5).toFixed(1)} / 5.0</span>
-                </div>
 
-                <p class="review-quote">
-                  "{rev.comment}"
-                </p>
+                  <p class="review-quote">
+                    "{rev.comment}"
+                  </p>
 
-                <div class="card-footer">
-                  <span class="verified-indicator">&#10003; Verified Project</span>
-                </div>
-              </article>
-            ))}
+                  <div class="card-footer">
+                    <span class="verified-indicator">&#10003; Verified Project</span>
+                  </div>
+                </article>
+              );
+            })}
           </div>
         ) : (
           <div class="empty-reviews-state">
             <div class="empty-star-badge">&#9733;</div>
-            <div class="empty-code">
-              <code>// STATUS: AWAITING_FIRST_VERIFIED_REVIEW</code>
-            </div>
             <h3>No Reviews Published Yet</h3>
             <p>
               Have we collaborated on a tech or video editing project? 
@@ -196,7 +200,8 @@ import { reviews } from '../data/reviews.js';
                 <select id="projectType" name="project_type" required>
                   <option value="" disabled selected>Select project type...</option>
                   <option value="Tech-related">Tech-related (Software, Backend, Python, Java)</option>
-                  <option value="Editing">Editing (Cinematic Video, Social Media, Reels)</option>
+                  <option value="Editing">Editing (Video Cuts, Reels, Content Creation)</option>
+                  <option value="Automotive Shoots">Automotive Shoots (Car Media, Rollers, Events)</option>
                 </select>
               </div>
 
@@ -571,6 +576,22 @@ import { reviews } from '../data/reviews.js';
     border-color: rgba(255, 255, 255, 0.2);
   }
 
+  /* 3 Category Color Palettes: Card Accents */
+  .review-card.card-tech:hover {
+    border-color: rgba(97, 175, 239, 0.4);
+    box-shadow: 0 6px 24px rgba(97, 175, 239, 0.08);
+  }
+
+  .review-card.card-editing:hover {
+    border-color: rgba(245, 178, 68, 0.4);
+    box-shadow: 0 6px 24px rgba(245, 178, 68, 0.08);
+  }
+
+  .review-card.card-automotive:hover {
+    border-color: rgba(255, 77, 77, 0.45);
+    box-shadow: 0 6px 24px rgba(255, 77, 77, 0.1);
+  }
+
   .card-header {
     display: flex;
     justify-content: space-between;
@@ -589,7 +610,7 @@ import { reviews } from '../data/reviews.js';
     width: 36px;
     height: 36px;
     border-radius: 50%;
-    background: #202020;
+    background: #1c1c1c;
     border: 1px solid rgba(255, 255, 255, 0.15);
     display: flex;
     align-items: center;
@@ -597,6 +618,24 @@ import { reviews } from '../data/reviews.js';
     font-family: var(--font-display);
     font-weight: 600;
     font-size: 0.95rem;
+  }
+
+  .avatar-circle.avatar-tech {
+    color: #61afef;
+    border-color: rgba(97, 175, 239, 0.35);
+    background: rgba(97, 175, 239, 0.08);
+  }
+
+  .avatar-circle.avatar-editing {
+    color: #f5b244;
+    border-color: rgba(245, 178, 68, 0.35);
+    background: rgba(245, 178, 68, 0.08);
+  }
+
+  .avatar-circle.avatar-automotive {
+    color: #ff4d4d;
+    border-color: rgba(255, 77, 77, 0.35);
+    background: rgba(255, 77, 77, 0.08);
   }
 
   .client-name {
@@ -614,16 +653,25 @@ import { reviews } from '../data/reviews.js';
     letter-spacing: 0.05em;
   }
 
+  /* Palette 1: Tech-related (Cyan / Tech Blue) */
   .type-tech {
-    background: rgba(97, 175, 239, 0.1);
+    background: rgba(97, 175, 239, 0.12);
     color: #61afef;
-    border: 1px solid rgba(97, 175, 239, 0.25);
+    border: 1px solid rgba(97, 175, 239, 0.3);
   }
 
+  /* Palette 2: Editing (Warm Amber / Golden Hour) */
   .type-editing {
-    background: rgba(229, 192, 123, 0.1);
-    color: #e5c07b;
-    border: 1px solid rgba(229, 192, 123, 0.25);
+    background: rgba(245, 178, 68, 0.12);
+    color: #f5b244;
+    border: 1px solid rgba(245, 178, 68, 0.3);
+  }
+
+  /* Palette 3: Automotive Shoots (Racing Crimson / Redline Scarlet) */
+  .type-automotive {
+    background: rgba(255, 77, 77, 0.12);
+    color: #ff4d4d;
+    border: 1px solid rgba(255, 77, 77, 0.35);
   }
 
   /* Stars System */

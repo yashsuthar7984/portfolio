@@ -13,7 +13,7 @@ import { featuredVideo, shortVideos } from '../../../data/videos.js';
         <div class="rec-flex">
           <span class="blink-dot"></span> REC
         </div>
-        <div class="rec-meta">1080P // 24FPS</div>
+        <div class="rec-meta">1080P &bull; 24FPS</div>
       </div>
 
       <!-- Editorial Handle (Forced to single line) -->
@@ -40,36 +40,20 @@ import { featuredVideo, shortVideos } from '../../../data/videos.js';
       
       <!-- Featured 16:9 Cut (Cloudinary Stream) -->
       <div class="video-card featured">
-        <div class="card-header">
-          <span class="label-left">{featuredVideo.title}</span>
-          <span class="label-right">{featuredVideo.aspectRatio}</span>
-        </div>
         <div class="player-wrapper">
           <video controls preload="metadata" poster={featuredVideo.posterUrl} class="video-asset wide">
             <source src={featuredVideo.videoUrl} type="video/mp4" />
           </video>
-        </div>
-        <div class="card-footer">
-          <span>{featuredVideo.timecode}</span>
-          <span class="footer-right">{featuredVideo.projectLabel} <span class="static-dot"></span></span>
         </div>
       </div>
 
       <!-- Shorts / Reels (Cloudinary Streams) -->
       {shortVideos.map((short) => (
         <div class="video-card short">
-          <div class="card-header">
-            <span class="label-left">{short.title}</span>
-            <span class="label-right">{short.aspectRatio}</span>
-          </div>
           <div class="player-wrapper">
-            <div class="rec-badge"><span class="static-dot"></span> REC</div>
             <video controls preload="metadata" poster={short.posterUrl} class="video-asset tall">
               <source src={short.videoUrl} type="video/mp4" />
             </video>
-          </div>
-          <div class="card-footer">
-            <span>{short.timecode}</span>
           </div>
         </div>
       ))}
