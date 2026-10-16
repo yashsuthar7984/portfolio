@@ -5,13 +5,16 @@ import { reviews } from '../data/reviews.js';
 
 function getCategoryInfo(type: string) {
   const t = (type || '').toLowerCase();
-  if (t.includes('auto') || t.includes('car') || t.includes('shoot')) {
-    return { key: 'automotive', label: 'Automotive Shoots', icon: '🏎️' };
+  if (t.includes('shoot')) {
+    return { key: 'shoots', label: 'Shoots' };
+  }
+  if (t.includes('auto') || t.includes('car')) {
+    return { key: 'automotive', label: 'Automotive' };
   }
   if (t.includes('edit')) {
-    return { key: 'editing', label: 'Video Editing', icon: '🎬' };
+    return { key: 'editing', label: 'Editing' };
   }
-  return { key: 'tech', label: 'Tech & Code', icon: '💻' };
+  return { key: 'tech', label: 'Tech' };
 }
 ---
 
@@ -132,11 +135,10 @@ function getCategoryInfo(type: string) {
 
               return (
                 <article class={`review-card card-${info.key}`}>
-                  <div class="card-top-accent"></div>
                   <div class="card-header">
                     <h3 class="client-name">{rev.clientName}</h3>
                     <span class={`type-badge type-${info.key}`}>
-                      <span class="badge-icon">{info.icon}</span> {rev.projectType || info.label}
+                      {info.label}
                     </span>
                   </div>
 
@@ -201,14 +203,15 @@ function getCategoryInfo(type: string) {
                 />
               </div>
 
-              <!-- 2. Project Type -->
+              <!-- 2. Project Type / Segment -->
               <div class="form-group">
-                <label for="projectType">Project Type *</label>
+                <label for="projectType">Segment *</label>
                 <select id="projectType" name="project_type" required>
-                  <option value="" disabled selected>Select project type...</option>
-                  <option value="Tech-related">Tech-related (Software, Backend, Python, Java)</option>
-                  <option value="Editing">Editing (Video Cuts, Reels, Content Creation)</option>
-                  <option value="Automotive Shoots">Automotive Shoots (Car Media, Rollers, Events)</option>
+                  <option value="" disabled selected>Select segment...</option>
+                  <option value="Editing">Editing</option>
+                  <option value="Automotive">Automotive</option>
+                  <option value="Tech">Tech</option>
+                  <option value="Shoots">Shoots</option>
                 </select>
               </div>
 
@@ -408,13 +411,16 @@ function getCategoryInfo(type: string) {
 
     function getCategoryInfo(type) {
       const t = (type || '').toLowerCase();
-      if (t.includes('auto') || t.includes('car') || t.includes('shoot')) {
-        return { key: 'automotive', label: 'Automotive Shoots', icon: '🏎️' };
+      if (t.includes('shoot')) {
+        return { key: 'shoots', label: 'Shoots' };
+      }
+      if (t.includes('auto') || t.includes('car')) {
+        return { key: 'automotive', label: 'Automotive' };
       }
       if (t.includes('edit')) {
-        return { key: 'editing', label: 'Video Editing', icon: '🎬' };
+        return { key: 'editing', label: 'Editing' };
       }
-      return { key: 'tech', label: 'Tech & Code', icon: '💻' };
+      return { key: 'tech', label: 'Tech' };
     }
 
     function createReviewCardHTML(rev) {
@@ -427,12 +433,9 @@ function getCategoryInfo(type: string) {
 
       return `
         <article class="review-card card-${info.key}">
-          <div class="card-top-accent"></div>
           <div class="card-header">
             <h3 class="client-name">${escapeHTML(name)}</h3>
-            <span class="type-badge type-${info.key}">
-              <span class="badge-icon">${info.icon}</span> ${escapeHTML(rev.projectType || info.label)}
-            </span>
+            <span class="type-badge type-${info.key}">${escapeHTML(info.label)}</span>
           </div>
 
           <div class="stars-system" aria-label="${rating} out of 5 stars">
@@ -796,64 +799,61 @@ function getCategoryInfo(type: string) {
 
   :global(.review-card) {
     position: relative;
-    background: linear-gradient(180deg, rgba(22, 22, 22, 0.8) 0%, rgba(14, 14, 14, 0.95) 100%);
-    border: 1px solid rgba(255, 255, 255, 0.08);
-    border-radius: 10px;
+    background: #111111;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 0;
+    box-shadow: none;
     padding: var(--space-lg);
-    backdrop-filter: blur(12px);
-    transition: transform var(--transition-smooth), border-color var(--transition-smooth), box-shadow var(--transition-smooth);
-    overflow: hidden;
+    transition: transform var(--transition-smooth), border-color var(--transition-smooth);
     display: flex;
     flex-direction: column;
     height: 100%;
   }
 
-  /* Card Top Accent Bar */
-  :global(.card-top-accent) {
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    height: 3px;
-    opacity: 0.65;
-    transition: opacity var(--transition-smooth);
+  /* Upper line colors by segment */
+  :global(.review-card.card-tech) {
+    border-top: 3px solid #61afef;
   }
 
-  :global(.card-tech .card-top-accent) {
-    background: linear-gradient(90deg, #61afef, transparent);
+  :global(.review-card.card-editing) {
+    border-top: 3px solid #f5b244;
   }
 
-  :global(.card-editing .card-top-accent) {
-    background: linear-gradient(90deg, #f5b244, transparent);
+  :global(.review-card.card-automotive) {
+    border-top: 3px solid #ff4d4d;
   }
 
-  :global(.card-automotive .card-top-accent) {
-    background: linear-gradient(90deg, #ff4d4d, transparent);
+  :global(.review-card.card-shoots) {
+    border-top: 3px solid #b37feb;
   }
 
   :global(.review-card:hover) {
     transform: translateY(-2px);
-    border-color: rgba(255, 255, 255, 0.2);
+    box-shadow: none;
   }
 
-  :global(.review-card:hover .card-top-accent) {
-    opacity: 1;
-  }
-
-  /* 3 Category Color Palettes: Card Accents */
   :global(.review-card.card-tech:hover) {
-    border-color: rgba(97, 175, 239, 0.45);
-    box-shadow: 0 10px 30px rgba(97, 175, 239, 0.09);
+    border-color: rgba(97, 175, 239, 0.5);
+    border-top-color: #61afef;
+    box-shadow: none;
   }
 
   :global(.review-card.card-editing:hover) {
-    border-color: rgba(245, 178, 68, 0.45);
-    box-shadow: 0 10px 30px rgba(245, 178, 68, 0.09);
+    border-color: rgba(245, 178, 68, 0.5);
+    border-top-color: #f5b244;
+    box-shadow: none;
   }
 
   :global(.review-card.card-automotive:hover) {
-    border-color: rgba(255, 77, 77, 0.45);
-    box-shadow: 0 10px 30px rgba(255, 77, 77, 0.1);
+    border-color: rgba(255, 77, 77, 0.5);
+    border-top-color: #ff4d4d;
+    box-shadow: none;
+  }
+
+  :global(.review-card.card-shoots:hover) {
+    border-color: rgba(179, 127, 235, 0.5);
+    border-top-color: #b37feb;
+    box-shadow: none;
   }
 
   :global(.card-header) {
@@ -876,41 +876,43 @@ function getCategoryInfo(type: string) {
 
   :global(.type-badge) {
     font-family: 'Fira Code', monospace;
-    font-size: 0.74rem;
-    padding: 4px 12px;
-    border-radius: 14px;
-    letter-spacing: 0.03em;
-    display: inline-flex;
-    align-items: center;
-    gap: 6px;
+    font-size: 0.72rem;
+    padding: 3px 10px;
+    border-radius: 0;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    font-weight: 600;
   }
 
-  :global(.badge-icon) {
-    font-size: 0.85rem;
-  }
-
-  /* Palette 1: Tech-related */
+  /* Palette 1: Tech */
   :global(.type-tech) {
-    background: rgba(97, 175, 239, 0.12);
+    background: rgba(97, 175, 239, 0.1);
     color: #61afef;
-    border: 1px solid rgba(97, 175, 239, 0.3);
+    border: 1px solid rgba(97, 175, 239, 0.35);
   }
 
   /* Palette 2: Editing */
   :global(.type-editing) {
-    background: rgba(245, 178, 68, 0.12);
+    background: rgba(245, 178, 68, 0.1);
     color: #f5b244;
-    border: 1px solid rgba(245, 178, 68, 0.3);
+    border: 1px solid rgba(245, 178, 68, 0.35);
   }
 
-  /* Palette 3: Automotive Shoots */
+  /* Palette 3: Automotive */
   :global(.type-automotive) {
-    background: rgba(255, 77, 77, 0.12);
+    background: rgba(255, 77, 77, 0.1);
     color: #ff4d4d;
     border: 1px solid rgba(255, 77, 77, 0.35);
   }
 
-  /* Stars System - Clean 5 stars */
+  /* Palette 4: Shoots */
+  :global(.type-shoots) {
+    background: rgba(179, 127, 235, 0.1);
+    color: #b37feb;
+    border: 1px solid rgba(179, 127, 235, 0.35);
+  }
+
+  /* Stars System - Clean 5 stars without any glow */
   :global(.stars-system) {
     display: flex;
     align-items: center;
@@ -920,8 +922,8 @@ function getCategoryInfo(type: string) {
   :global(.stars-gold) {
     color: #ffb800;
     font-size: 1.15rem;
-    letter-spacing: 2px;
-    text-shadow: 0 0 8px rgba(255, 184, 0, 0.3);
+    letter-spacing: 3px;
+    text-shadow: none;
   }
 
   :global(.quote-container) {
@@ -930,8 +932,8 @@ function getCategoryInfo(type: string) {
 
   :global(.review-quote) {
     font-family: var(--font-text);
-    font-size: 1.05rem;
-    line-height: 1.65;
+    font-size: 1.02rem;
+    line-height: 1.6;
     color: var(--color-text-primary);
     margin: 0;
     font-style: italic;
@@ -1174,7 +1176,7 @@ function getCategoryInfo(type: string) {
   .star-click-btn.active,
   .star-click-btn.hover-active {
     color: #ffb800;
-    text-shadow: 0 0 10px rgba(255, 184, 0, 0.45);
+    text-shadow: none;
   }
 
   .rating-text-feedback {

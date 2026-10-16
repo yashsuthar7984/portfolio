@@ -11,7 +11,7 @@ export const reviews = [
   {
     id: "2",
     clientName: "LIYA",
-    projectType: "Tech-related",
+    projectType: "Tech",
     rating: 5,
     comment: "trial website was good"
   }
