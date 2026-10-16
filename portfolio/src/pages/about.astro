@@ -785,15 +785,16 @@ function getCategoryInfo(type: string) {
     margin: 0 auto;
   }
 
-  /* Reviews Grid */
-  .reviews-grid {
-    display: flex;
-    flex-direction: column;
-    gap: var(--space-md);
+  /* Reviews Grid - Symmetric Multi-Column Layout */
+  :global(.reviews-grid) {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+    gap: var(--space-lg);
     margin-bottom: var(--space-2xl);
+    align-items: stretch;
   }
 
-  .review-card {
+  :global(.review-card) {
     position: relative;
     background: linear-gradient(180deg, rgba(22, 22, 22, 0.8) 0%, rgba(14, 14, 14, 0.95) 100%);
     border: 1px solid rgba(255, 255, 255, 0.08);
@@ -802,10 +803,13 @@ function getCategoryInfo(type: string) {
     backdrop-filter: blur(12px);
     transition: transform var(--transition-smooth), border-color var(--transition-smooth), box-shadow var(--transition-smooth);
     overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    height: 100%;
   }
 
   /* Card Top Accent Bar */
-  .card-top-accent {
+  :global(.card-top-accent) {
     position: absolute;
     top: 0;
     left: 0;
@@ -815,44 +819,44 @@ function getCategoryInfo(type: string) {
     transition: opacity var(--transition-smooth);
   }
 
-  .card-tech .card-top-accent {
+  :global(.card-tech .card-top-accent) {
     background: linear-gradient(90deg, #61afef, transparent);
   }
 
-  .card-editing .card-top-accent {
+  :global(.card-editing .card-top-accent) {
     background: linear-gradient(90deg, #f5b244, transparent);
   }
 
-  .card-automotive .card-top-accent {
+  :global(.card-automotive .card-top-accent) {
     background: linear-gradient(90deg, #ff4d4d, transparent);
   }
 
-  .review-card:hover {
+  :global(.review-card:hover) {
     transform: translateY(-2px);
     border-color: rgba(255, 255, 255, 0.2);
   }
 
-  .review-card:hover .card-top-accent {
+  :global(.review-card:hover .card-top-accent) {
     opacity: 1;
   }
 
   /* 3 Category Color Palettes: Card Accents */
-  .review-card.card-tech:hover {
+  :global(.review-card.card-tech:hover) {
     border-color: rgba(97, 175, 239, 0.45);
     box-shadow: 0 10px 30px rgba(97, 175, 239, 0.09);
   }
 
-  .review-card.card-editing:hover {
+  :global(.review-card.card-editing:hover) {
     border-color: rgba(245, 178, 68, 0.45);
     box-shadow: 0 10px 30px rgba(245, 178, 68, 0.09);
   }
 
-  .review-card.card-automotive:hover {
+  :global(.review-card.card-automotive:hover) {
     border-color: rgba(255, 77, 77, 0.45);
     box-shadow: 0 10px 30px rgba(255, 77, 77, 0.1);
   }
 
-  .card-header {
+  :global(.card-header) {
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -861,7 +865,7 @@ function getCategoryInfo(type: string) {
     flex-wrap: wrap;
   }
 
-  .client-name {
+  :global(.client-name) {
     margin: 0;
     font-size: 1.15rem;
     font-family: var(--font-display);
@@ -870,7 +874,7 @@ function getCategoryInfo(type: string) {
     color: var(--color-text-primary);
   }
 
-  .type-badge {
+  :global(.type-badge) {
     font-family: 'Fira Code', monospace;
     font-size: 0.74rem;
     padding: 4px 12px;
@@ -881,50 +885,50 @@ function getCategoryInfo(type: string) {
     gap: 6px;
   }
 
-  .badge-icon {
+  :global(.badge-icon) {
     font-size: 0.85rem;
   }
 
   /* Palette 1: Tech-related */
-  .type-tech {
+  :global(.type-tech) {
     background: rgba(97, 175, 239, 0.12);
     color: #61afef;
     border: 1px solid rgba(97, 175, 239, 0.3);
   }
 
   /* Palette 2: Editing */
-  .type-editing {
+  :global(.type-editing) {
     background: rgba(245, 178, 68, 0.12);
     color: #f5b244;
     border: 1px solid rgba(245, 178, 68, 0.3);
   }
 
   /* Palette 3: Automotive Shoots */
-  .type-automotive {
+  :global(.type-automotive) {
     background: rgba(255, 77, 77, 0.12);
     color: #ff4d4d;
     border: 1px solid rgba(255, 77, 77, 0.35);
   }
 
   /* Stars System - Clean 5 stars */
-  .stars-system {
+  :global(.stars-system) {
     display: flex;
     align-items: center;
     margin-bottom: var(--space-sm);
   }
 
-  .stars-gold {
+  :global(.stars-gold) {
     color: #ffb800;
     font-size: 1.15rem;
     letter-spacing: 2px;
     text-shadow: 0 0 8px rgba(255, 184, 0, 0.3);
   }
 
-  .quote-container {
+  :global(.quote-container) {
     margin-bottom: 0;
   }
 
-  .review-quote {
+  :global(.review-quote) {
     font-family: var(--font-text);
     font-size: 1.05rem;
     line-height: 1.65;

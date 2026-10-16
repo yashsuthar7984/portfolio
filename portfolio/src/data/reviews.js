@@ -7,5 +7,12 @@ export const reviews = [
     projectType: "Editing",
     rating: 5,
     comment: "Hyryder video was too good"
+  },
+  {
+    id: "2",
+    clientName: "LIYA",
+    projectType: "Tech-related",
+    rating: 5,
+    comment: "trial website was good"
   }
 ];
