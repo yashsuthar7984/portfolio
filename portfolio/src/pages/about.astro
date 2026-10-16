@@ -177,11 +177,7 @@ import { reviews } from '../data/reviews.js';
               Collaborated on software engineering or cinematic video editing? Submit your review below.
             </p>
 
-            <form action="https://formsubmit.co/yashsuthar7984@gmail.com" method="POST" class="styled-review-form">
-              <input type="hidden" name="_subject" value="New Client Review for Yash Suthar" />
-              <input type="hidden" name="_autoresponse" value="Thank you for sharing your review! It will be verified and added to the About & Reviews page." />
-              <input type="hidden" name="_template" value="table" />
-
+            <form id="reviewSubmissionForm" class="styled-review-form">
               <!-- 1. Client Name -->
               <div class="form-group">
                 <label for="clientName">Client Name *</label>
@@ -231,8 +227,10 @@ import { reviews } from '../data/reviews.js';
                 ></textarea>
               </div>
 
-              <button type="submit" class="submit-action-btn">
-                <span>Submit Review</span>
+              <div id="reviewStatus" class="form-status" style="display: none;"></div>
+
+              <button type="submit" id="reviewSubmitBtn" class="submit-action-btn">
+                <span id="reviewBtnText">Submit Review</span>
                 <span class="btn-arrow">&rarr;</span>
               </button>
             </form>
@@ -385,6 +383,56 @@ import { reviews } from '../data/reviews.js';
     starContainer.addEventListener("mouseleave", () => {
       updateStarsDisplay(selectedRating, false);
     });
+
+    // Review form async submission to Google Apps Script
+    const reviewForm = document.getElementById("reviewSubmissionForm");
+    const reviewStatus = document.getElementById("reviewStatus");
+    const reviewSubmitBtn = document.getElementById("reviewSubmitBtn");
+    const reviewBtnText = document.getElementById("reviewBtnText");
+
+    if (reviewForm && reviewStatus && reviewSubmitBtn && reviewBtnText) {
+      reviewForm.addEventListener("submit", async (e) => {
+        e.preventDefault();
+
+        reviewSubmitBtn.setAttribute("disabled", "true");
+        reviewBtnText.textContent = "Submitting Review...";
+        reviewStatus.style.display = "none";
+        reviewStatus.className = "form-status";
+
+        const formData = new FormData(reviewForm);
+        const payload = {
+          client_name: formData.get("client_name"),
+          project_type: formData.get("project_type"),
+          stars_rating: formData.get("stars_rating") || "5",
+          review_text: formData.get("review_text")
+        };
+
+        try {
+          await fetch("https://script.google.com/macros/s/AKfycby04ELFZtQYqk2jRt6Tr5sOlijQ9GgEvhJssfV9_Txxa39sS3R49MpShwCBQnwd46pZ/exec", {
+            method: "POST",
+            mode: "no-cors",
+            headers: {
+              "Content-Type": "text/plain;charset=utf-8"
+            },
+            body: JSON.stringify(payload)
+          });
+
+          reviewStatus.className = "form-status success";
+          reviewStatus.innerHTML = "&#10003; <strong>Review Submitted!</strong> Thank you for your feedback. Your review has been recorded in the database and will appear after moderation.";
+          reviewStatus.style.display = "block";
+          reviewForm.reset();
+          selectedRating = 5;
+          updateStarsDisplay(5, false);
+        } catch (err) {
+          reviewStatus.className = "form-status error";
+          reviewStatus.innerHTML = "&#9888; Something went wrong while submitting. Please try again or reach out directly.";
+          reviewStatus.style.display = "block";
+        } finally {
+          reviewSubmitBtn.removeAttribute("disabled");
+          reviewBtnText.textContent = "Submit Review";
+        }
+      });
+    }
 
     // Initial render
     updateStarsDisplay(5, false);
@@ -885,12 +933,40 @@ import { reviews } from '../data/reviews.js';
     transform: translateY(-2px);
   }
 
+  .submit-action-btn[disabled] {
+    opacity: 0.6;
+    cursor: not-allowed;
+    transform: none;
+    box-shadow: none;
+  }
+
   .btn-arrow {
     transition: transform var(--transition-smooth);
   }
 
   .submit-action-btn:hover .btn-arrow {
     transform: translateX(4px);
+  }
+
+  .form-status {
+    padding: 12px 14px;
+    border-radius: 4px;
+    font-size: 0.9rem;
+    line-height: 1.5;
+    font-family: var(--font-text);
+    margin-top: 6px;
+  }
+
+  .form-status.success {
+    background: rgba(39, 201, 63, 0.12);
+    border: 1px solid rgba(39, 201, 63, 0.35);
+    color: #38e154;
+  }
+
+  .form-status.error {
+    background: rgba(255, 77, 77, 0.12);
+    border: 1px solid rgba(255, 77, 77, 0.35);
+    color: #ff5f56;
   }
 
   /* Interactive Clickable Star Rating */
