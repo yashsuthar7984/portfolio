@@ -1,17 +1,35 @@
 :root {
-  /* Editorial Light Monochrome Theme: Off-White & Carbon Black */
-  --color-bg: #f7f7f5;
+  /* Editorial Light Monochrome with Polished Silver Chrome Finish */
+  --color-bg: #f5f5f3;
   --color-surface: #ffffff;
-  --color-surface-elevated: #efefed;
-  --color-surface-hover: #e6e6e2;
-  --color-text-primary: #111111;
-  --color-text-muted: #5e646e;
-  --color-text-dim: #8b929d;
+  --color-surface-elevated: #ededeb;
+  --color-surface-hover: #e4e4e0;
+  --color-text-primary: #0f1012;
+  --color-text-muted: #565c66;
+  --color-text-dim: #88909c;
   --color-accent: #111111;
   --color-accent-inverse: #ffffff;
-  --color-border: rgba(0, 0, 0, 0.09);
-  --color-border-hover: rgba(0, 0, 0, 0.28);
+  --color-border: rgba(0, 0, 0, 0.1);
+  --color-border-hover: rgba(0, 0, 0, 0.32);
   --color-border-subtle: rgba(0, 0, 0, 0.05);
+
+  /* Silver Chrome Precision Metallic Tokens */
+  --chrome-light: #ffffff;
+  --chrome-highlight: rgba(255, 255, 255, 0.95);
+  --chrome-border: #d4d7de;
+  --chrome-border-hover: #a6abb7;
+  --chrome-sheen: linear-gradient(135deg, rgba(255, 255, 255, 0.9) 0%, rgba(200, 205, 215, 0.4) 30%, rgba(255, 255, 255, 0.85) 55%, rgba(185, 190, 200, 0.35) 80%, rgba(255, 255, 255, 0.9) 100%);
+  --grad-chrome-card: linear-gradient(180deg, #ffffff 0%, #fafbfc 100%);
+  --grad-chrome-chassis: linear-gradient(180deg, #fbfcfd 0%, #eceef2 100%);
+  --grad-chrome-plate: linear-gradient(145deg, #f4f5f7 0%, #e5e7eb 50%, #d8dade 100%);
+  --grad-chrome-btn-dark: linear-gradient(180deg, #282a2e 0%, #111214 100%);
+  --grad-chrome-btn-silver: linear-gradient(180deg, #ffffff 0%, #f1f2f4 55%, #e1e3e7 100%);
+
+  /* Chrome Dimensional Shadows & Specular Bevels */
+  --shadow-chrome-card: inset 0 1px 0 rgba(255, 255, 255, 0.95), inset 0 -1px 0 rgba(0, 0, 0, 0.03), 0 4px 16px rgba(15, 20, 30, 0.04);
+  --shadow-chrome-card-hover: inset 0 1px 0 #ffffff, 0 16px 36px rgba(15, 20, 30, 0.08), 0 0 0 1px rgba(166, 171, 183, 0.25);
+  --shadow-chrome-btn: inset 0 1px 0 rgba(255, 255, 255, 0.35), inset 0 -1px 0 rgba(0, 0, 0, 0.4), 0 4px 14px rgba(15, 18, 25, 0.15);
+  --shadow-chrome-silver-btn: inset 0 1px 0 #ffffff, inset 0 -1px 0 rgba(0, 0, 0, 0.08), 0 3px 10px rgba(0, 0, 0, 0.05);
 
   --font-display: 'Oswald', system-ui, -apple-system, sans-serif;
   --font-text: 'Inter', system-ui, -apple-system, sans-serif;

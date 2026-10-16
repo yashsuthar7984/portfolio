@@ -16,15 +16,16 @@ import { siteConfig } from '../../data/site.js';
 
 <style>
   .site-header {
-    border-bottom: 1px solid var(--color-border);
+    border-bottom: 1px solid rgba(0, 0, 0, 0.08);
     padding: var(--space-md) var(--space-lg);
     position: sticky;
     top: 0;
-    background: rgba(247, 247, 245, 0.9);
-    backdrop-filter: blur(16px);
-    -webkit-backdrop-filter: blur(16px);
+    background: rgba(255, 255, 255, 0.88);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    box-shadow: 0 1px 0 rgba(255, 255, 255, 0.95), 0 4px 20px rgba(15, 20, 30, 0.03);
     z-index: 100;
-    transition: background var(--transition-smooth), border-color var(--transition-smooth);
+    transition: background var(--transition-smooth), border-color var(--transition-smooth), box-shadow var(--transition-smooth);
   }
   .header-inner {
     display: flex;
@@ -66,8 +67,9 @@ import { siteConfig } from '../../data/site.js';
     bottom: 0;
     left: 0;
     width: 0;
-    height: 1px;
-    background: #111111;
+    height: 2px;
+    background: linear-gradient(90deg, #111111 0%, #757b88 50%, #111111 100%);
+    border-radius: 1px;
     transition: width var(--transition-smooth);
   }
   .site-nav a:hover {
