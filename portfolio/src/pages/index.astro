@@ -1,230 +1,799 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
+import { reviews } from '../data/reviews.js';
+
+// Calculate initial server-side ratings count and average
+const initialCount = reviews.length;
+const initialAvg = initialCount > 0 
+  ? (reviews.reduce((acc, r) => acc + (r.rating || 5), 0) / initialCount).toFixed(1) 
+  : "0.0";
 ---
 
 <BaseLayout title="Home">
-  <section class="hero">
-    <div class="hero-content">
-      <div class="reveal-mask">
-        <span class="label">System.out.println("Hello, World!");</span>
-      </div>
-      <div class="reveal-mask">
-        <h1 class="display-title">Yash Suthar</h1>
-      </div>
+  <!-- HERO INTRODUCTION -->
+  <section class="hero-section">
+    <div class="hero-wrapper">
       
-      <div class="reveal-mask">
-        <!-- Terminal Code Block Bio -->
-        <div class="terminal-block">
-          <div class="terminal-header">
-            <span class="dot red"></span>
-            <span class="dot yellow"></span>
-            <span class="dot green"></span>
-            <span class="file-name">developer.py</span>
+      <div class="hero-main">
+        <span class="role-eyebrow">Software Developer</span>
+        <h1 class="hero-name">Yash Suthar</h1>
+        <p class="hero-summary">
+          I build clean, reliable backend systems in <strong>Python</strong> &amp; <strong>Java</strong>, hold a <strong>GenAI with Python</strong> certificate, and create video content as an active learner and creator.
+        </p>
+
+        <!-- Quick Stats Bar -->
+        <div class="metrics-bar">
+          <div class="metric-block">
+            <span class="metric-title">Languages</span>
+            <span class="metric-subtitle">Python &bull; Java</span>
           </div>
-          <div class="terminal-body">
-            <p class="code-text">
-              <span class="keyword">class</span> <span class="class-name">Developer</span>:<br/>
-              &nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">def</span> <span class="function">__init__</span>(<span class="variable">self</span>):<br/>
-              &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="variable">self</span>.core_stack = [<span class="string">"Python"</span>, <span class="string">"Java"</span>]<br/>
-              &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="variable">self</span>.hobbies = [<span class="string">"Cinematic Video Editing"</span>, <span class="string">"Content Creation"</span>]<br/>
-              <br/>
-              &nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">def</span> <span class="function">mission</span>(<span class="variable">self</span>):<br/>
-              &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">return</span> <span class="string">"Writing clean, secure, and scalable systems."</span>
-            </p>
+          <div class="bar-separator"></div>
+          <div class="metric-block">
+            <span class="metric-title">Certificate</span>
+            <span class="metric-subtitle">GenAI with Python</span>
           </div>
+          <div class="bar-separator"></div>
+          <div class="metric-block">
+            <span class="metric-title">Creative</span>
+            <span class="metric-subtitle">Video &amp; Content</span>
+          </div>
+          <div class="bar-separator"></div>
+          <div class="metric-block">
+            <span class="metric-title" id="heroScoreLabel">{initialAvg === "0.0" ? "0.0 ★" : `${initialAvg} ★`}</span>
+            <span class="metric-subtitle" id="heroScoreCount">{initialCount} {initialCount === 1 ? 'Rating' : 'Ratings'}</span>
+          </div>
+        </div>
+
+        <!-- Call to Action Buttons -->
+        <div class="hero-actions">
+          <a href="#rating" class="btn btn-primary">Rate Portfolio &darr;</a>
+          <a href="/about#certificate" class="btn btn-secondary">View Certificate &rarr;</a>
+          <a href="/about" class="btn btn-ghost">About &amp; Reviews</a>
         </div>
       </div>
 
-      <!-- Quick Action Buttons -->
-      <div class="reveal-mask action-links">
-        <a href="/work/code" class="action-btn primary">Explore Code ↗</a>
-        <a href="/work/hobbies" class="action-btn secondary">Cinematic Video ↗</a>
-        <a href="/about" class="action-btn outline">About & Reviews</a>
+      <!-- Human-Crafted Focus Cards -->
+      <div class="focus-cards-grid">
+        <div class="focus-card">
+          <div class="focus-card-header">
+            <span class="focus-pill">Engineering</span>
+          </div>
+          <h2 class="focus-title">Backend &amp; Logic</h2>
+          <p class="focus-desc">
+            Focused on robust object-oriented architecture, modular backend code in Java and Python, and clean API integration.
+          </p>
+          <a href="/work/code" class="card-link">View Projects &rarr;</a>
+        </div>
+
+        <div class="focus-card">
+          <div class="focus-card-header">
+            <span class="focus-pill">Creative</span>
+          </div>
+          <h2 class="focus-title">Video &amp; Content Creation</h2>
+          <p class="focus-desc">
+            Learning video editing, experimenting with cuts and audio, and sharing creative visual content as <strong>@framed.by.yash</strong>.
+          </p>
+          <a href="/work/hobbies" class="card-link">View Video Edits &rarr;</a>
+        </div>
       </div>
 
     </div>
   </section>
+
+  <!-- INTERACTIVE LIVE RATING -->
+  <section class="content-section" id="rating">
+    <div class="section-title-wrap">
+      <h2 class="section-heading">Portfolio Rating</h2>
+      <p class="section-subtext">
+        Click on a star to cast your vote. The average score and total count recalculate live.
+      </p>
+    </div>
+
+    <div class="rating-box">
+      <div class="rating-stat-column">
+        <div class="big-score" id="bigAverageScore">{initialAvg}</div>
+        <div class="stars-visual" id="summaryStarsRow">
+          <span class="star-item">&#9733;</span>
+          <span class="star-item">&#9733;</span>
+          <span class="star-item">&#9733;</span>
+          <span class="star-item">&#9733;</span>
+          <span class="star-item">&#9733;</span>
+        </div>
+        <div class="score-info-text" id="summaryCountText">
+          {initialCount === 0 ? "No ratings recorded yet" : `Based on ${initialCount} ${initialCount === 1 ? 'rating' : 'ratings'}`}
+        </div>
+      </div>
+
+      <div class="rating-vote-column">
+        <h3 class="vote-prompt">Leave Your Rating</h3>
+        <p class="vote-instruction">
+          How was your experience exploring this portfolio? Select your rating below:
+        </p>
+
+        <!-- 5 Interactive Clickable Stars -->
+        <div class="stars-selector" id="homeStarsWidget" role="radiogroup" aria-label="Rate this portfolio out of 5 stars">
+          <button type="button" class="star-button" data-value="1" title="1 Star - Needs Improvement" aria-label="1 star">&#9733;</button>
+          <button type="button" class="star-button" data-value="2" title="2 Stars - Fair" aria-label="2 stars">&#9733;</button>
+          <button type="button" class="star-button" data-value="3" title="3 Stars - Good" aria-label="3 stars">&#9733;</button>
+          <button type="button" class="star-button" data-value="4" title="4 Stars - Very Good" aria-label="4 stars">&#9733;</button>
+          <button type="button" class="star-button" data-value="5" title="5 Stars - Exceptional" aria-label="5 stars">&#9733;</button>
+        </div>
+
+        <div class="vote-feedback" id="homeRatingFeedback">
+          Click a star to submit your rating (1 to 5)
+        </div>
+
+        <div class="vote-bottom-row">
+          <span class="vote-tag">&#10003; Live community score</span>
+          <a href="/about#reviews" class="inline-link">Looking to write a review? Visit the About page &rarr;</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SKILLS & CAPABILITIES -->
+  <section class="content-section">
+    <div class="section-title-wrap">
+      <h2 class="section-heading">Skills &amp; Toolkit</h2>
+      <p class="section-subtext">
+        Tools and technologies I use for software engineering and creative production.
+      </p>
+    </div>
+
+    <div class="skills-grid">
+      <div class="skill-group">
+        <h3 class="skill-group-title">Software Development</h3>
+        <p class="skill-group-desc">Core programming languages, backend architecture, and version control.</p>
+        <div class="pills-flex">
+          <span class="pill">Python</span>
+          <span class="pill">Java</span>
+          <span class="pill">Object-Oriented Design</span>
+          <span class="pill">REST APIs</span>
+          <span class="pill">Git / GitHub</span>
+        </div>
+      </div>
+
+      <div class="skill-group">
+        <h3 class="skill-group-title">GenAI Certified</h3>
+        <p class="skill-group-desc">Course completion in Generative AI and Python development.</p>
+        <div class="pills-flex">
+          <span class="pill">GenAI with Python</span>
+          <span class="pill">Prompt Techniques</span>
+          <span class="pill">Python Scripting</span>
+          <a href="/about#certificate" class="pill pill-link">View Certificate &rarr;</a>
+        </div>
+      </div>
+
+      <div class="skill-group">
+        <h3 class="skill-group-title">Video &amp; Content</h3>
+        <p class="skill-group-desc">Video editing, cuts, transitions, and creating short-form content.</p>
+        <div class="pills-flex">
+          <span class="pill">Video Editing</span>
+          <span class="pill">Cuts &amp; Transitions</span>
+          <span class="pill">Shorts &amp; Reels</span>
+          <span class="pill">Content Creation</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- GET IN TOUCH / CTA -->
+  <section class="content-section">
+    <div class="connect-banner">
+      <h2 class="connect-title">Have a project or want to collaborate?</h2>
+      <p class="connect-desc">
+        Feel free to reach out for software engineering inquiries, video editing collaborations, or general questions.
+      </p>
+      <div class="connect-buttons">
+        <a href="/contact" class="btn btn-primary">Get in Touch</a>
+        <a href="/about" class="btn btn-ghost">Read About &amp; Reviews</a>
+      </div>
+    </div>
+  </section>
+
 </BaseLayout>
 
-<!-- GSAP Animation Scripts -->
-<script is:inline src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
-<script is:inline>
+<!-- Scripts: Dynamic Rating Engine -->
+<script is:inline define:vars={{ initialCount, initialAvg }}>
   document.addEventListener("DOMContentLoaded", () => {
-    // Stagger the text and terminal sliding up
-    gsap.from(".reveal-mask > *", {
-      y: 80,
-      opacity: 0,
-      duration: 1.1,
-      stagger: 0.15,
-      ease: "power4.out",
-      delay: 0.2
+    // Real-Time Interactive Rating Engine
+    const STORAGE_KEY = "portfolio_user_ratings_data";
+
+    function getRatingsData() {
+      try {
+        const stored = localStorage.getItem(STORAGE_KEY);
+        if (stored) {
+          return JSON.parse(stored);
+        }
+      } catch (e) {
+        console.warn("Storage read error", e);
+      }
+      return {
+        ratings: initialCount > 0 ? Array(initialCount).fill(parseFloat(initialAvg)) : [],
+        userSubmitted: false
+      };
+    }
+
+    function saveRatingsData(data) {
+      try {
+        localStorage.setItem(STORAGE_KEY, JSON.stringify(data));
+      } catch (e) {
+        console.warn("Storage write error", e);
+      }
+    }
+
+    let state = getRatingsData();
+
+    const bigAverageScore = document.getElementById("bigAverageScore");
+    const summaryCountText = document.getElementById("summaryCountText");
+    const heroScoreLabel = document.getElementById("heroScoreLabel");
+    const heroScoreCount = document.getElementById("heroScoreCount");
+    const summaryStarsRow = document.getElementById("summaryStarsRow");
+    const homeRatingFeedback = document.getElementById("homeRatingFeedback");
+    const starButtons = document.querySelectorAll(".star-button");
+
+    function updateDisplays() {
+      const count = state.ratings.length;
+      let avg = "0.0";
+      let avgNum = 0;
+
+      if (count > 0) {
+        const sum = state.ratings.reduce((a, b) => a + b, 0);
+        avgNum = sum / count;
+        avg = avgNum.toFixed(1);
+      }
+
+      if (bigAverageScore) bigAverageScore.textContent = avg;
+      if (summaryCountText) {
+        summaryCountText.textContent = count === 0 
+          ? "No ratings recorded yet" 
+          : `Based on ${count} ${count === 1 ? 'rating' : 'ratings'}`;
+      }
+
+      if (summaryStarsRow) {
+        const stars = summaryStarsRow.querySelectorAll(".star-item");
+        const rounded = Math.round(avgNum);
+        stars.forEach((star, idx) => {
+          if (idx < rounded && count > 0) {
+            star.classList.add("filled");
+          } else {
+            star.classList.remove("filled");
+          }
+        });
+      }
+
+      if (heroScoreLabel) {
+        heroScoreLabel.textContent = count === 0 ? "0.0 ★" : `${avg} ★`;
+      }
+      if (heroScoreCount) {
+        heroScoreCount.textContent = `${count} ${count === 1 ? 'Rating' : 'Ratings'}`;
+      }
+    }
+
+    starButtons.forEach(btn => {
+      btn.addEventListener("mouseenter", () => {
+        const val = parseInt(btn.getAttribute("data-value"), 10);
+        starButtons.forEach(b => {
+          const v = parseInt(b.getAttribute("data-value"), 10);
+          if (v <= val) b.classList.add("hover");
+          else b.classList.remove("hover");
+        });
+        if (homeRatingFeedback) {
+          const labels = {
+            1: "1 Star - Needs Improvement",
+            2: "2 Stars - Fair",
+            3: "3 Stars - Good",
+            4: "4 Stars - Very Good",
+            5: "5 Stars - Exceptional"
+          };
+          homeRatingFeedback.textContent = labels[val] || `${val} Stars`;
+        }
+      });
+
+      btn.addEventListener("mouseleave", () => {
+        starButtons.forEach(b => b.classList.remove("hover"));
+        if (homeRatingFeedback) {
+          homeRatingFeedback.textContent = state.userSubmitted 
+            ? "Your rating has been recorded! Thank you." 
+            : "Click a star to submit your rating (1 to 5)";
+        }
+      });
+
+      btn.addEventListener("click", () => {
+        const rating = parseInt(btn.getAttribute("data-value"), 10);
+        state.ratings.push(rating);
+        state.userSubmitted = true;
+        saveRatingsData(state);
+
+        starButtons.forEach(b => {
+          const v = parseInt(b.getAttribute("data-value"), 10);
+          if (v <= rating) b.classList.add("active");
+          else b.classList.remove("active");
+        });
+
+        if (homeRatingFeedback) {
+          homeRatingFeedback.innerHTML = `<span style="color: #27c93f;">&#10003; Thank you! Recorded your rating of ${rating}/5 stars.</span>`;
+        }
+
+        updateDisplays();
+      });
     });
+
+    updateDisplays();
   });
 </script>
 
 <style>
-  /* Layout */
-  .hero {
-    position: relative;
-    min-height: calc(100vh - 80px);
-    display: flex;
-    align-items: center;
-    padding: 0 var(--space-lg);
-    margin-top: -80px;
-    overflow: hidden;
-  }
-
-  /* Content Styling */
-  .hero-content {
-    position: relative;
-    z-index: 2;
-    max-width: 1400px;
+  /* 1. HERO SECTION */
+  .hero-section {
+    padding: 100px var(--space-lg) var(--space-2xl);
+    max-width: 1240px;
     margin: 0 auto;
-    width: 100%;
-    padding-top: 10vh;
   }
 
-  .reveal-mask {
-    overflow: hidden;
-  }
-
-  .label {
-    font-family: 'Fira Code', monospace;
-    font-size: 0.875rem;
-    color: var(--color-text-muted);
-    display: block;
-    margin-bottom: var(--space-md);
-  }
-
-  .display-title {
-    font-family: 'Oswald', sans-serif;
-    font-size: clamp(3.5rem, 10vw, 9rem);
-    text-transform: uppercase;
-    line-height: 0.95;
-    margin-bottom: var(--space-md);
-    letter-spacing: -0.02em;
-  }
-
-  /* Terminal Window UI */
-  .terminal-block {
-    background: rgba(17, 17, 17, 0.85);
-    border: 1px solid rgba(255, 255, 255, 0.1);
-    border-radius: 8px;
-    max-width: 650px;
-    margin-top: var(--space-lg);
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
-    backdrop-filter: blur(10px);
-  }
-
-  .terminal-header {
-    background: rgba(26, 26, 26, 0.9);
-    padding: 12px 15px;
-    display: flex;
+  .hero-wrapper {
+    display: grid;
+    grid-template-columns: 1.25fr 0.95fr;
+    gap: var(--space-2xl);
     align-items: center;
-    gap: 8px;
-    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
-    border-top-left-radius: 8px;
-    border-top-right-radius: 8px;
   }
 
-  .dot { width: 12px; height: 12px; border-radius: 50%; }
-  .dot.red { background: #ff5f56; }
-  .dot.yellow { background: #ffbd2e; }
-  .dot.green { background: #27c93f; }
-  
-  .file-name {
-    margin-left: auto;
-    margin-right: auto;
-    font-family: 'Fira Code', monospace;
-    font-size: 0.75rem;
-    color: var(--color-text-muted);
-  }
-
-  .terminal-body {
-    padding: var(--space-lg);
-    overflow-x: auto;
-  }
-
-  /* Code Syntax Highlighting */
-  .code-text {
-    font-family: 'Fira Code', monospace;
-    font-size: clamp(0.85rem, 1.5vw, 1rem);
-    line-height: 1.7;
-    margin: 0;
-    color: #abb2bf;
-  }
-  .keyword { color: #c678dd; }
-  .class-name { color: #e5c07b; }
-  .function { color: #61afef; }
-  .variable { color: #e06c75; }
-  .string { color: #98c379; }
-
-  /* Action Links */
-  .action-links {
-    display: flex;
-    gap: var(--space-md);
-    margin-top: var(--space-xl);
-    flex-wrap: wrap;
-  }
-
-  .action-btn {
-    display: inline-flex;
-    align-items: center;
-    padding: 10px 22px;
-    border-radius: 4px;
+  .role-eyebrow {
+    display: inline-block;
     font-family: var(--font-display);
     font-size: 0.95rem;
     text-transform: uppercase;
-    letter-spacing: 0.05em;
-    transition: all var(--transition-smooth);
+    letter-spacing: 0.15em;
+    color: var(--color-accent);
+    margin-bottom: var(--space-sm);
+    font-weight: 600;
   }
 
-  .action-btn.primary {
-    background: var(--color-accent);
-    color: #ffffff;
-    border: 1px solid transparent;
+  .hero-name {
+    font-family: var(--font-display);
+    font-size: clamp(3.2rem, 7vw, 6.4rem);
+    line-height: 0.95;
+    text-transform: uppercase;
+    letter-spacing: -0.02em;
+    margin-bottom: var(--space-md);
   }
 
-  .action-btn.primary:hover {
-    background: #d60000;
-    box-shadow: 0 4px 18px rgba(179, 0, 0, 0.4);
-    transform: translateY(-2px);
+  .hero-summary {
+    font-size: clamp(1.05rem, 1.8vw, 1.25rem);
+    line-height: 1.6;
+    color: var(--color-text-muted);
+    margin-bottom: var(--space-xl);
+    max-width: 620px;
   }
 
-  .action-btn.secondary {
-    background: rgba(255, 255, 255, 0.04);
-    border: 1px solid rgba(255, 255, 255, 0.15);
+  .hero-summary strong {
     color: var(--color-text-primary);
   }
 
-  .action-btn.secondary:hover {
+  /* Metrics Bar */
+  .metrics-bar {
+    display: flex;
+    align-items: center;
+    gap: var(--space-lg);
+    padding: 14px 20px;
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: 6px;
+    margin-bottom: var(--space-xl);
+    flex-wrap: wrap;
+  }
+
+  .metric-block {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+  }
+
+  .metric-title {
+    font-family: var(--font-display);
+    font-size: 1.15rem;
+    color: var(--color-text-primary);
+  }
+
+  .metric-subtitle {
+    font-size: 0.78rem;
+    color: var(--color-text-muted);
+  }
+
+  .bar-separator {
+    width: 1px;
+    height: 28px;
+    background: rgba(255, 255, 255, 0.1);
+  }
+
+  /* Button System */
+  .hero-actions {
+    display: flex;
+    gap: var(--space-md);
+    flex-wrap: wrap;
+  }
+
+  .btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 11px 22px;
+    border-radius: 4px;
+    font-family: var(--font-display);
+    font-size: 0.92rem;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    transition: all var(--transition-smooth);
+    cursor: pointer;
+    text-decoration: none;
+    border: 1px solid transparent;
+  }
+
+  .btn-primary {
+    background: var(--color-accent);
+    color: #ffffff;
+  }
+
+  .btn-primary:hover {
+    background: #d60000;
+    box-shadow: 0 4px 16px rgba(179, 0, 0, 0.4);
+    transform: translateY(-2px);
+  }
+
+  .btn-secondary {
+    background: rgba(255, 255, 255, 0.04);
+    border-color: rgba(255, 255, 255, 0.15);
+    color: var(--color-text-primary);
+  }
+
+  .btn-secondary:hover {
     background: rgba(255, 255, 255, 0.1);
     border-color: rgba(255, 255, 255, 0.3);
     transform: translateY(-2px);
   }
 
-  .action-btn.outline {
+  .btn-ghost {
     background: transparent;
-    border: 1px solid var(--divider);
+    border-color: rgba(255, 255, 255, 0.2);
     color: var(--color-text-muted);
   }
 
-  .action-btn.outline:hover {
+  .btn-ghost:hover {
     color: var(--color-text-primary);
-    border-color: rgba(255, 255, 255, 0.3);
+    border-color: rgba(255, 255, 255, 0.4);
     transform: translateY(-2px);
   }
 
-  @media (max-width: 640px) {
-    .hero {
-      padding: 0 var(--space-md);
+  /* Human Focus Cards */
+  .focus-cards-grid {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-md);
+  }
+
+  .focus-card {
+    background: #121212;
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: 8px;
+    padding: var(--space-lg);
+    transition: transform var(--transition-smooth), border-color var(--transition-smooth);
+  }
+
+  .focus-card:hover {
+    transform: translateY(-3px);
+    border-color: rgba(255, 255, 255, 0.2);
+  }
+
+  .focus-card-header {
+    margin-bottom: var(--space-xs);
+  }
+
+  .focus-pill {
+    display: inline-block;
+    font-size: 0.72rem;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--color-text-muted);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.15);
+    padding-bottom: 2px;
+  }
+
+  .focus-title {
+    font-size: 1.5rem;
+    margin-bottom: var(--space-xs);
+  }
+
+  .focus-desc {
+    color: var(--color-text-muted);
+    font-size: 0.92rem;
+    line-height: 1.6;
+    margin-bottom: var(--space-md);
+  }
+
+  .card-link {
+    font-family: var(--font-display);
+    font-size: 0.88rem;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    color: var(--color-text-primary);
+    text-decoration: none;
+    transition: color var(--transition-smooth);
+  }
+
+  .card-link:hover {
+    color: var(--color-accent);
+  }
+
+  /* 2. SECTION COMMONS */
+  .content-section {
+    max-width: 1240px;
+    margin: 0 auto;
+    padding: var(--space-2xl) var(--space-lg);
+    border-top: var(--divider);
+  }
+
+  .section-title-wrap {
+    margin-bottom: var(--space-xl);
+  }
+
+  .section-heading {
+    font-size: clamp(2rem, 5vw, 3.2rem);
+    letter-spacing: -0.02em;
+    margin-bottom: var(--space-xs);
+  }
+
+  .section-subtext {
+    color: var(--color-text-muted);
+    font-size: 1.05rem;
+    line-height: 1.6;
+    max-width: 650px;
+  }
+
+  /* 3. RATING BOX */
+  .rating-box {
+    background: #121212;
+    border: 1px solid rgba(255, 255, 255, 0.09);
+    border-radius: 8px;
+    display: grid;
+    grid-template-columns: 280px 1fr;
+    overflow: hidden;
+  }
+
+  .rating-stat-column {
+    background: #171717;
+    border-right: 1px solid rgba(255, 255, 255, 0.08);
+    padding: var(--space-xl) var(--space-lg);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+  }
+
+  .big-score {
+    font-family: var(--font-display);
+    font-size: 4.5rem;
+    line-height: 1;
+    font-weight: 700;
+    margin-bottom: var(--space-xs);
+  }
+
+  .stars-visual {
+    display: flex;
+    gap: 4px;
+    font-size: 1.35rem;
+    color: rgba(255, 255, 255, 0.15);
+    margin-bottom: var(--space-sm);
+  }
+
+  .star-item.filled {
+    color: #ffb800;
+  }
+
+  .score-info-text {
+    font-size: 0.85rem;
+    color: var(--color-text-muted);
+  }
+
+  .rating-vote-column {
+    padding: var(--space-xl);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
+
+  .vote-prompt {
+    font-size: 1.5rem;
+    margin-bottom: var(--space-xs);
+  }
+
+  .vote-instruction {
+    color: var(--color-text-muted);
+    font-size: 0.95rem;
+    margin-bottom: var(--space-md);
+  }
+
+  .stars-selector {
+    display: flex;
+    gap: 12px;
+    margin-bottom: var(--space-sm);
+  }
+
+  .star-button {
+    background: transparent;
+    border: none;
+    font-size: 2.4rem;
+    line-height: 1;
+    color: rgba(255, 255, 255, 0.2);
+    cursor: pointer;
+    padding: 4px;
+    transition: transform 0.15s ease, color 0.15s ease;
+  }
+
+  .star-button:hover {
+    transform: scale(1.25);
+  }
+
+  .star-button.hover,
+  .star-button.active {
+    color: #ffb800;
+  }
+
+  .vote-feedback {
+    font-size: 0.9rem;
+    color: var(--color-text-muted);
+    min-height: 1.5em;
+    margin-bottom: var(--space-lg);
+  }
+
+  .vote-bottom-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-top: var(--divider);
+    padding-top: var(--space-md);
+    flex-wrap: wrap;
+    gap: 10px;
+  }
+
+  .vote-tag {
+    font-size: 0.8rem;
+    color: #27c93f;
+  }
+
+  .inline-link {
+    font-size: 0.88rem;
+    color: var(--color-text-primary);
+    text-decoration: underline;
+    text-underline-offset: 4px;
+    transition: color var(--transition-smooth);
+  }
+
+  .inline-link:hover {
+    color: var(--color-accent);
+  }
+
+  /* 4. SKILLS GRID */
+  .skills-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: var(--space-lg);
+  }
+
+  .skill-group {
+    background: #121212;
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: 8px;
+    padding: var(--space-lg);
+    display: flex;
+    flex-direction: column;
+  }
+
+  .skill-group-title {
+    font-size: 1.35rem;
+    margin-bottom: var(--space-xs);
+  }
+
+  .skill-group-desc {
+    color: var(--color-text-muted);
+    font-size: 0.9rem;
+    line-height: 1.6;
+    margin-bottom: var(--space-md);
+    flex-grow: 1;
+  }
+
+  .pills-flex {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+    border-top: var(--divider);
+    padding-top: var(--space-md);
+  }
+
+  .pill {
+    font-size: 0.75rem;
+    padding: 4px 10px;
+    background: rgba(255, 255, 255, 0.04);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 14px;
+    color: var(--color-text-primary);
+  }
+
+  /* 6. CONNECT BANNER */
+  .connect-banner {
+    background: #151515;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 8px;
+    padding: var(--space-2xl) var(--space-xl);
+    text-align: center;
+  }
+
+  .connect-title {
+    font-size: clamp(1.8rem, 4vw, 2.8rem);
+    margin-bottom: var(--space-xs);
+  }
+
+  .connect-desc {
+    color: var(--color-text-muted);
+    font-size: 1.05rem;
+    line-height: 1.6;
+    max-width: 600px;
+    margin: 0 auto var(--space-xl);
+  }
+
+  .connect-buttons {
+    display: flex;
+    justify-content: center;
+    gap: var(--space-md);
+    flex-wrap: wrap;
+  }
+
+  /* RESPONSIVE */
+  @media (max-width: 980px) {
+    .hero-wrapper {
+      grid-template-columns: 1fr;
+      gap: var(--space-xl);
     }
-    .action-links {
+    .rating-box {
+      grid-template-columns: 1fr;
+    }
+    .rating-stat-column {
+      border-right: none;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+    }
+    .skills-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+
+  @media (max-width: 640px) {
+    .hero-section {
+      padding: 60px var(--space-md) var(--space-xl);
+    }
+    .hero-actions {
       flex-direction: column;
       align-items: stretch;
     }
-    .action-btn {
-      justify-content: center;
+    .btn {
+      width: 100%;
+    }
+    .rating-box {
+      padding: var(--space-md);
+    }
+    .connect-buttons {
+      flex-direction: column;
+    }
+    .stars-selector {
+      gap: 6px;
+    }
+    .star-button {
+      font-size: 1.9rem;
+    }
+    .bar-separator {
+      display: none;
+    }
+    .metrics-bar {
+      gap: var(--space-md);
     }
   }
 </style>

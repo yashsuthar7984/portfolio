@@ -1,7 +1,8 @@
 ---
 import BaseLayout from '../../../layouts/BaseLayout.astro';
+import { featuredVideo, shortVideos } from '../../../data/videos.js';
 ---
-<BaseLayout title="@framed.by.yash | Director & Editor">
+<BaseLayout title="@framed.by.yash | Video Editing & Content">
   <main class="creator-hub">
     
     <!-- Header Section -->
@@ -12,19 +13,19 @@ import BaseLayout from '../../../layouts/BaseLayout.astro';
         <div class="rec-flex">
           <span class="blink-dot"></span> REC
         </div>
-        <div class="rec-meta">4K // 24FPS</div>
+        <div class="rec-meta">1080P // 24FPS</div>
       </div>
 
       <!-- Editorial Handle (Forced to single line) -->
       <h1 class="massive-handle">@framed.by.yash</h1>
       
       <div class="meta-tags">
-        <span class="tag">Director & Editor</span>
+        <span class="tag">Video Editing &amp; Content</span>
       </div>
       
       <p class="desc">
-        Cinematic video editing, visual storytelling, and digital media production. <br>
-        A creative extension of Yash Suthar.
+        Learning video editing, experimenting with cuts, and creating digital video content. <br>
+        A creative passion by Yash Suthar.
       </p>
       
       <div class="actions">
@@ -37,56 +38,41 @@ import BaseLayout from '../../../layouts/BaseLayout.astro';
     <!-- Asymmetric Video Gallery -->
     <section class="video-gallery fade-in">
       
-      <!-- Featured 16:9 Cut -->
+      <!-- Featured 16:9 Cut (Cloudinary Stream) -->
       <div class="video-card featured">
         <div class="card-header">
-          <span class="label-left">FEATURED CUT</span>
-          <span class="label-right">16:9</span>
+          <span class="label-left">{featuredVideo.title}</span>
+          <span class="label-right">{featuredVideo.aspectRatio}</span>
         </div>
         <div class="player-wrapper">
-          <video controls preload="metadata" poster="/videos/featured-thumbnail.jpg" class="video-asset wide">
-            <source src="/videos/featured.mp4" type="video/mp4" />
+          <video controls preload="metadata" poster={featuredVideo.posterUrl} class="video-asset wide">
+            <source src={featuredVideo.videoUrl} type="video/mp4" />
           </video>
         </div>
         <div class="card-footer">
-          <span>TC 01:24:48:12</span>
-          <span class="footer-right">PROJECT // 01 <span class="static-dot"></span></span>
+          <span>{featuredVideo.timecode}</span>
+          <span class="footer-right">{featuredVideo.projectLabel} <span class="static-dot"></span></span>
         </div>
       </div>
 
-      <!-- Short / Reel 01 -->
-      <div class="video-card short">
-        <div class="card-header">
-          <span class="label-left">SHORT // 01</span>
-          <span class="label-right">9:16</span>
+      <!-- Shorts / Reels (Cloudinary Streams) -->
+      {shortVideos.map((short) => (
+        <div class="video-card short">
+          <div class="card-header">
+            <span class="label-left">{short.title}</span>
+            <span class="label-right">{short.aspectRatio}</span>
+          </div>
+          <div class="player-wrapper">
+            <div class="rec-badge"><span class="static-dot"></span> REC</div>
+            <video controls preload="metadata" poster={short.posterUrl} class="video-asset tall">
+              <source src={short.videoUrl} type="video/mp4" />
+            </video>
+          </div>
+          <div class="card-footer">
+            <span>{short.timecode}</span>
+          </div>
         </div>
-        <div class="player-wrapper">
-          <div class="rec-badge"><span class="static-dot"></span> REC</div>
-          <video controls preload="metadata" poster="/videos/reel-01-thumbnail.jpg" class="video-asset tall">
-            <source src="/videos/reel-01.mp4" type="video/mp4" />
-          </video>
-        </div>
-        <div class="card-footer">
-          <span>CLIP_01 // 9:16</span>
-        </div>
-      </div>
-
-      <!-- Short / Reel 02 -->
-      <div class="video-card short">
-        <div class="card-header">
-          <span class="label-left">SHORT // 02</span>
-          <span class="label-right">9:16</span>
-        </div>
-        <div class="player-wrapper">
-          <div class="rec-badge"><span class="static-dot"></span> REC</div>
-          <video controls preload="metadata" poster="/videos/reel-02-thumbnail.jpg" class="video-asset tall">
-            <source src="/videos/reel-02.mp4" type="video/mp4" />
-          </video>
-        </div>
-        <div class="card-footer">
-          <span>CLIP_02 // 9:16</span>
-        </div>
-      </div>
+      ))}
 
     </section>
   </main>

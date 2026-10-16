@@ -5,22 +5,16 @@ import { reviews } from '../data/reviews.js';
 
 <BaseLayout 
   title="About & Reviews"
-  description="About Yash Suthar - Software developer specializing in Python and Java, cinematic video creator, and client reviews."
+  description="About Yash Suthar - Software developer specializing in Python and Java, video content creator, and client reviews."
 >
   <section class="about-page">
     <div class="content-container">
 
       <!-- Page Header -->
       <header class="page-header fade-in">
-        <div class="badge-row">
-          <span class="terminal-badge">
-            <span class="status-dot"></span>
-            <code>// ABOUT // CLIENT_FEEDBACK</code>
-          </span>
-        </div>
-        <h1 class="main-title">About & Reviews</h1>
+        <h1 class="main-title">About &amp; Reviews</h1>
         <p class="main-subtitle">
-          Software engineering systems and cinematic visual storytelling — backed by verified client feedback.
+          Software engineering systems and video content creation — backed by verified client feedback.
         </p>
       </header>
 
@@ -39,7 +33,7 @@ import { reviews } from '../data/reviews.js';
             I am a software developer focused on building robust, scalable systems using <strong>Python</strong> and <strong>Java</strong>. I enjoy tackling complex architectural problems, engineering resilient backend services, and writing clean, secure code that performs under load.
           </p>
           <p class="bio-text">
-            When I step away from the IDE, I spend my time behind a camera. I am an avid cinematic video creator and digital storyteller (<strong>@framed.by.yash</strong>). Directing and editing high-retention video content serves as my creative outlet and keeps my attention to detail sharp across both code and visuals.
+            When I step away from the IDE, I spend my time video editing and creating content (<strong>@framed.by.yash</strong>). I am actively learning the craft of video editing, experimenting with visual cuts and audio as a creative outlet.
           </p>
           
           <div class="skills-row">
@@ -47,21 +41,64 @@ import { reviews } from '../data/reviews.js';
             <span class="skill-pill">Java</span>
             <span class="skill-pill">Backend Architecture</span>
             <span class="skill-pill">API Security</span>
-            <span class="skill-pill">Cinematic 4K Editing</span>
-            <span class="skill-pill">Color Grading</span>
+            <span class="skill-pill">Video Editing</span>
+            <span class="skill-pill">Content Creation</span>
           </div>
         </div>
       </div>
 
+      <!-- Certificate Section -->
+      <section class="cert-section fade-in" id="certificate">
+        <div class="section-heading">
+          <h2 class="sub-title">Certifications</h2>
+          <p class="sub-desc">
+            Verified course completion in Generative AI and Python programming.
+          </p>
+        </div>
+
+        <div class="certificate-container">
+          <div class="certificate-preview-side">
+            <div class="cert-frame" id="openCertModal" role="button" tabindex="0" title="Click to view full certificate">
+              <img 
+                src="/certificates/technishal-genai.jpg" 
+                alt="GenAI with Python Certificate - Yash Suthar" 
+                class="certificate-image" 
+                id="certImage"
+              />
+              <div class="frame-hover-hint">
+                <span>Click to View Full Certificate</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="certificate-text-side">
+            <span class="cert-badge">&#10003; Course Completed</span>
+            <h3 class="cert-title">GenAI with Python</h3>
+            <p class="cert-desc">
+              Practical coursework introducing core principles of generative models, foundational Python programming, and hands-on prompt workflows.
+            </p>
+
+            <div class="cert-topics-card">
+              <h4 class="topics-heading">Course Highlights</h4>
+              <ul class="topics-list">
+                <li><strong>Generative AI Principles:</strong> Understanding how generative models function and process requests.</li>
+                <li><strong>Python Programming:</strong> Core scripting, logic building, and handling data structures.</li>
+                <li><strong>Prompt Techniques:</strong> Structuring context and working with AI models effectively.</li>
+              </ul>
+            </div>
+
+            <div class="cert-actions">
+              <button type="button" class="submit-action-btn" id="viewCertButton" style="margin-top: 0;">
+                <span>View Full Certificate Photo</span>
+              </button>
+            </div>
+          </div>
+        </div>
+      </section>
+
       <!-- Reviews Section -->
       <section class="reviews-section fade-in" id="reviews">
         <div class="section-heading">
-          <div class="badge-row">
-            <span class="terminal-badge">
-              <span class="status-dot green-dot"></span>
-              <code>// VERIFIED_TESTIMONIALS</code>
-            </span>
-          </div>
           <h2 class="sub-title">Client Reviews</h2>
           <p class="sub-desc">
             Direct feedback from teams, founders, and creators on tech and video editing projects.
@@ -201,10 +238,85 @@ import { reviews } from '../data/reviews.js';
 
     </div>
   </section>
+
+  <!-- LIGHTBOX / FULLSCREEN CERTIFICATE MODAL -->
+  <div class="cert-modal" id="certModal" aria-hidden="true" role="dialog" aria-label="Certificate Image Viewer">
+    <div class="cert-modal-backdrop" id="modalBackdrop"></div>
+    <div class="cert-modal-window">
+      <div class="modal-header">
+        <span class="modal-title">GenAI with Python Certificate</span>
+        <button type="button" class="modal-close-btn" id="modalCloseBtn" aria-label="Close modal">&times;</button>
+      </div>
+      <div class="modal-body">
+        <img 
+          src="/certificates/technishal-genai.jpg" 
+          alt="GenAI with Python Certificate" 
+          class="modal-cert-img" 
+          id="modalCertImg"
+        />
+      </div>
+      <div class="modal-footer">
+        <span class="modal-cert-caption">Certificate: Yash Suthar &bull; GenAI with Python</span>
+        <button type="button" class="modal-close-btn-text" id="modalCloseSecondary">Close</button>
+      </div>
+    </div>
+  </div>
 </BaseLayout>
 
 <script is:inline>
   document.addEventListener("DOMContentLoaded", () => {
+    // Certificate Image Fallback
+    const placeholderSvg = "/certificates/certificate-placeholder.svg";
+    const certImage = document.getElementById("certImage");
+    const modalCertImg = document.getElementById("modalCertImg");
+
+    function attachImgFallback(imgEl) {
+      if (!imgEl) return;
+      imgEl.addEventListener("error", () => {
+        imgEl.src = placeholderSvg;
+      });
+      if (imgEl.complete && (imgEl.naturalWidth === 0 || imgEl.naturalHeight === 0)) {
+        imgEl.src = placeholderSvg;
+      }
+    }
+    attachImgFallback(certImage);
+    attachImgFallback(modalCertImg);
+
+    // Modal Controls
+    const modal = document.getElementById("certModal");
+    const openTrigger1 = document.getElementById("openCertModal");
+    const openTrigger2 = document.getElementById("viewCertButton");
+    const closeBtn = document.getElementById("modalCloseBtn");
+    const closeSecondary = document.getElementById("modalCloseSecondary");
+    const backdrop = document.getElementById("modalBackdrop");
+
+    function openModal() {
+      if (!modal) return;
+      modal.classList.add("active");
+      modal.setAttribute("aria-hidden", "false");
+      document.body.style.overflow = "hidden";
+    }
+
+    function closeModal() {
+      if (!modal) return;
+      modal.classList.remove("active");
+      modal.setAttribute("aria-hidden", "true");
+      document.body.style.overflow = "";
+    }
+
+    if (openTrigger1) openTrigger1.addEventListener("click", openModal);
+    if (openTrigger2) openTrigger2.addEventListener("click", openModal);
+    if (closeBtn) closeBtn.addEventListener("click", closeModal);
+    if (closeSecondary) closeSecondary.addEventListener("click", closeModal);
+    if (backdrop) backdrop.addEventListener("click", closeModal);
+
+    document.addEventListener("keydown", (e) => {
+      if (e.key === "Escape" && modal && modal.classList.contains("active")) {
+        closeModal();
+      }
+    });
+
+    // Star rating form in About page
     const starContainer = document.getElementById("interactiveStarRating");
     if (!starContainer) return;
 
@@ -773,5 +885,250 @@ import { reviews } from '../data/reviews.js';
     color: var(--color-text-primary);
     margin-left: 8px;
     letter-spacing: 0.02em;
+  }
+
+  /* Certificate Section in About */
+  .cert-section {
+    margin-bottom: var(--space-2xl);
+    padding-top: var(--space-md);
+  }
+
+  .certificate-container {
+    background: rgba(18, 18, 18, 0.75);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: 8px;
+    display: grid;
+    grid-template-columns: 1fr 1.15fr;
+    gap: var(--space-xl);
+    padding: var(--space-xl);
+    align-items: center;
+    backdrop-filter: blur(10px);
+  }
+
+  .certificate-preview-side {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .cert-frame {
+    position: relative;
+    border-radius: 6px;
+    overflow: hidden;
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    cursor: pointer;
+    background: #080808;
+    aspect-ratio: 10 / 7;
+    transition: transform var(--transition-smooth), border-color var(--transition-smooth);
+  }
+
+  .cert-frame:hover {
+    transform: scale(1.02);
+    border-color: rgba(255, 255, 255, 0.35);
+  }
+
+  .certificate-image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+  }
+
+  .frame-hover-hint {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: rgba(0, 0, 0, 0.7);
+    color: #ffffff;
+    font-family: var(--font-display);
+    font-size: 0.95rem;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    opacity: 0;
+    transition: opacity var(--transition-smooth);
+  }
+
+  .cert-frame:hover .frame-hover-hint {
+    opacity: 1;
+  }
+
+  .cert-badge {
+    display: inline-block;
+    font-size: 0.75rem;
+    padding: 3px 10px;
+    background: rgba(39, 201, 63, 0.12);
+    border: 1px solid rgba(39, 201, 63, 0.3);
+    color: #27c93f;
+    border-radius: 12px;
+    margin-bottom: var(--space-xs);
+  }
+
+  .cert-title {
+    font-size: 2rem;
+    margin-bottom: var(--space-xs);
+  }
+
+  .cert-desc {
+    color: var(--color-text-muted);
+    font-size: 0.95rem;
+    line-height: 1.6;
+    margin-bottom: var(--space-md);
+  }
+
+  .cert-topics-card {
+    background: rgba(0, 0, 0, 0.35);
+    border: 1px solid rgba(255, 255, 255, 0.06);
+    border-radius: 6px;
+    padding: var(--space-md);
+    margin-bottom: var(--space-lg);
+  }
+
+  .topics-heading {
+    font-size: 0.82rem;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    color: var(--color-text-primary);
+    margin-bottom: var(--space-xs);
+  }
+
+  .topics-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+
+  .topics-list li {
+    font-size: 0.88rem;
+    color: var(--color-text-muted);
+    line-height: 1.5;
+  }
+
+  .topics-list strong {
+    color: var(--color-text-primary);
+  }
+
+  /* Fullscreen Modal */
+  .cert-modal {
+    position: fixed;
+    inset: 0;
+    z-index: 9999;
+    display: none;
+    align-items: center;
+    justify-content: center;
+    padding: var(--space-md);
+  }
+
+  .cert-modal.active {
+    display: flex;
+  }
+
+  .cert-modal-backdrop {
+    position: absolute;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.88);
+    backdrop-filter: blur(8px);
+  }
+
+  .cert-modal-window {
+    position: relative;
+    z-index: 10000;
+    background: #141414;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    border-radius: 8px;
+    max-width: 960px;
+    width: 100%;
+    max-height: 90vh;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+  }
+
+  .modal-header {
+    background: #1c1c1c;
+    padding: 12px 18px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+  }
+
+  .modal-title {
+    font-size: 0.95rem;
+    font-weight: 500;
+    color: var(--color-text-primary);
+  }
+
+  .modal-close-btn {
+    background: transparent;
+    border: none;
+    color: var(--color-text-muted);
+    font-size: 1.6rem;
+    cursor: pointer;
+    line-height: 1;
+    padding: 0 6px;
+    transition: color var(--transition-smooth);
+  }
+
+  .modal-close-btn:hover {
+    color: #ffffff;
+  }
+
+  .modal-body {
+    padding: var(--space-md);
+    overflow-y: auto;
+    display: flex;
+    justify-content: center;
+    background: #0a0a0a;
+  }
+
+  .modal-cert-img {
+    max-width: 100%;
+    max-height: 70vh;
+    object-fit: contain;
+    border-radius: 4px;
+  }
+
+  .modal-footer {
+    background: #181818;
+    padding: 10px 18px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-top: 1px solid rgba(255, 255, 255, 0.08);
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+
+  .modal-cert-caption {
+    font-size: 0.85rem;
+    color: var(--color-text-muted);
+  }
+
+  .modal-close-btn-text {
+    background: transparent;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    color: var(--color-text-primary);
+    padding: 6px 16px;
+    border-radius: 4px;
+    cursor: pointer;
+    font-family: var(--font-display);
+    text-transform: uppercase;
+    font-size: 0.8rem;
+    letter-spacing: 0.05em;
+  }
+
+  .modal-close-btn-text:hover {
+    border-color: rgba(255, 255, 255, 0.4);
+  }
+
+  @media (max-width: 768px) {
+    .certificate-container {
+      grid-template-columns: 1fr;
+      padding: var(--space-md);
+    }
   }
 </style>

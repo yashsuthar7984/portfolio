@@ -24,3 +24,9 @@ yarn-error.log*
 # OS metadata
 .DS_Store
 Thumbs.db
+
+# Large media binaries (served via Cloudinary CDN)
+*.mp4
+*.mov
+*.webm
+public/videos/*.mp4
