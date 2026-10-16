@@ -10,19 +10,64 @@ const initialAvg = initialCount > 0
 ---
 
 <BaseLayout title="Home">
+  <!-- INTERACTIVE CANVAS BACKGROUND -->
+  <div class="interactive-bg-container" aria-hidden="true">
+    <canvas id="ambientCanvas" class="ambient-canvas"></canvas>
+    <div class="cyber-grid-mesh"></div>
+    <div class="radial-spotlight" id="cursorSpotlight"></div>
+  </div>
+
   <!-- HERO INTRODUCTION -->
-  <section class="hero-section">
+  <section class="hero-section" id="heroSection">
+    
+    <!-- Ambient Floating Tech Chips -->
+    <div class="floating-chips-layer" aria-hidden="true">
+      <div class="tech-chip chip-1" data-speed="1.2">
+        <span class="chip-dot dot-cyan"></span>
+        <code>&lt;Python /&gt;</code>
+      </div>
+      <div class="tech-chip chip-2" data-speed="0.8">
+        <span class="chip-dot dot-amber"></span>
+        <code>Java OOP &bull; Backend</code>
+      </div>
+      <div class="tech-chip chip-3" data-speed="1.5">
+        <span class="chip-dot dot-red"></span>
+        <code>4K Edit &bull; @framed.by.yash</code>
+      </div>
+      <div class="tech-chip chip-4" data-speed="1.0">
+        <span class="chip-dot dot-purple"></span>
+        <code>GenAI Certified &#9889;</code>
+      </div>
+    </div>
+
     <div class="hero-wrapper">
       
-      <div class="hero-main">
-        <span class="role-eyebrow">Software Developer</span>
-        <h1 class="hero-name">Yash Suthar</h1>
+      <div class="hero-main reveal-item">
+        <!-- Live Status Radar -->
+        <div class="status-indicator-badge">
+          <span class="radar-dot">
+            <span class="radar-ping"></span>
+          </span>
+          <span class="status-text">SYSTEM ONLINE &bull; OPEN TO COLLABORATION</span>
+        </div>
+
+        <!-- Animated Typing Eyebrow -->
+        <div class="role-eyebrow-wrap">
+          <span class="terminal-arrow">&gt;</span>
+          <span class="role-eyebrow" id="typedRole">Software Developer</span>
+          <span class="cursor-blink">_</span>
+        </div>
+
+        <h1 class="hero-name" data-glitch="YASH SUTHAR">
+          <span class="name-shimmer">Yash Suthar</span>
+        </h1>
+
         <p class="hero-summary">
           I build clean, reliable backend systems in <strong>Python</strong> &amp; <strong>Java</strong>, hold a <strong>GenAI with Python</strong> certificate, and create video content as an active learner and creator.
         </p>
 
-        <!-- Quick Stats Bar -->
-        <div class="metrics-bar">
+        <!-- Quick Stats Bar (Animated 3D Box) -->
+        <div class="metrics-bar tilt-card" id="metricsBar">
           <div class="metric-block">
             <span class="metric-title">Languages</span>
             <span class="metric-subtitle">Python &bull; Java</span>
@@ -46,34 +91,57 @@ const initialAvg = initialCount > 0
 
         <!-- Call to Action Buttons -->
         <div class="hero-actions">
-          <a href="#rating" class="btn btn-primary">Rate Portfolio &darr;</a>
-          <a href="/about#certificate" class="btn btn-secondary">View Certificate &rarr;</a>
-          <a href="/about" class="btn btn-ghost">About &amp; Reviews</a>
+          <a href="#rating" class="btn btn-primary pulse-btn">
+            <span class="btn-shine"></span>
+            Rate Portfolio &darr;
+          </a>
+          <a href="/about#certificate" class="btn btn-secondary magnetic-btn">
+            View Certificate <span class="arrow-motion">&rarr;</span>
+          </a>
+          <a href="/about" class="btn btn-ghost magnetic-btn">About &amp; Reviews</a>
         </div>
       </div>
 
-      <!-- Human-Crafted Focus Cards -->
+      <!-- Human-Crafted Focus Cards with 3D Tilt & Cyber Corner Brackets -->
       <div class="focus-cards-grid">
-        <div class="focus-card">
+        <div class="focus-card tilt-card reveal-item" data-tilt>
+          <span class="corner-bracket top-left"></span>
+          <span class="corner-bracket top-right"></span>
+          <span class="corner-bracket bottom-left"></span>
+          <span class="corner-bracket bottom-right"></span>
+          <div class="card-glow-layer"></div>
+
           <div class="focus-card-header">
-            <span class="focus-pill">Engineering</span>
+            <span class="focus-pill pill-cyan">Engineering</span>
           </div>
           <h2 class="focus-title">Backend &amp; Logic</h2>
           <p class="focus-desc">
             Focused on robust object-oriented architecture, modular backend code in Java and Python, and clean API integration.
           </p>
-          <a href="/work/code" class="card-link">View Projects &rarr;</a>
+          <a href="/work/code" class="card-link group-hover-link">
+            <span>View Projects</span>
+            <span class="link-arrow">&rarr;</span>
+          </a>
         </div>
 
-        <div class="focus-card">
+        <div class="focus-card tilt-card reveal-item" data-tilt>
+          <span class="corner-bracket top-left"></span>
+          <span class="corner-bracket top-right"></span>
+          <span class="corner-bracket bottom-left"></span>
+          <span class="corner-bracket bottom-right"></span>
+          <div class="card-glow-layer"></div>
+
           <div class="focus-card-header">
-            <span class="focus-pill">Creative</span>
+            <span class="focus-pill pill-gold">Creative</span>
           </div>
           <h2 class="focus-title">Video &amp; Content Creation</h2>
           <p class="focus-desc">
             Learning video editing, experimenting with cuts and audio, and sharing creative visual content as <strong>@framed.by.yash</strong>.
           </p>
-          <a href="/work/hobbies" class="card-link">View Video Edits &rarr;</a>
+          <a href="/work/hobbies" class="card-link group-hover-link">
+            <span>View Video Edits</span>
+            <span class="link-arrow">&rarr;</span>
+          </a>
         </div>
       </div>
 
@@ -82,16 +150,28 @@ const initialAvg = initialCount > 0
 
   <!-- INTERACTIVE LIVE RATING -->
   <section class="content-section" id="rating">
-    <div class="section-title-wrap">
+    <div class="section-title-wrap reveal-item">
+      <div class="section-tag-row">
+        <span class="hud-tag">// FEEDBACK SYSTEM</span>
+      </div>
       <h2 class="section-heading">Portfolio Rating</h2>
       <p class="section-subtext">
         Click on a star to cast your vote. The average score and total count recalculate live.
       </p>
     </div>
 
-    <div class="rating-box">
+    <div class="rating-box tilt-card reveal-item" id="ratingBoxContainer" data-tilt>
+      <span class="corner-bracket top-left"></span>
+      <span class="corner-bracket top-right"></span>
+      <span class="corner-bracket bottom-left"></span>
+      <span class="corner-bracket bottom-right"></span>
+      <div class="card-glow-layer"></div>
+
       <div class="rating-stat-column">
-        <div class="big-score" id="bigAverageScore">{initialAvg}</div>
+        <div class="score-orbit-wrap">
+          <div class="big-score" id="bigAverageScore">{initialAvg}</div>
+          <div class="score-ring"></div>
+        </div>
         <div class="stars-visual" id="summaryStarsRow">
           <span class="star-item">&#9733;</span>
           <span class="star-item">&#9733;</span>
@@ -110,7 +190,7 @@ const initialAvg = initialCount > 0
           How was your experience exploring this portfolio? Select your rating below:
         </p>
 
-        <!-- 5 Interactive Clickable Stars -->
+        <!-- 5 Interactive Clickable Stars with Spring Physics -->
         <div class="stars-selector" id="homeStarsWidget" role="radiogroup" aria-label="Rate this portfolio out of 5 stars">
           <button type="button" class="star-button" data-value="1" title="1 Star - Needs Improvement" aria-label="1 star">&#9733;</button>
           <button type="button" class="star-button" data-value="2" title="2 Stars - Fair" aria-label="2 stars">&#9733;</button>
@@ -124,8 +204,13 @@ const initialAvg = initialCount > 0
         </div>
 
         <div class="vote-bottom-row">
-          <span class="vote-tag">&#10003; Live community score</span>
-          <a href="/about#reviews" class="inline-link">Looking to write a review? Visit the About page &rarr;</a>
+          <span class="vote-tag">
+            <span class="live-beacon"></span> Live community score
+          </span>
+          <a href="/about#reviews" class="inline-link group-hover-link">
+            <span>Looking to write a review? Visit the About page</span>
+            <span class="link-arrow">&rarr;</span>
+          </a>
         </div>
       </div>
     </div>
@@ -133,7 +218,10 @@ const initialAvg = initialCount > 0
 
   <!-- SKILLS & CAPABILITIES -->
   <section class="content-section">
-    <div class="section-title-wrap">
+    <div class="section-title-wrap reveal-item">
+      <div class="section-tag-row">
+        <span class="hud-tag">// TECH STACK &amp; CAPABILITIES</span>
+      </div>
       <h2 class="section-heading">Skills &amp; Toolkit</h2>
       <p class="section-subtext">
         Tools and technologies I use for software engineering and creative production.
@@ -141,7 +229,12 @@ const initialAvg = initialCount > 0
     </div>
 
     <div class="skills-grid">
-      <div class="skill-group">
+      <div class="skill-group tilt-card reveal-item" data-tilt>
+        <span class="corner-bracket top-left"></span>
+        <span class="corner-bracket top-right"></span>
+        <span class="card-top-line line-cyan"></span>
+        <div class="card-glow-layer"></div>
+
         <h3 class="skill-group-title">Software Development</h3>
         <p class="skill-group-desc">Core programming languages, backend architecture, and version control.</p>
         <div class="pills-flex">
@@ -153,7 +246,12 @@ const initialAvg = initialCount > 0
         </div>
       </div>
 
-      <div class="skill-group">
+      <div class="skill-group tilt-card reveal-item" data-tilt>
+        <span class="corner-bracket top-left"></span>
+        <span class="corner-bracket top-right"></span>
+        <span class="card-top-line line-purple"></span>
+        <div class="card-glow-layer"></div>
+
         <h3 class="skill-group-title">GenAI Certified</h3>
         <p class="skill-group-desc">Course completion in Generative AI and Python development.</p>
         <div class="pills-flex">
@@ -164,7 +262,12 @@ const initialAvg = initialCount > 0
         </div>
       </div>
 
-      <div class="skill-group">
+      <div class="skill-group tilt-card reveal-item" data-tilt>
+        <span class="corner-bracket top-left"></span>
+        <span class="corner-bracket top-right"></span>
+        <span class="card-top-line line-gold"></span>
+        <div class="card-glow-layer"></div>
+
         <h3 class="skill-group-title">Video &amp; Content</h3>
         <p class="skill-group-desc">Video editing, cuts, transitions, and creating short-form content.</p>
         <div class="pills-flex">
@@ -177,25 +280,255 @@ const initialAvg = initialCount > 0
     </div>
   </section>
 
-  <!-- GET IN TOUCH / CTA -->
+  <!-- GET IN TOUCH / CTA WITH LASER BORDER SWEEP -->
   <section class="content-section">
-    <div class="connect-banner">
-      <h2 class="connect-title">Have a project or want to collaborate?</h2>
-      <p class="connect-desc">
-        Feel free to reach out for software engineering inquiries, video editing collaborations, or general questions.
-      </p>
-      <div class="connect-buttons">
-        <a href="/contact" class="btn btn-primary">Get in Touch</a>
+    <div class="connect-banner tilt-card reveal-item" data-tilt>
+      <div class="banner-scanner-line"></div>
+      <span class="corner-bracket top-left"></span>
+      <span class="corner-bracket top-right"></span>
+      <span class="corner-bracket bottom-left"></span>
+      <span class="corner-bracket bottom-right"></span>
+
+      <div class="banner-inner">
+        <span class="hud-tag mb-sm">// GET CONNECTED</span>
+        <h2 class="connect-title">Have a project or want to collaborate?</h2>
+        <p class="connect-desc">
+          Feel free to reach out for software engineering inquiries, video editing collaborations, or general questions.
+        </p>
+        <div class="connect-buttons">
+          <a href="/contact" class="btn btn-primary pulse-btn">
+            <span class="btn-shine"></span>
+            Get in Touch &rarr;
+          </a>
+        </div>
       </div>
     </div>
   </section>
 
 </BaseLayout>
 
-<!-- Scripts: Dynamic Rating Engine -->
+<!-- Scripts: Dynamic Rating Engine, Canvas Particle Network, 3D Tilt, Typewriter, and Scroll Animations -->
 <script is:inline define:vars={{ initialCount, initialAvg }}>
   document.addEventListener("DOMContentLoaded", () => {
-    // Real-Time Interactive Rating Engine
+    // -------------------------------------------------------------
+    // 1. Interactive Ambient Canvas Constellation Mesh
+    // -------------------------------------------------------------
+    const canvas = document.getElementById("ambientCanvas");
+    if (canvas) {
+      const ctx = canvas.getContext("2d");
+      let width = (canvas.width = window.innerWidth);
+      let height = (canvas.height = window.innerHeight);
+
+      let mouse = { x: width / 2, y: height / 2, active: false };
+
+      window.addEventListener("resize", () => {
+        width = canvas.width = window.innerWidth;
+        height = canvas.height = window.innerHeight;
+      });
+
+      window.addEventListener("mousemove", (e) => {
+        mouse.x = e.clientX;
+        mouse.y = e.clientY;
+        mouse.active = true;
+
+        // Update radial spotlight
+        const spotlight = document.getElementById("cursorSpotlight");
+        if (spotlight) {
+          spotlight.style.transform = `translate3d(${e.clientX}px, ${e.clientY}px, 0)`;
+        }
+      });
+
+      window.addEventListener("mouseleave", () => {
+        mouse.active = false;
+      });
+
+      const particleCount = window.innerWidth < 768 ? 32 : 65;
+      const particles = [];
+      const colors = ["#61afef", "#b30000", "#f5b244", "#b37feb", "#ffffff"];
+
+      for (let i = 0; i < particleCount; i++) {
+        particles.push({
+          x: Math.random() * width,
+          y: Math.random() * height,
+          vx: (Math.random() - 0.5) * 0.6,
+          vy: (Math.random() - 0.5) * 0.6,
+          radius: Math.random() * 1.8 + 0.8,
+          color: colors[Math.floor(Math.random() * colors.length)],
+          alpha: Math.random() * 0.5 + 0.2
+        });
+      }
+
+      function drawMesh() {
+        ctx.clearRect(0, 0, width, height);
+
+        for (let i = 0; i < particles.length; i++) {
+          const p = particles[i];
+          p.x += p.vx;
+          p.y += p.vy;
+
+          if (p.x < 0 || p.x > width) p.vx *= -1;
+          if (p.y < 0 || p.y > height) p.vy *= -1;
+
+          // Draw Particle
+          ctx.beginPath();
+          ctx.arc(p.x, p.y, p.radius, 0, Math.PI * 2);
+          ctx.fillStyle = p.color;
+          ctx.globalAlpha = p.alpha;
+          ctx.fill();
+
+          // Connect to nearby particles
+          for (let j = i + 1; j < particles.length; j++) {
+            const p2 = particles[j];
+            const dx = p.x - p2.x;
+            const dy = p.y - p2.y;
+            const dist = Math.sqrt(dx * dx + dy * dy);
+
+            if (dist < 110) {
+              ctx.beginPath();
+              ctx.moveTo(p.x, p.y);
+              ctx.lineTo(p2.x, p2.y);
+              ctx.strokeStyle = p.color;
+              ctx.globalAlpha = (1 - dist / 110) * 0.15;
+              ctx.lineWidth = 0.8;
+              ctx.stroke();
+            }
+          }
+
+          // Connect to mouse pointer
+          if (mouse.active) {
+            const mdx = p.x - mouse.x;
+            const mdy = p.y - mouse.y;
+            const mdist = Math.sqrt(mdx * mdx + mdy * mdy);
+            if (mdist < 140) {
+              ctx.beginPath();
+              ctx.moveTo(p.x, p.y);
+              ctx.lineTo(mouse.x, mouse.y);
+              ctx.strokeStyle = "#61afef";
+              ctx.globalAlpha = (1 - mdist / 140) * 0.28;
+              ctx.lineWidth = 1;
+              ctx.stroke();
+            }
+          }
+        }
+
+        ctx.globalAlpha = 1;
+        requestAnimationFrame(drawMesh);
+      }
+
+      drawMesh();
+    }
+
+    // -------------------------------------------------------------
+    // 2. High-Tech Typewriter for Role Eyebrow
+    // -------------------------------------------------------------
+    const typedEl = document.getElementById("typedRole");
+    if (typedEl) {
+      const roles = [
+        "Software Developer",
+        "Python & Java Engineer",
+        "GenAI Certified Developer",
+        "Video Creator @framed.by.yash",
+        "Backend Architecture & APIs"
+      ];
+      let roleIdx = 0;
+      let charIdx = roles[0].length;
+      let isDeleting = true;
+      let typingSpeed = 100;
+
+      function typeLoop() {
+        const currentRole = roles[roleIdx];
+
+        if (isDeleting) {
+          typedEl.textContent = currentRole.substring(0, charIdx - 1);
+          charIdx--;
+          typingSpeed = 35;
+        } else {
+          typedEl.textContent = currentRole.substring(0, charIdx + 1);
+          charIdx++;
+          typingSpeed = 70;
+        }
+
+        if (!isDeleting && charIdx === currentRole.length) {
+          isDeleting = true;
+          typingSpeed = 2200; // Hold at full text
+        } else if (isDeleting && charIdx === 0) {
+          isDeleting = false;
+          roleIdx = (roleIdx + 1) % roles.length;
+          typingSpeed = 400; // Pause before new word
+        }
+
+        setTimeout(typeLoop, typingSpeed);
+      }
+
+      setTimeout(typeLoop, 2000);
+    }
+
+    // -------------------------------------------------------------
+    // 3. Interactive 3D Tilt & Magnetic Spotlight on Cards
+    // -------------------------------------------------------------
+    const tiltCards = document.querySelectorAll(".tilt-card");
+    tiltCards.forEach((card) => {
+      card.addEventListener("mousemove", (e) => {
+        const rect = card.getBoundingClientRect();
+        const x = e.clientX - rect.left;
+        const y = e.clientY - rect.top;
+
+        const centerX = rect.width / 2;
+        const centerY = rect.height / 2;
+
+        const rotateX = ((y - centerY) / centerY) * -6;
+        const rotateY = ((x - centerX) / centerX) * 6;
+
+        card.style.transform = `perspective(900px) rotateX(${rotateX.toFixed(2)}deg) rotateY(${rotateY.toFixed(2)}deg) translateY(-4px)`;
+        card.style.setProperty("--mouse-x", `${x}px`);
+        card.style.setProperty("--mouse-y", `${y}px`);
+      });
+
+      card.addEventListener("mouseleave", () => {
+        card.style.transform = "perspective(900px) rotateX(0deg) rotateY(0deg) translateY(0)";
+      });
+    });
+
+    // -------------------------------------------------------------
+    // 4. Scroll Reveal Observer with Staggering
+    // -------------------------------------------------------------
+    const revealItems = document.querySelectorAll(".reveal-item");
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add("revealed");
+            observer.unobserve(entry.target);
+          }
+        });
+      },
+      { threshold: 0.15 }
+    );
+
+    revealItems.forEach((el, idx) => {
+      el.style.transitionDelay = `${(idx % 4) * 0.1}s`;
+      observer.observe(el);
+    });
+
+    // -------------------------------------------------------------
+    // 5. Parallax on Ambient Floating Chips
+    // -------------------------------------------------------------
+    const chips = document.querySelectorAll(".tech-chip");
+    window.addEventListener("mousemove", (e) => {
+      const normX = (e.clientX / window.innerWidth - 0.5) * 2;
+      const normY = (e.clientY / window.innerHeight - 0.5) * 2;
+
+      chips.forEach((chip) => {
+        const speed = parseFloat(chip.getAttribute("data-speed") || "1");
+        const moveX = normX * 18 * speed;
+        const moveY = normY * 18 * speed;
+        chip.style.transform = `translate3d(${moveX}px, ${moveY}px, 0)`;
+      });
+    });
+
+    // -------------------------------------------------------------
+    // 6. Real-Time Interactive Rating Engine with Visual Celebration
+    // -------------------------------------------------------------
     const STORAGE_KEY = "portfolio_user_ratings_data";
 
     function getRatingsData() {
@@ -230,6 +563,7 @@ const initialAvg = initialCount > 0
     const summaryStarsRow = document.getElementById("summaryStarsRow");
     const homeRatingFeedback = document.getElementById("homeRatingFeedback");
     const starButtons = document.querySelectorAll(".star-button");
+    const ratingBoxContainer = document.getElementById("ratingBoxContainer");
 
     function updateDisplays() {
       const count = state.ratings.length;
@@ -242,7 +576,12 @@ const initialAvg = initialCount > 0
         avg = avgNum.toFixed(1);
       }
 
-      if (bigAverageScore) bigAverageScore.textContent = avg;
+      if (bigAverageScore) {
+        bigAverageScore.textContent = avg;
+        bigAverageScore.classList.add("score-pop");
+        setTimeout(() => bigAverageScore.classList.remove("score-pop"), 400);
+      }
+
       if (summaryCountText) {
         summaryCountText.textContent = count === 0 
           ? "No ratings recorded yet" 
@@ -269,10 +608,10 @@ const initialAvg = initialCount > 0
       }
     }
 
-    starButtons.forEach(btn => {
+    starButtons.forEach((btn) => {
       btn.addEventListener("mouseenter", () => {
         const val = parseInt(btn.getAttribute("data-value"), 10);
-        starButtons.forEach(b => {
+        starButtons.forEach((b) => {
           const v = parseInt(b.getAttribute("data-value"), 10);
           if (v <= val) b.classList.add("hover");
           else b.classList.remove("hover");
@@ -290,7 +629,7 @@ const initialAvg = initialCount > 0
       });
 
       btn.addEventListener("mouseleave", () => {
-        starButtons.forEach(b => b.classList.remove("hover"));
+        starButtons.forEach((b) => b.classList.remove("hover"));
         if (homeRatingFeedback) {
           homeRatingFeedback.textContent = state.userSubmitted 
             ? "Your rating has been recorded! Thank you." 
@@ -304,14 +643,19 @@ const initialAvg = initialCount > 0
         state.userSubmitted = true;
         saveRatingsData(state);
 
-        starButtons.forEach(b => {
+        starButtons.forEach((b) => {
           const v = parseInt(b.getAttribute("data-value"), 10);
           if (v <= rating) b.classList.add("active");
           else b.classList.remove("active");
         });
 
+        if (ratingBoxContainer) {
+          ratingBoxContainer.classList.add("celebrate-pulse");
+          setTimeout(() => ratingBoxContainer.classList.remove("celebrate-pulse"), 800);
+        }
+
         if (homeRatingFeedback) {
-          homeRatingFeedback.innerHTML = `<span style="color: #27c93f;">&#10003; Thank you! Recorded your rating of ${rating}/5 stars.</span>`;
+          homeRatingFeedback.innerHTML = `<span style="color: #27c93f; font-weight: 600;">&#10003; Thank you! Recorded your rating of ${rating}/5 stars.</span>`;
         }
 
         updateDisplays();
@@ -323,11 +667,131 @@ const initialAvg = initialCount > 0
 </script>
 
 <style>
-  /* 1. HERO SECTION */
+  /* =============================================================
+     1. AMBIENT BACKGROUND & CYBER MESH
+     ============================================================= */
+  .interactive-bg-container {
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+    z-index: 0;
+    overflow: hidden;
+  }
+
+  .ambient-canvas {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    opacity: 0.75;
+  }
+
+  .cyber-grid-mesh {
+    position: absolute;
+    inset: 0;
+    background-image: 
+      linear-gradient(rgba(255, 255, 255, 0.02) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(255, 255, 255, 0.02) 1px, transparent 1px);
+    background-size: 50px 50px;
+    mask-image: radial-gradient(ellipse at 50% 30%, black 40%, transparent 80%);
+    -webkit-mask-image: radial-gradient(ellipse at 50% 30%, black 40%, transparent 80%);
+  }
+
+  .radial-spotlight {
+    position: absolute;
+    top: -300px;
+    left: -300px;
+    width: 600px;
+    height: 600px;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(97, 175, 239, 0.06) 0%, rgba(179, 0, 0, 0.03) 40%, transparent 70%);
+    pointer-events: none;
+    transition: transform 0.1s ease-out;
+    will-change: transform;
+  }
+
+  /* =============================================================
+     2. FLOATING TECH CHIPS LAYER
+     ============================================================= */
+  .floating-chips-layer {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    z-index: 1;
+    overflow: hidden;
+  }
+
+  .tech-chip {
+    position: absolute;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: rgba(18, 18, 18, 0.7);
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    backdrop-filter: blur(8px);
+    padding: 6px 14px;
+    border-radius: 20px;
+    font-family: 'Fira Code', monospace;
+    font-size: 0.75rem;
+    color: var(--color-text-primary);
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.4);
+    transition: transform 0.2s cubic-bezier(0.2, 0, 0.2, 1);
+  }
+
+  .chip-1 {
+    top: 14%;
+    right: 8%;
+    animation: floatSlow 7s ease-in-out infinite;
+  }
+
+  .chip-2 {
+    bottom: 18%;
+    right: 28%;
+    animation: floatReverse 8.5s ease-in-out infinite;
+  }
+
+  .chip-3 {
+    top: 48%;
+    right: 4%;
+    animation: floatSlow 9s ease-in-out infinite 1s;
+  }
+
+  .chip-4 {
+    top: 24%;
+    left: 45%;
+    animation: floatReverse 6.5s ease-in-out infinite 0.5s;
+  }
+
+  .chip-dot {
+    width: 7px;
+    height: 7px;
+    border-radius: 50%;
+  }
+
+  .dot-cyan { background: #61afef; box-shadow: 0 0 8px #61afef; }
+  .dot-amber { background: #f5b244; box-shadow: 0 0 8px #f5b244; }
+  .dot-red { background: #ff4d4d; box-shadow: 0 0 8px #ff4d4d; }
+  .dot-purple { background: #b37feb; box-shadow: 0 0 8px #b37feb; }
+
+  @keyframes floatSlow {
+    0%, 100% { transform: translateY(0px) rotate(0deg); }
+    50% { transform: translateY(-16px) rotate(1.5deg); }
+  }
+
+  @keyframes floatReverse {
+    0%, 100% { transform: translateY(0px) rotate(0deg); }
+    50% { transform: translateY(14px) rotate(-1.5deg); }
+  }
+
+  /* =============================================================
+     3. HERO SECTION & TYPOGRAPHY
+     ============================================================= */
   .hero-section {
-    padding: 100px var(--space-lg) var(--space-2xl);
+    position: relative;
+    padding: 90px var(--space-lg) var(--space-2xl);
     max-width: 1240px;
     margin: 0 auto;
+    z-index: 2;
   }
 
   .hero-wrapper {
@@ -337,24 +801,96 @@ const initialAvg = initialCount > 0
     align-items: center;
   }
 
-  .role-eyebrow {
-    display: inline-block;
-    font-family: var(--font-display);
-    font-size: 0.95rem;
-    text-transform: uppercase;
-    letter-spacing: 0.15em;
-    color: var(--color-accent);
+  /* Status Indicator Beacon */
+  .status-indicator-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 4px 12px;
+    background: rgba(39, 201, 63, 0.08);
+    border: 1px solid rgba(39, 201, 63, 0.25);
+    border-radius: 20px;
     margin-bottom: var(--space-sm);
-    font-weight: 600;
   }
 
+  .radar-dot {
+    position: relative;
+    width: 8px;
+    height: 8px;
+    background: #27c93f;
+    border-radius: 50%;
+  }
+
+  .radar-ping {
+    position: absolute;
+    inset: -3px;
+    border-radius: 50%;
+    border: 1px solid #27c93f;
+    animation: radarPulse 1.8s cubic-bezier(0, 0, 0.2, 1) infinite;
+  }
+
+  @keyframes radarPulse {
+    0% { transform: scale(0.9); opacity: 1; }
+    100% { transform: scale(2.6); opacity: 0; }
+  }
+
+  .status-text {
+    font-family: 'Fira Code', monospace;
+    font-size: 0.7rem;
+    color: #27c93f;
+    letter-spacing: 0.08em;
+    font-weight: 500;
+  }
+
+  /* Role Eyebrow with Terminal Prompt */
+  .role-eyebrow-wrap {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    font-family: 'Fira Code', monospace;
+    font-size: 0.95rem;
+    color: var(--color-accent);
+    margin-bottom: var(--space-xs);
+    font-weight: 500;
+  }
+
+  .terminal-arrow {
+    color: #61afef;
+    font-weight: 700;
+  }
+
+  .cursor-blink {
+    color: #61afef;
+    font-weight: 700;
+    animation: blink 0.9s infinite;
+  }
+
+  @keyframes blink {
+    0%, 50% { opacity: 1; }
+    51%, 100% { opacity: 0; }
+  }
+
+  /* Hero Name with Dynamic Shimmer */
   .hero-name {
     font-family: var(--font-display);
-    font-size: clamp(3.2rem, 7vw, 6.4rem);
+    font-size: clamp(3.4rem, 7.5vw, 6.6rem);
     line-height: 0.95;
     text-transform: uppercase;
     letter-spacing: -0.02em;
     margin-bottom: var(--space-md);
+  }
+
+  .name-shimmer {
+    background: linear-gradient(90deg, #ffffff 0%, #b8c4d4 35%, #ffffff 50%, #7d8b9d 70%, #ffffff 100%);
+    background-size: 200% auto;
+    color: transparent;
+    -webkit-background-clip: text;
+    background-clip: text;
+    animation: shimmerSweep 6s linear infinite;
+  }
+
+  @keyframes shimmerSweep {
+    to { background-position: 200% center; }
   }
 
   .hero-summary {
@@ -369,17 +905,26 @@ const initialAvg = initialCount > 0
     color: var(--color-text-primary);
   }
 
-  /* Metrics Bar */
+  /* =============================================================
+     4. METRICS BAR WITH SUBTLE GLOW
+     ============================================================= */
   .metrics-bar {
+    position: relative;
     display: flex;
     align-items: center;
     gap: var(--space-lg);
-    padding: 14px 20px;
-    background: rgba(255, 255, 255, 0.03);
-    border: 1px solid rgba(255, 255, 255, 0.08);
-    border-radius: 6px;
+    padding: 14px 22px;
+    background: rgba(18, 18, 18, 0.7);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(12px);
     margin-bottom: var(--space-xl);
     flex-wrap: wrap;
+    transition: border-color var(--transition-smooth), box-shadow var(--transition-smooth);
+  }
+
+  .metrics-bar:hover {
+    border-color: rgba(97, 175, 239, 0.4);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
   }
 
   .metric-block {
@@ -392,20 +937,24 @@ const initialAvg = initialCount > 0
     font-family: var(--font-display);
     font-size: 1.15rem;
     color: var(--color-text-primary);
+    letter-spacing: 0.02em;
   }
 
   .metric-subtitle {
-    font-size: 0.78rem;
+    font-family: 'Fira Code', monospace;
+    font-size: 0.75rem;
     color: var(--color-text-muted);
   }
 
   .bar-separator {
     width: 1px;
     height: 28px;
-    background: rgba(255, 255, 255, 0.1);
+    background: rgba(255, 255, 255, 0.12);
   }
 
-  /* Button System */
+  /* =============================================================
+     5. BUTTON SYSTEM (PULSE & MAGNETIC)
+     ============================================================= */
   .hero-actions {
     display: flex;
     gap: var(--space-md);
@@ -413,47 +962,74 @@ const initialAvg = initialCount > 0
   }
 
   .btn {
+    position: relative;
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    padding: 11px 22px;
-    border-radius: 4px;
+    padding: 12px 24px;
     font-family: var(--font-display);
     font-size: 0.92rem;
     text-transform: uppercase;
-    letter-spacing: 0.05em;
+    letter-spacing: 0.06em;
     transition: all var(--transition-smooth);
     cursor: pointer;
     text-decoration: none;
     border: 1px solid transparent;
+    overflow: hidden;
   }
 
   .btn-primary {
     background: var(--color-accent);
     color: #ffffff;
+    box-shadow: 0 4px 18px rgba(179, 0, 0, 0.35);
   }
 
   .btn-primary:hover {
     background: #d60000;
-    box-shadow: 0 4px 16px rgba(179, 0, 0, 0.4);
+    box-shadow: 0 6px 24px rgba(214, 0, 0, 0.55);
     transform: translateY(-2px);
+  }
+
+  .btn-shine {
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+    animation: btnShine 4s infinite;
+  }
+
+  @keyframes btnShine {
+    20%, 100% { left: 100%; }
   }
 
   .btn-secondary {
     background: rgba(255, 255, 255, 0.04);
-    border-color: rgba(255, 255, 255, 0.15);
+    border-color: rgba(255, 255, 255, 0.18);
     color: var(--color-text-primary);
+    backdrop-filter: blur(8px);
   }
 
   .btn-secondary:hover {
-    background: rgba(255, 255, 255, 0.1);
-    border-color: rgba(255, 255, 255, 0.3);
+    background: rgba(255, 255, 255, 0.09);
+    border-color: rgba(255, 255, 255, 0.4);
     transform: translateY(-2px);
+  }
+
+  .arrow-motion {
+    display: inline-block;
+    transition: transform var(--transition-smooth);
+    margin-left: 4px;
+  }
+
+  .btn-secondary:hover .arrow-motion {
+    transform: translateX(4px);
   }
 
   .btn-ghost {
     background: transparent;
-    border-color: rgba(255, 255, 255, 0.2);
+    border-color: rgba(255, 255, 255, 0.15);
     color: var(--color-text-muted);
   }
 
@@ -463,24 +1039,86 @@ const initialAvg = initialCount > 0
     transform: translateY(-2px);
   }
 
-  /* Human Focus Cards */
+  /* =============================================================
+     6. FOCUS CARDS WITH 3D TILT & CORNER BRACKETS
+     ============================================================= */
   .focus-cards-grid {
     display: flex;
     flex-direction: column;
     gap: var(--space-md);
   }
 
+  .tilt-card {
+    position: relative;
+    transform-style: preserve-3d;
+    will-change: transform;
+    transition: border-color var(--transition-smooth), box-shadow var(--transition-smooth);
+  }
+
   .focus-card {
-    background: #121212;
-    border: 1px solid rgba(255, 255, 255, 0.08);
-    border-radius: 8px;
+    background: #111111;
+    border: 1px solid rgba(255, 255, 255, 0.1);
     padding: var(--space-lg);
-    transition: transform var(--transition-smooth), border-color var(--transition-smooth);
+    overflow: hidden;
   }
 
   .focus-card:hover {
-    transform: translateY(-3px);
-    border-color: rgba(255, 255, 255, 0.2);
+    border-color: rgba(255, 255, 255, 0.3);
+    box-shadow: 0 16px 36px rgba(0, 0, 0, 0.6);
+  }
+
+  /* Cyber Corner HUD Brackets */
+  .corner-bracket {
+    position: absolute;
+    width: 8px;
+    height: 8px;
+    pointer-events: none;
+    transition: all 0.3s ease;
+  }
+
+  .top-left {
+    top: -1px;
+    left: -1px;
+    border-top: 2px solid var(--color-accent);
+    border-left: 2px solid var(--color-accent);
+  }
+
+  .top-right {
+    top: -1px;
+    right: -1px;
+    border-top: 2px solid var(--color-accent);
+    border-right: 2px solid var(--color-accent);
+  }
+
+  .bottom-left {
+    bottom: -1px;
+    left: -1px;
+    border-bottom: 2px solid var(--color-accent);
+    border-left: 2px solid var(--color-accent);
+  }
+
+  .bottom-right {
+    bottom: -1px;
+    right: -1px;
+    border-bottom: 2px solid var(--color-accent);
+    border-right: 2px solid var(--color-accent);
+  }
+
+  .focus-card:hover .corner-bracket {
+    width: 14px;
+    height: 14px;
+  }
+
+  /* Card Radial Spotlight Follower */
+  .card-glow-layer {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    background: radial-gradient(
+      400px circle at var(--mouse-x, -500px) var(--mouse-y, -500px),
+      rgba(255, 255, 255, 0.06),
+      transparent 70%
+    );
   }
 
   .focus-card-header {
@@ -489,17 +1127,30 @@ const initialAvg = initialCount > 0
 
   .focus-pill {
     display: inline-block;
+    font-family: 'Fira Code', monospace;
     font-size: 0.72rem;
     text-transform: uppercase;
     letter-spacing: 0.08em;
-    color: var(--color-text-muted);
-    border-bottom: 1px solid rgba(255, 255, 255, 0.15);
-    padding-bottom: 2px;
+    padding: 3px 10px;
+  }
+
+  .pill-cyan {
+    background: rgba(97, 175, 239, 0.1);
+    color: #61afef;
+    border: 1px solid rgba(97, 175, 239, 0.35);
+  }
+
+  .pill-gold {
+    background: rgba(245, 178, 68, 0.1);
+    color: #f5b244;
+    border: 1px solid rgba(245, 178, 68, 0.35);
   }
 
   .focus-title {
-    font-size: 1.5rem;
+    font-size: 1.55rem;
     margin-bottom: var(--space-xs);
+    font-family: var(--font-display);
+    letter-spacing: 0.01em;
   }
 
   .focus-desc {
@@ -509,26 +1160,52 @@ const initialAvg = initialCount > 0
     margin-bottom: var(--space-md);
   }
 
-  .card-link {
+  .group-hover-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
     font-family: var(--font-display);
     font-size: 0.88rem;
     text-transform: uppercase;
-    letter-spacing: 0.05em;
+    letter-spacing: 0.06em;
     color: var(--color-text-primary);
     text-decoration: none;
     transition: color var(--transition-smooth);
   }
 
-  .card-link:hover {
+  .link-arrow {
+    transition: transform var(--transition-smooth);
+  }
+
+  .group-hover-link:hover {
     color: var(--color-accent);
   }
 
-  /* 2. SECTION COMMONS */
+  .group-hover-link:hover .link-arrow {
+    transform: translateX(5px);
+  }
+
+  /* =============================================================
+     7. SECTION COMMONS & SCROLL REVEAL
+     ============================================================= */
   .content-section {
+    position: relative;
     max-width: 1240px;
     margin: 0 auto;
     padding: var(--space-2xl) var(--space-lg);
     border-top: var(--divider);
+    z-index: 2;
+  }
+
+  .section-tag-row {
+    margin-bottom: 6px;
+  }
+
+  .hud-tag {
+    font-family: 'Fira Code', monospace;
+    font-size: 0.74rem;
+    color: var(--color-text-muted);
+    letter-spacing: 0.08em;
   }
 
   .section-title-wrap {
@@ -548,18 +1225,39 @@ const initialAvg = initialCount > 0
     max-width: 650px;
   }
 
-  /* 3. RATING BOX */
+  .reveal-item {
+    opacity: 0;
+    transform: translateY(24px);
+    transition: opacity 0.7s cubic-bezier(0.16, 1, 0.3, 1), transform 0.7s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+
+  .reveal-item.revealed {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  /* =============================================================
+     8. INTERACTIVE RATING BOX (ANIMATED STATS & SPRING STARS)
+     ============================================================= */
   .rating-box {
-    background: #121212;
-    border: 1px solid rgba(255, 255, 255, 0.09);
-    border-radius: 8px;
+    background: #111111;
+    border: 1px solid rgba(255, 255, 255, 0.1);
     display: grid;
-    grid-template-columns: 280px 1fr;
+    grid-template-columns: 290px 1fr;
     overflow: hidden;
   }
 
+  .celebrate-pulse {
+    animation: boxGlowCelebrate 0.8s ease-out;
+  }
+
+  @keyframes boxGlowCelebrate {
+    0% { border-color: #27c93f; box-shadow: 0 0 30px rgba(39, 201, 63, 0.35); }
+    100% { border-color: rgba(255, 255, 255, 0.1); box-shadow: none; }
+  }
+
   .rating-stat-column {
-    background: #171717;
+    background: #151515;
     border-right: 1px solid rgba(255, 255, 255, 0.08);
     padding: var(--space-xl) var(--space-lg);
     display: flex;
@@ -569,12 +1267,37 @@ const initialAvg = initialCount > 0
     text-align: center;
   }
 
+  .score-orbit-wrap {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: var(--space-xs);
+  }
+
   .big-score {
     font-family: var(--font-display);
-    font-size: 4.5rem;
+    font-size: 4.8rem;
     line-height: 1;
     font-weight: 700;
-    margin-bottom: var(--space-xs);
+    transition: transform 0.25s cubic-bezier(0.34, 1.56, 0.64, 1);
+  }
+
+  .big-score.score-pop {
+    transform: scale(1.18);
+    color: #ffb800;
+  }
+
+  .score-ring {
+    position: absolute;
+    inset: -12px;
+    border-radius: 50%;
+    border: 1px dashed rgba(255, 255, 255, 0.12);
+    animation: rotateSlow 24s linear infinite;
+  }
+
+  @keyframes rotateSlow {
+    to { transform: rotate(360deg); }
   }
 
   .stars-visual {
@@ -590,7 +1313,8 @@ const initialAvg = initialCount > 0
   }
 
   .score-info-text {
-    font-size: 0.85rem;
+    font-family: 'Fira Code', monospace;
+    font-size: 0.8rem;
     color: var(--color-text-muted);
   }
 
@@ -602,7 +1326,8 @@ const initialAvg = initialCount > 0
   }
 
   .vote-prompt {
-    font-size: 1.5rem;
+    font-size: 1.55rem;
+    font-family: var(--font-display);
     margin-bottom: var(--space-xs);
   }
 
@@ -626,11 +1351,11 @@ const initialAvg = initialCount > 0
     color: rgba(255, 255, 255, 0.2);
     cursor: pointer;
     padding: 4px;
-    transition: transform 0.15s ease, color 0.15s ease;
+    transition: transform 0.2s cubic-bezier(0.34, 1.56, 0.64, 1), color 0.15s ease;
   }
 
   .star-button:hover {
-    transform: scale(1.25);
+    transform: scale(1.35) rotate(5deg);
   }
 
   .star-button.hover,
@@ -639,7 +1364,8 @@ const initialAvg = initialCount > 0
   }
 
   .vote-feedback {
-    font-size: 0.9rem;
+    font-family: 'Fira Code', monospace;
+    font-size: 0.85rem;
     color: var(--color-text-muted);
     min-height: 1.5em;
     margin-bottom: var(--space-lg);
@@ -656,8 +1382,20 @@ const initialAvg = initialCount > 0
   }
 
   .vote-tag {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    font-family: 'Fira Code', monospace;
     font-size: 0.8rem;
     color: #27c93f;
+  }
+
+  .live-beacon {
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: #27c93f;
+    box-shadow: 0 0 8px #27c93f;
   }
 
   .inline-link {
@@ -672,7 +1410,9 @@ const initialAvg = initialCount > 0
     color: var(--color-accent);
   }
 
-  /* 4. SKILLS GRID */
+  /* =============================================================
+     9. SKILLS GRID WITH ACCENT TOP LINES
+     ============================================================= */
   .skills-grid {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
@@ -680,16 +1420,34 @@ const initialAvg = initialCount > 0
   }
 
   .skill-group {
-    background: #121212;
-    border: 1px solid rgba(255, 255, 255, 0.08);
-    border-radius: 8px;
+    background: #111111;
+    border: 1px solid rgba(255, 255, 255, 0.09);
     padding: var(--space-lg);
     display: flex;
     flex-direction: column;
+    overflow: hidden;
+  }
+
+  .card-top-line {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 3px;
+  }
+
+  .line-cyan { background: #61afef; }
+  .line-purple { background: #b37feb; }
+  .line-gold { background: #f5b244; }
+
+  .skill-group:hover {
+    border-color: rgba(255, 255, 255, 0.28);
+    box-shadow: 0 16px 36px rgba(0, 0, 0, 0.5);
   }
 
   .skill-group-title {
     font-size: 1.35rem;
+    font-family: var(--font-display);
     margin-bottom: var(--space-xs);
   }
 
@@ -704,31 +1462,77 @@ const initialAvg = initialCount > 0
   .pills-flex {
     display: flex;
     flex-wrap: wrap;
-    gap: 6px;
+    gap: 8px;
     border-top: var(--divider);
     padding-top: var(--space-md);
   }
 
   .pill {
-    font-size: 0.75rem;
+    font-family: 'Fira Code', monospace;
+    font-size: 0.74rem;
     padding: 4px 10px;
     background: rgba(255, 255, 255, 0.04);
     border: 1px solid rgba(255, 255, 255, 0.1);
-    border-radius: 14px;
     color: var(--color-text-primary);
+    transition: all var(--transition-smooth);
   }
 
-  /* 6. CONNECT BANNER */
+  .pill:hover {
+    border-color: var(--color-accent);
+    background: rgba(179, 0, 0, 0.1);
+    transform: translateY(-2px);
+  }
+
+  .pill-link {
+    color: var(--color-accent);
+    border-color: rgba(179, 0, 0, 0.3);
+    text-decoration: none;
+  }
+
+  .pill-link:hover {
+    background: var(--color-accent);
+    color: #ffffff;
+  }
+
+  /* =============================================================
+     10. CONNECT BANNER WITH LASER SWEEP SCANNER
+     ============================================================= */
   .connect-banner {
-    background: #151515;
-    border: 1px solid rgba(255, 255, 255, 0.1);
-    border-radius: 8px;
+    background: #111111;
+    border: 1px solid rgba(255, 255, 255, 0.12);
     padding: var(--space-2xl) var(--space-xl);
     text-align: center;
+    overflow: hidden;
+  }
+
+  .banner-scanner-line {
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 60%;
+    height: 2px;
+    background: linear-gradient(90deg, transparent, var(--color-accent), #ffffff, var(--color-accent), transparent);
+    animation: scannerSweep 5s ease-in-out infinite;
+  }
+
+  @keyframes scannerSweep {
+    0% { left: -60%; }
+    100% { left: 140%; }
+  }
+
+  .banner-inner {
+    position: relative;
+    z-index: 1;
+  }
+
+  .mb-sm {
+    margin-bottom: var(--space-xs);
+    display: inline-block;
   }
 
   .connect-title {
     font-size: clamp(1.8rem, 4vw, 2.8rem);
+    font-family: var(--font-display);
     margin-bottom: var(--space-xs);
   }
 
@@ -747,7 +1551,9 @@ const initialAvg = initialCount > 0
     flex-wrap: wrap;
   }
 
-  /* RESPONSIVE */
+  /* =============================================================
+     11. RESPONSIVE BREAKPOINTS
+     ============================================================= */
   @media (max-width: 980px) {
     .hero-wrapper {
       grid-template-columns: 1fr;
@@ -762,6 +1568,9 @@ const initialAvg = initialCount > 0
     }
     .skills-grid {
       grid-template-columns: 1fr;
+    }
+    .floating-chips-layer {
+      display: none;
     }
   }
 
