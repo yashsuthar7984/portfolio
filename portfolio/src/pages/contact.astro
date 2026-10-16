@@ -165,7 +165,6 @@ import BaseLayout from '../layouts/BaseLayout.astro';
     height: 7px;
     background-color: var(--color-accent);
     border-radius: 50%;
-    box-shadow: 0 0 8px rgba(179, 0, 0, 0.7);
   }
 
   .title {
@@ -213,7 +212,7 @@ import BaseLayout from '../layouts/BaseLayout.astro';
   }
 
   .email-link {
-    color: #ffffff;
+    color: var(--color-text-primary);
     font-family: var(--font-text);
     font-size: 1.1rem;
     transition: opacity var(--transition-smooth);
@@ -307,8 +306,8 @@ import BaseLayout from '../layouts/BaseLayout.astro';
   .contact-form input:focus,
   .contact-form textarea:focus {
     outline: none;
-    border-color: #ffffff;
-    background: #252830;
+    border-color: #111111;
+    background: #ffffff;
   }
 
   .submit-btn {
@@ -317,8 +316,8 @@ import BaseLayout from '../layouts/BaseLayout.astro';
     justify-content: center;
     gap: 8px;
     padding: 12px;
-    background: #ffffff;
-    color: #121316;
+    background: #111111;
+    color: #ffffff;
     border: none;
     cursor: pointer;
     font-family: var(--font-display);
@@ -332,7 +331,7 @@ import BaseLayout from '../layouts/BaseLayout.astro';
   }
 
   .submit-btn:hover {
-    background: #e2e4e8;
+    background: #2a2a2a;
     transform: translateY(-2px);
   }
 
@@ -363,12 +362,12 @@ import BaseLayout from '../layouts/BaseLayout.astro';
   .form-status.success {
     background: rgba(39, 201, 63, 0.12);
     border: 1px solid rgba(39, 201, 63, 0.35);
-    color: #38e154;
+    color: #15803d;
   }
 
   .form-status.error {
     background: rgba(255, 77, 77, 0.12);
     border: 1px solid rgba(255, 77, 77, 0.35);
-    color: #ff5f56;
+    color: #b91c1c;
   }
 </style>

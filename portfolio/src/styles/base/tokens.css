@@ -1,17 +1,17 @@
 :root {
-  /* Stealth Dark Titanium & Stark White Theme */
-  --color-bg: #121316;
-  --color-surface: #191b20;
-  --color-surface-elevated: #20232a;
-  --color-surface-hover: #262932;
-  --color-text-primary: #ffffff;
-  --color-text-muted: #8e95a2;
-  --color-text-dim: #606775;
-  --color-accent: #ffffff;
-  --color-accent-inverse: #121316;
-  --color-border: rgba(255, 255, 255, 0.08);
-  --color-border-hover: rgba(255, 255, 255, 0.22);
-  --color-border-subtle: rgba(255, 255, 255, 0.05);
+  /* Editorial Light Monochrome Theme: Off-White & Carbon Black */
+  --color-bg: #f7f7f5;
+  --color-surface: #ffffff;
+  --color-surface-elevated: #efefed;
+  --color-surface-hover: #e6e6e2;
+  --color-text-primary: #111111;
+  --color-text-muted: #5e646e;
+  --color-text-dim: #8b929d;
+  --color-accent: #111111;
+  --color-accent-inverse: #ffffff;
+  --color-border: rgba(0, 0, 0, 0.09);
+  --color-border-hover: rgba(0, 0, 0, 0.28);
+  --color-border-subtle: rgba(0, 0, 0, 0.05);
 
   --font-display: 'Oswald', system-ui, -apple-system, sans-serif;
   --font-text: 'Inter', system-ui, -apple-system, sans-serif;
@@ -24,7 +24,7 @@
   --space-xl: 4rem;
   --space-2xl: 8rem;
 
-  --divider: 1px solid rgba(255, 255, 255, 0.08);
+  --divider: 1px solid rgba(0, 0, 0, 0.08);
   --transition-smooth: 0.35s cubic-bezier(0.16, 1, 0.3, 1);
   --transition-fast: 0.18s cubic-bezier(0.16, 1, 0.3, 1);
 }

@@ -126,7 +126,7 @@ import { featuredVideo, shortVideos } from '../../../data/videos.js';
   }
 
   .rec-meta {
-    color: rgba(255,255,255,0.4);
+    color: var(--color-text-muted);
     font-size: 0.75rem;
     letter-spacing: 0.05em;
     margin-top: 4px;
@@ -144,7 +144,7 @@ import { featuredVideo, shortVideos } from '../../../data/videos.js';
     text-transform: uppercase;
     font-size: clamp(2rem, 8vw, 6.5rem); 
     line-height: 1;
-    color: #ffffff;
+    color: var(--color-text-primary);
     margin-bottom: 30px;
     letter-spacing: -0.02em;
     white-space: nowrap; /* Forces text onto a single line */
@@ -157,7 +157,7 @@ import { featuredVideo, shortVideos } from '../../../data/videos.js';
   .tag {
     display: inline-block;
     padding: 4px 14px;
-    background: rgba(255, 255, 255, 0.04);
+    background: rgba(0, 0, 0, 0.04);
     border: 1px solid var(--color-border);
     border-radius: 0;
     font-family: var(--font-code);
@@ -178,10 +178,10 @@ import { featuredVideo, shortVideos } from '../../../data/videos.js';
   .insta-btn {
     display: inline-block;
     padding: 11px 24px;
-    background: #ffffff;
+    background: #111111;
     border: none;
     border-radius: 0;
-    color: #121316;
+    color: #ffffff;
     font-family: var(--font-display);
     font-size: 0.9rem;
     font-weight: 600;
@@ -192,9 +192,10 @@ import { featuredVideo, shortVideos } from '../../../data/videos.js';
   }
 
   .insta-btn:hover {
-    background: #e2e4e8;
+    background: #2a2a2a;
+    color: #ffffff;
     transform: translateY(-2px);
-    box-shadow: 0 4px 18px rgba(255, 255, 255, 0.12);
+    box-shadow: 0 4px 18px rgba(0, 0, 0, 0.15);
   }
 
   /* Video Gallery Grid */
@@ -212,12 +213,13 @@ import { featuredVideo, shortVideos } from '../../../data/videos.js';
     padding: 14px;
     display: flex;
     flex-direction: column;
-    transition: transform var(--transition-smooth), border-color var(--transition-smooth);
+    transition: transform var(--transition-smooth), border-color var(--transition-smooth), box-shadow var(--transition-smooth);
   }
 
   .video-card:hover {
     transform: translateY(-4px);
     border-color: var(--color-border-hover);
+    box-shadow: 0 12px 30px rgba(0, 0, 0, 0.06);
   }
 
   .card-header, .card-footer {

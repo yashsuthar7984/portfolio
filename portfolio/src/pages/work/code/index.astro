@@ -89,7 +89,6 @@ import BaseLayout from '../../../layouts/BaseLayout.astro';
     height: 7px;
     background-color: var(--color-accent);
     border-radius: 50%;
-    box-shadow: 0 0 8px rgba(179, 0, 0, 0.7);
   }
 
   .title {
@@ -113,7 +112,7 @@ import BaseLayout from '../../../layouts/BaseLayout.astro';
     gap: 8px;
     padding: 10px 24px;
     border: none;
-    color: #121316;
+    color: #ffffff;
     font-family: var(--font-display);
     text-transform: uppercase;
     letter-spacing: 0.06em;
@@ -121,16 +120,16 @@ import BaseLayout from '../../../layouts/BaseLayout.astro';
     font-weight: 600;
     border-radius: 0;
     transition: all var(--transition-smooth);
-    background: #ffffff;
+    background: #111111;
     cursor: pointer;
     text-decoration: none;
   }
 
   .github-cta-btn:hover {
-    background: #e2e4e8;
-    color: #121316;
+    background: #2a2a2a;
+    color: #ffffff;
     transform: translateY(-2px);
-    box-shadow: 0 4px 18px rgba(255, 255, 255, 0.12);
+    box-shadow: 0 4px 18px rgba(0, 0, 0, 0.15);
   }
 
   .btn-arrow {
@@ -222,8 +221,8 @@ import BaseLayout from '../../../layouts/BaseLayout.astro';
     align-items: center;
     gap: 6px;
     padding: 8px 20px;
-    background: rgba(255, 255, 255, 0.04);
-    border: 1px solid rgba(255, 255, 255, 0.15);
+    background: rgba(0, 0, 0, 0.04);
+    border: 1px solid var(--color-border);
     color: var(--color-text-primary);
     font-family: var(--font-display);
     font-size: 0.85rem;
@@ -234,9 +233,9 @@ import BaseLayout from '../../../layouts/BaseLayout.astro';
   }
 
   .view-profile-btn:hover {
-    background: rgba(255, 255, 255, 0.1);
-    border-color: rgba(255, 255, 255, 0.3);
-    color: #ffffff;
+    background: rgba(0, 0, 0, 0.08);
+    border-color: var(--color-border-hover);
+    color: #111111;
     transform: translateY(-2px);
   }
 </style>
