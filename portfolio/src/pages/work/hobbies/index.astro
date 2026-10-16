@@ -156,67 +156,68 @@ import { featuredVideo, shortVideos } from '../../../data/videos.js';
 
   .tag {
     display: inline-block;
-    padding: 6px 16px;
-    background: rgba(255,255,255,0.05);
-    border: 1px solid rgba(255,255,255,0.1);
-    border-radius: 20px;
-    font-family: 'Inter', sans-serif;
-    font-size: 0.8rem;
-    color: #ccc;
+    padding: 4px 14px;
+    background: rgba(255, 255, 255, 0.04);
+    border: 1px solid var(--color-border);
+    border-radius: 0;
+    font-family: var(--font-code);
+    font-size: 0.78rem;
+    color: var(--color-text-muted);
     letter-spacing: 0.05em;
   }
 
   .desc {
-    color: #888;
-    font-family: 'Inter', sans-serif;
+    color: var(--color-text-muted);
+    font-family: var(--font-text);
     font-size: 1.05rem;
     line-height: 1.6;
-    max-width: 500px;
+    max-width: 520px;
     margin-bottom: 30px;
   }
 
   .insta-btn {
     display: inline-block;
-    padding: 12px 24px;
-    background: rgba(255, 60, 60, 0.05);
-    border: 1px solid rgba(255, 60, 60, 0.3);
-    border-radius: 30px;
-    color: #fff;
-    font-family: 'Inter', sans-serif;
+    padding: 11px 24px;
+    background: #ffffff;
+    border: none;
+    border-radius: 0;
+    color: #121316;
+    font-family: var(--font-display);
     font-size: 0.9rem;
+    font-weight: 600;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
     text-decoration: none;
-    transition: all 0.3s ease;
-    box-shadow: 0 0 20px rgba(255, 60, 60, 0.1);
+    transition: all var(--transition-smooth);
   }
 
   .insta-btn:hover {
-    background: rgba(255, 60, 60, 0.15);
-    border-color: rgba(255, 60, 60, 0.6);
-    box-shadow: 0 0 30px rgba(255, 60, 60, 0.2);
+    background: #e2e4e8;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 18px rgba(255, 255, 255, 0.12);
   }
 
   /* Video Gallery Grid */
   .video-gallery {
     display: grid;
     grid-template-columns: 2fr 1fr 1fr;
-    gap: 24px;
+    gap: 20px;
     align-items: stretch;
   }
 
   .video-card {
-    background: rgba(15, 15, 15, 0.6);
-    backdrop-filter: blur(10px);
-    border: 1px solid rgba(255, 255, 255, 0.08);
-    border-radius: 16px;
-    padding: 16px;
+    background: var(--color-surface);
+    border: 1px solid var(--color-border);
+    border-radius: 8px;
+    padding: 14px;
     display: flex;
     flex-direction: column;
-    transition: transform 0.3s ease, border-color 0.3s ease;
+    transition: transform var(--transition-smooth), border-color var(--transition-smooth);
   }
 
   .video-card:hover {
     transform: translateY(-4px);
-    border-color: rgba(255, 255, 255, 0.2);
+    border-color: var(--color-border-hover);
   }
 
   .card-header, .card-footer {

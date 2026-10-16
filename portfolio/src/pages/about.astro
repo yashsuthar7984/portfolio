@@ -812,21 +812,25 @@ function getCategoryInfo(type: string) {
 
   .bio-card,
   .cert-card {
-    background: rgba(18, 18, 18, 0.75);
-    border: 1px solid rgba(255, 255, 255, 0.08);
+    background: var(--color-surface);
+    border: 1px solid var(--color-border);
     border-radius: 8px;
     overflow: hidden;
-    backdrop-filter: blur(10px);
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
     display: flex;
     flex-direction: column;
     height: 100%;
+    transition: border-color var(--transition-smooth);
+  }
+
+  .bio-card:hover,
+  .cert-card:hover {
+    border-color: var(--color-border-hover);
   }
 
   .window-header {
-    background: rgba(26, 26, 26, 0.9);
+    background: var(--color-surface-elevated);
     padding: 10px 16px;
-    border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+    border-bottom: 1px solid var(--color-border);
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -898,10 +902,16 @@ function getCategoryInfo(type: string) {
     font-family: 'Fira Code', monospace;
     font-size: 0.75rem;
     padding: 4px 12px;
-    background: rgba(255, 255, 255, 0.03);
-    border: 1px solid rgba(255, 255, 255, 0.1);
+    background: rgba(255, 255, 255, 0.04);
+    border: 1px solid var(--color-border);
     border-radius: 16px;
     color: var(--color-text-primary);
+    transition: all var(--transition-fast);
+  }
+
+  .skill-pill:hover {
+    border-color: var(--color-border-hover);
+    background: rgba(255, 255, 255, 0.08);
   }
 
   /* Reviews Section */
@@ -936,9 +946,14 @@ function getCategoryInfo(type: string) {
     gap: 16px;
     margin-bottom: var(--space-lg);
     flex-wrap: wrap;
-    background: #0d0d0d;
-    border: 1px solid rgba(255, 255, 255, 0.08);
+    background: var(--color-surface);
+    border: 1px solid var(--color-border);
     padding: 10px 14px;
+    transition: border-color var(--transition-smooth);
+  }
+
+  .reviews-controls-bar:hover {
+    border-color: var(--color-border-hover);
   }
 
   .filter-controls-group {
@@ -963,8 +978,8 @@ function getCategoryInfo(type: string) {
   }
 
   .filter-dropdown {
-    background: #181818;
-    border: 1px solid rgba(255, 255, 255, 0.15);
+    background: var(--color-surface-elevated);
+    border: 1px solid var(--color-border);
     color: var(--color-text-primary);
     padding: 6px 26px 6px 10px;
     font-family: 'Fira Code', monospace;
@@ -981,15 +996,15 @@ function getCategoryInfo(type: string) {
 
   .filter-dropdown:focus {
     outline: none;
-    border-color: var(--color-accent);
+    border-color: #ffffff;
   }
 
   .toggle-form-btn {
     display: inline-flex;
     align-items: center;
     gap: 6px;
-    background: transparent;
-    border: 1px solid var(--color-accent);
+    background: rgba(255, 255, 255, 0.06);
+    border: 1px solid var(--color-border);
     color: var(--color-text-primary);
     padding: 6px 14px;
     font-family: var(--font-display);
@@ -1002,8 +1017,8 @@ function getCategoryInfo(type: string) {
   }
 
   .toggle-form-btn:hover {
-    background: var(--color-accent);
-    color: #ffffff;
+    background: #ffffff;
+    color: #121316;
   }
 
   .btn-toggle-icon {
@@ -1023,11 +1038,11 @@ function getCategoryInfo(type: string) {
 
   :global(.review-card) {
     position: relative;
-    background: #111111;
-    border: 1px solid rgba(255, 255, 255, 0.1);
+    background: var(--color-surface);
+    border: 1px solid var(--color-border);
     border-radius: 0;
     box-shadow: none;
-    padding: 12px 16px;
+    padding: 14px 18px;
     transition: transform var(--transition-smooth), border-color var(--transition-smooth);
     display: flex;
     flex-direction: column;
@@ -1053,30 +1068,7 @@ function getCategoryInfo(type: string) {
 
   :global(.review-card:hover) {
     transform: translateY(-2px);
-    box-shadow: none;
-  }
-
-  :global(.review-card.card-tech:hover) {
-    border-color: rgba(97, 175, 239, 0.5);
-    border-top-color: #61afef;
-    box-shadow: none;
-  }
-
-  :global(.review-card.card-editing:hover) {
-    border-color: rgba(245, 178, 68, 0.5);
-    border-top-color: #f5b244;
-    box-shadow: none;
-  }
-
-  :global(.review-card.card-automotive:hover) {
-    border-color: rgba(255, 77, 77, 0.5);
-    border-top-color: #ff4d4d;
-    box-shadow: none;
-  }
-
-  :global(.review-card.card-shoots:hover) {
-    border-color: rgba(179, 127, 235, 0.5);
-    border-top-color: #b37feb;
+    border-color: var(--color-border-hover);
     box-shadow: none;
   }
 
@@ -1170,8 +1162,8 @@ function getCategoryInfo(type: string) {
   .filter-no-results {
     text-align: center;
     padding: var(--space-lg) var(--space-md);
-    background: #0d0d0d;
-    border: 1px dashed rgba(255, 255, 255, 0.12);
+    background: var(--color-surface);
+    border: 1px dashed var(--color-border);
     margin-bottom: var(--space-xl);
   }
 
@@ -1183,7 +1175,7 @@ function getCategoryInfo(type: string) {
 
   .reset-filter-btn {
     background: transparent;
-    border: 1px solid rgba(255, 255, 255, 0.25);
+    border: 1px solid var(--color-border);
     color: var(--color-text-primary);
     padding: 5px 12px;
     font-family: 'Fira Code', monospace;
@@ -1194,24 +1186,23 @@ function getCategoryInfo(type: string) {
   }
 
   .reset-filter-btn:hover {
-    border-color: var(--color-accent);
-    color: var(--color-accent);
+    border-color: #ffffff;
+    color: #ffffff;
   }
 
   /* Empty State */
   .empty-reviews-state {
-    background: rgba(18, 18, 18, 0.55);
-    border: 1px dashed rgba(255, 255, 255, 0.15);
+    background: var(--color-surface);
+    border: 1px dashed var(--color-border);
     border-radius: 8px;
     padding: var(--space-xl) var(--space-lg);
     text-align: center;
     margin-bottom: var(--space-2xl);
-    backdrop-filter: blur(8px);
   }
 
   .empty-star-badge {
     font-size: 2rem;
-    color: var(--color-accent);
+    color: #ffb800;
     margin-bottom: var(--space-xs);
   }
 
@@ -1239,37 +1230,36 @@ function getCategoryInfo(type: string) {
     align-items: center;
     gap: 6px;
     padding: 8px 20px;
-    background: rgba(255, 255, 255, 0.04);
-    border: 1px solid var(--color-accent);
-    color: var(--color-text-primary);
+    background: #ffffff;
+    border: 1px solid #ffffff;
+    color: #121316;
     font-family: var(--font-display);
     font-size: 0.85rem;
     text-transform: uppercase;
     letter-spacing: 0.05em;
-    border-radius: 4px;
+    font-weight: 600;
+    border-radius: 0;
+    cursor: pointer;
     transition: all var(--transition-smooth);
   }
 
   .scroll-btn:hover {
-    background: var(--color-accent);
-    color: #ffffff;
-    box-shadow: 0 4px 15px rgba(179, 0, 0, 0.35);
+    background: #e2e4e8;
   }
 
   /* Review Submission Window */
   .review-form-window {
-    background: #0f0f0f;
-    border: 1px solid rgba(255, 255, 255, 0.1);
+    background: var(--color-surface);
+    border: 1px solid var(--color-border);
     border-radius: 8px;
     overflow: hidden;
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
     margin: 0 auto;
   }
 
   .window-header {
-    background: #181818;
+    background: var(--color-surface-elevated);
     padding: 10px 16px;
-    border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+    border-bottom: 1px solid var(--color-border);
   }
 
   .window-title {
@@ -1316,12 +1306,12 @@ function getCategoryInfo(type: string) {
   .form-group select,
   .form-group textarea {
     padding: 12px 14px;
-    background: var(--color-surface);
-    border: var(--divider);
+    background: var(--color-surface-elevated);
+    border: 1px solid var(--color-border);
     color: var(--color-text-primary);
     font-family: var(--font-text);
     font-size: 0.95rem;
-    border-radius: 4px;
+    border-radius: 0;
     width: 100%;
     transition: border-color var(--transition-smooth), background var(--transition-smooth);
   }
@@ -1339,8 +1329,8 @@ function getCategoryInfo(type: string) {
   .form-group select:focus,
   .form-group textarea:focus {
     outline: none;
-    border-color: var(--color-accent);
-    background: #181818;
+    border-color: #ffffff;
+    background: #252830;
   }
 
   .submit-action-btn {
@@ -1349,22 +1339,22 @@ function getCategoryInfo(type: string) {
     justify-content: center;
     gap: 8px;
     padding: 12px;
-    background: var(--color-accent);
-    color: #ffffff;
+    background: #ffffff;
+    color: #121316;
     border: none;
     cursor: pointer;
     font-family: var(--font-display);
     text-transform: uppercase;
     font-size: 0.95rem;
+    font-weight: 600;
     letter-spacing: 0.05em;
-    border-radius: 4px;
+    border-radius: 0;
     transition: all var(--transition-smooth);
     margin-top: var(--space-xs);
   }
 
   .submit-action-btn:hover {
-    background: #d60000;
-    box-shadow: 0 4px 18px rgba(179, 0, 0, 0.35);
+    background: #e2e4e8;
     transform: translateY(-2px);
   }
 
@@ -1385,7 +1375,7 @@ function getCategoryInfo(type: string) {
 
   .form-status {
     padding: 12px 14px;
-    border-radius: 4px;
+    border-radius: 0;
     font-size: 0.9rem;
     line-height: 1.5;
     font-family: var(--font-text);
@@ -1393,14 +1383,14 @@ function getCategoryInfo(type: string) {
   }
 
   .form-status.success {
-    background: rgba(39, 201, 63, 0.12);
-    border: 1px solid rgba(39, 201, 63, 0.35);
+    background: rgba(39, 201, 63, 0.1);
+    border: 1px solid rgba(39, 201, 63, 0.3);
     color: #38e154;
   }
 
   .form-status.error {
-    background: rgba(255, 77, 77, 0.12);
-    border: 1px solid rgba(255, 77, 77, 0.35);
+    background: rgba(255, 77, 77, 0.1);
+    border: 1px solid rgba(255, 77, 77, 0.3);
     color: #ff5f56;
   }
 
@@ -1409,10 +1399,10 @@ function getCategoryInfo(type: string) {
     display: flex;
     align-items: center;
     gap: 6px;
-    background: var(--color-surface);
-    border: var(--divider);
+    background: var(--color-surface-elevated);
+    border: 1px solid var(--color-border);
     padding: 8px 14px;
-    border-radius: 4px;
+    border-radius: 0;
     user-select: none;
     flex-wrap: wrap;
   }
@@ -1455,9 +1445,9 @@ function getCategoryInfo(type: string) {
     position: relative;
     border-radius: 6px;
     overflow: hidden;
-    border: 1px solid rgba(255, 255, 255, 0.15);
+    border: 1px solid var(--color-border);
     cursor: pointer;
-    background: #080808;
+    background: #0d0e11;
     aspect-ratio: 16 / 10;
     max-height: 200px;
     transition: transform var(--transition-smooth), border-color var(--transition-smooth);
@@ -1465,7 +1455,7 @@ function getCategoryInfo(type: string) {
 
   .cert-frame:hover {
     transform: scale(1.02);
-    border-color: rgba(255, 255, 255, 0.35);
+    border-color: var(--color-border-hover);
   }
 
   .certificate-image {
@@ -1573,6 +1563,16 @@ function getCategoryInfo(type: string) {
     justify-content: center;
     padding: 10px;
     font-size: 0.88rem;
+    background: #ffffff;
+    color: #121316;
+    border: none;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all var(--transition-smooth);
+  }
+
+  .view-cert-btn:hover {
+    background: #e2e4e8;
   }
 
   /* Fullscreen Modal */
@@ -1600,8 +1600,8 @@ function getCategoryInfo(type: string) {
   .cert-modal-window {
     position: relative;
     z-index: 10000;
-    background: #141414;
-    border: 1px solid rgba(255, 255, 255, 0.2);
+    background: var(--color-surface);
+    border: 1px solid var(--color-border-hover);
     border-radius: 8px;
     max-width: 960px;
     width: 100%;
@@ -1612,12 +1612,12 @@ function getCategoryInfo(type: string) {
   }
 
   .modal-header {
-    background: #1c1c1c;
+    background: var(--color-surface-elevated);
     padding: 12px 18px;
     display: flex;
     justify-content: space-between;
     align-items: center;
-    border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+    border-bottom: 1px solid var(--color-border);
   }
 
   .modal-title {
@@ -1646,7 +1646,7 @@ function getCategoryInfo(type: string) {
     overflow-y: auto;
     display: flex;
     justify-content: center;
-    background: #0a0a0a;
+    background: #0d0e11;
   }
 
   .modal-cert-img {
@@ -1657,12 +1657,12 @@ function getCategoryInfo(type: string) {
   }
 
   .modal-footer {
-    background: #181818;
+    background: var(--color-surface-elevated);
     padding: 10px 18px;
     display: flex;
     justify-content: space-between;
     align-items: center;
-    border-top: 1px solid rgba(255, 255, 255, 0.08);
+    border-top: 1px solid var(--color-border);
     flex-wrap: wrap;
     gap: 8px;
   }
@@ -1674,19 +1674,21 @@ function getCategoryInfo(type: string) {
 
   .modal-close-btn-text {
     background: transparent;
-    border: 1px solid rgba(255, 255, 255, 0.2);
+    border: 1px solid var(--color-border-hover);
     color: var(--color-text-primary);
     padding: 6px 16px;
-    border-radius: 4px;
+    border-radius: 0;
     cursor: pointer;
     font-family: var(--font-display);
     text-transform: uppercase;
     font-size: 0.8rem;
     letter-spacing: 0.05em;
+    transition: all var(--transition-fast);
   }
 
   .modal-close-btn-text:hover {
-    border-color: rgba(255, 255, 255, 0.4);
+    background: #ffffff;
+    color: #121316;
   }
 
   @media (max-width: 860px) {

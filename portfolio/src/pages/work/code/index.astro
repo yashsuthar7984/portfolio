@@ -112,22 +112,25 @@ import BaseLayout from '../../../layouts/BaseLayout.astro';
     align-items: center;
     gap: 8px;
     padding: 10px 24px;
-    border: 1px solid var(--color-accent);
-    color: var(--color-text-primary);
+    border: none;
+    color: #121316;
     font-family: var(--font-display);
     text-transform: uppercase;
-    letter-spacing: 0.05em;
+    letter-spacing: 0.06em;
     font-size: 0.95rem;
-    border-radius: 4px;
+    font-weight: 600;
+    border-radius: 0;
     transition: all var(--transition-smooth);
-    background: rgba(179, 0, 0, 0.08);
+    background: #ffffff;
+    cursor: pointer;
+    text-decoration: none;
   }
 
   .github-cta-btn:hover {
-    background: var(--color-accent);
-    color: white;
-    box-shadow: 0 4px 18px rgba(179, 0, 0, 0.4);
+    background: #e2e4e8;
+    color: #121316;
     transform: translateY(-2px);
+    box-shadow: 0 4px 18px rgba(255, 255, 255, 0.12);
   }
 
   .btn-arrow {
@@ -140,19 +143,23 @@ import BaseLayout from '../../../layouts/BaseLayout.astro';
 
   /* Repo Window */
   .repo-window {
-    background: #0f0f0f;
-    border: 1px solid rgba(255, 255, 255, 0.1);
+    background: var(--color-surface);
+    border: 1px solid var(--color-border);
     border-radius: 8px;
     overflow: hidden;
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
     text-align: center;
     margin-top: var(--space-lg);
+    transition: border-color var(--transition-smooth);
+  }
+
+  .repo-window:hover {
+    border-color: var(--color-border-hover);
   }
 
   .window-header {
-    background: #181818;
+    background: var(--color-surface-elevated);
     padding: 10px 16px;
-    border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+    border-bottom: 1px solid var(--color-border);
     display: flex;
     align-items: center;
   }
