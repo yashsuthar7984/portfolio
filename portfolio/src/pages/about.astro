@@ -2,12 +2,6 @@
 import BaseLayout from '../layouts/BaseLayout.astro';
 import { reviews } from '../data/reviews.js';
 
-function getInitials(name: string) {
-  if (!name) return 'C';
-  const parts = name.trim().split(/\s+/).filter(Boolean);
-  if (parts.length === 1) return parts[0].slice(0, 2).toUpperCase();
-  return (parts[0].charAt(0) + parts[parts.length - 1].charAt(0)).toUpperCase();
-}
 
 function getCategoryInfo(type: string) {
   const t = (type || '').toLowerCase();
@@ -135,21 +129,12 @@ function getCategoryInfo(type: string) {
           <div class="reviews-grid" id="reviewsGrid" style={reviews.length > 0 ? "" : "display: none;"}>
             {reviews.map((rev) => {
               const info = getCategoryInfo(rev.projectType);
-              const initials = getInitials(rev.clientName);
 
               return (
                 <article class={`review-card card-${info.key}`}>
                   <div class="card-top-accent"></div>
                   <div class="card-header">
-                    <div class="client-meta">
-                      <div class={`avatar-monogram avatar-${info.key}`}>
-                        <span>{initials}</span>
-                      </div>
-                      <div class="client-info">
-                        <h3 class="client-name">{rev.clientName}</h3>
-                        <span class="client-sub"><span class="check-dot">&#9679;</span> Verified Client</span>
-                      </div>
-                    </div>
+                    <h3 class="client-name">{rev.clientName}</h3>
                     <span class={`type-badge type-${info.key}`}>
                       <span class="badge-icon">{info.icon}</span> {rev.projectType || info.label}
                     </span>
@@ -161,17 +146,12 @@ function getCategoryInfo(type: string) {
                         <span class="star-char">&#9733;</span>
                       ))}
                     </div>
-                    <span class="rating-pill">{(rev.rating || 5).toFixed(1)} ★</span>
                   </div>
 
                   <div class="quote-container">
                     <p class="review-quote">
                       &ldquo;{rev.comment}&rdquo;
                     </p>
-                  </div>
-
-                  <div class="card-footer">
-                    <span class="verified-indicator">&#10003; Verified Project</span>
                   </div>
                 </article>
               );
@@ -426,13 +406,6 @@ function getCategoryInfo(type: string) {
         .replace(/'/g, '&#39;');
     }
 
-    function getInitials(name) {
-      if (!name) return 'C';
-      const parts = name.trim().split(/\s+/).filter(Boolean);
-      if (parts.length === 1) return parts[0].slice(0, 2).toUpperCase();
-      return (parts[0].charAt(0) + parts[parts.length - 1].charAt(0)).toUpperCase();
-    }
-
     function getCategoryInfo(type) {
       const t = (type || '').toLowerCase();
       if (t.includes('auto') || t.includes('car') || t.includes('shoot')) {
@@ -447,7 +420,6 @@ function getCategoryInfo(type: string) {
     function createReviewCardHTML(rev) {
       const info = getCategoryInfo(rev.projectType);
       const name = rev.clientName || 'Anonymous';
-      const initials = getInitials(name);
       const rating = Number(rev.rating) || 5;
       const starsHtml = Array.from({ length: Math.min(Math.max(rating, 1), 5) })
         .map(() => '<span class="star-char">&#9733;</span>')
@@ -457,15 +429,7 @@ function getCategoryInfo(type: string) {
         <article class="review-card card-${info.key}">
           <div class="card-top-accent"></div>
           <div class="card-header">
-            <div class="client-meta">
-              <div class="avatar-monogram avatar-${info.key}">
-                <span>${initials}</span>
-              </div>
-              <div class="client-info">
-                <h3 class="client-name">${escapeHTML(name)}</h3>
-                <span class="client-sub"><span class="check-dot">&#9679;</span> Verified Client</span>
-              </div>
-            </div>
+            <h3 class="client-name">${escapeHTML(name)}</h3>
             <span class="type-badge type-${info.key}">
               <span class="badge-icon">${info.icon}</span> ${escapeHTML(rev.projectType || info.label)}
             </span>
@@ -473,17 +437,12 @@ function getCategoryInfo(type: string) {
 
           <div class="stars-system" aria-label="${rating} out of 5 stars">
             <div class="stars-gold">${starsHtml}</div>
-            <span class="rating-pill">${rating.toFixed(1)} ★</span>
           </div>
 
           <div class="quote-container">
             <p class="review-quote">
               &ldquo;${escapeHTML(rev.comment)}&rdquo;
             </p>
-          </div>
-
-          <div class="card-footer">
-            <span class="verified-indicator">&#10003; Verified Project</span>
           </div>
         </article>
       `;
@@ -846,57 +805,9 @@ function getCategoryInfo(type: string) {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    margin-bottom: var(--space-sm);
+    margin-bottom: var(--space-xs);
     gap: 12px;
     flex-wrap: wrap;
-  }
-
-  .client-meta {
-    display: flex;
-    align-items: center;
-    gap: 12px;
-  }
-
-  /* Avatar Monogram Ring */
-  .avatar-monogram {
-    width: 44px;
-    height: 44px;
-    border-radius: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-family: 'Fira Code', monospace;
-    font-weight: 700;
-    font-size: 0.95rem;
-    letter-spacing: 0.05em;
-    flex-shrink: 0;
-  }
-
-  .avatar-monogram.avatar-tech {
-    color: #61afef;
-    background: linear-gradient(135deg, rgba(97, 175, 239, 0.2) 0%, rgba(97, 175, 239, 0.05) 100%);
-    border: 1.5px solid rgba(97, 175, 239, 0.45);
-    box-shadow: 0 0 14px rgba(97, 175, 239, 0.15);
-  }
-
-  .avatar-monogram.avatar-editing {
-    color: #f5b244;
-    background: linear-gradient(135deg, rgba(245, 178, 68, 0.2) 0%, rgba(245, 178, 68, 0.05) 100%);
-    border: 1.5px solid rgba(245, 178, 68, 0.45);
-    box-shadow: 0 0 14px rgba(245, 178, 68, 0.15);
-  }
-
-  .avatar-monogram.avatar-automotive {
-    color: #ff4d4d;
-    background: linear-gradient(135deg, rgba(255, 77, 77, 0.2) 0%, rgba(255, 77, 77, 0.05) 100%);
-    border: 1.5px solid rgba(255, 77, 77, 0.45);
-    box-shadow: 0 0 14px rgba(255, 77, 77, 0.15);
-  }
-
-  .client-info {
-    display: flex;
-    flex-direction: column;
-    gap: 2px;
   }
 
   .client-name {
@@ -906,20 +817,6 @@ function getCategoryInfo(type: string) {
     letter-spacing: 0.03em;
     line-height: 1.2;
     color: var(--color-text-primary);
-  }
-
-  .client-sub {
-    font-family: 'Fira Code', monospace;
-    font-size: 0.72rem;
-    color: var(--color-text-muted);
-    display: flex;
-    align-items: center;
-    gap: 5px;
-  }
-
-  .check-dot {
-    color: #27c93f;
-    font-size: 0.65rem;
   }
 
   .type-badge {
@@ -958,12 +855,11 @@ function getCategoryInfo(type: string) {
     border: 1px solid rgba(255, 77, 77, 0.35);
   }
 
-  /* Stars System */
+  /* Stars System - Clean 5 stars */
   .stars-system {
     display: flex;
     align-items: center;
-    gap: 8px;
-    margin: var(--space-xs) 0 var(--space-sm) 0;
+    margin-bottom: var(--space-sm);
   }
 
   .stars-gold {
@@ -973,18 +869,8 @@ function getCategoryInfo(type: string) {
     text-shadow: 0 0 8px rgba(255, 184, 0, 0.3);
   }
 
-  .rating-pill {
-    font-family: 'Fira Code', monospace;
-    font-size: 0.75rem;
-    padding: 2px 8px;
-    background: rgba(255, 184, 0, 0.12);
-    color: #ffb800;
-    border-radius: 6px;
-    border: 1px solid rgba(255, 184, 0, 0.25);
-  }
-
   .quote-container {
-    margin-bottom: var(--space-md);
+    margin-bottom: 0;
   }
 
   .review-quote {
@@ -994,21 +880,6 @@ function getCategoryInfo(type: string) {
     color: var(--color-text-primary);
     margin: 0;
     font-style: italic;
-  }
-
-  .card-footer {
-    display: flex;
-    justify-content: flex-end;
-    align-items: center;
-    border-top: 1px solid rgba(255, 255, 255, 0.06);
-    padding-top: var(--space-xs);
-  }
-
-  .verified-indicator {
-    font-family: 'Fira Code', monospace;
-    font-size: 0.72rem;
-    color: #27c93f;
-    letter-spacing: 0.04em;
   }
 
   /* Empty State */
