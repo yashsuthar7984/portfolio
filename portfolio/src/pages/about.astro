@@ -18,83 +18,90 @@ import { reviews } from '../data/reviews.js';
         </p>
       </header>
 
-      <!-- Bio / Profile Block -->
-      <div class="bio-card fade-in">
-        <div class="bio-header">
-          <div class="dots-row">
-            <span class="dot red"></span>
-            <span class="dot yellow"></span>
-            <span class="dot green"></span>
-            <span class="bio-tag">profile.md</span>
+      <!-- Top Section: profile.md and certificate side by side -->
+      <div class="profile-cert-grid fade-in" id="certificate">
+        <!-- 1. Bio / Profile Card (profile.md) -->
+        <div class="bio-card">
+          <div class="window-header">
+            <div class="dots-row">
+              <span class="dot red"></span>
+              <span class="dot yellow"></span>
+              <span class="dot green"></span>
+              <span class="window-tag">profile.md</span>
+            </div>
+            <span class="cert-status-pill">&#9679; Active</span>
+          </div>
+          <div class="bio-body">
+            <p class="bio-text">
+              I am a software developer focused on building robust, scalable systems using <strong>Python</strong> and <strong>Java</strong>. I enjoy tackling complex architectural problems, engineering resilient backend services, and writing clean, secure code that performs under load.
+            </p>
+            <p class="bio-text">
+              When I step away from the IDE, I spend my time video editing and creating content (<strong>@framed.by.yash</strong>). I am actively learning the craft of video editing, experimenting with visual cuts and audio as a creative outlet.
+            </p>
+            
+            <div class="skills-row">
+              <span class="skill-pill">Python</span>
+              <span class="skill-pill">Java</span>
+              <span class="skill-pill">Backend Architecture</span>
+              <span class="skill-pill">API Security</span>
+              <span class="skill-pill">Video Editing</span>
+              <span class="skill-pill">Content Creation</span>
+            </div>
           </div>
         </div>
-        <div class="bio-body">
-          <p class="bio-text">
-            I am a software developer focused on building robust, scalable systems using <strong>Python</strong> and <strong>Java</strong>. I enjoy tackling complex architectural problems, engineering resilient backend services, and writing clean, secure code that performs under load.
-          </p>
-          <p class="bio-text">
-            When I step away from the IDE, I spend my time video editing and creating content (<strong>@framed.by.yash</strong>). I am actively learning the craft of video editing, experimenting with visual cuts and audio as a creative outlet.
-          </p>
-          
-          <div class="skills-row">
-            <span class="skill-pill">Python</span>
-            <span class="skill-pill">Java</span>
-            <span class="skill-pill">Backend Architecture</span>
-            <span class="skill-pill">API Security</span>
-            <span class="skill-pill">Video Editing</span>
-            <span class="skill-pill">Content Creation</span>
+
+        <!-- 2. Certificate Card (certificate.md) -->
+        <div class="cert-card">
+          <div class="window-header">
+            <div class="dots-row">
+              <span class="dot red"></span>
+              <span class="dot yellow"></span>
+              <span class="dot green"></span>
+              <span class="window-tag">certificate.md</span>
+            </div>
+            <span class="cert-status-pill">&#10003; Verified</span>
           </div>
-        </div>
-      </div>
 
-      <!-- Certificate Section -->
-      <section class="cert-section fade-in" id="certificate">
-        <div class="section-heading">
-          <h2 class="sub-title">Certifications</h2>
-          <p class="sub-desc">
-            Verified course completion in Generative AI and Python programming.
-          </p>
-        </div>
-
-        <div class="certificate-container">
-          <div class="certificate-preview-side">
-            <div class="cert-frame" id="openCertModal" role="button" tabindex="0" title="Click to view full certificate">
-              <img 
-                src="/certificates/technishal-genai.jpg" 
-                alt="GenAI with Python Certificate - Yash Suthar" 
-                class="certificate-image" 
-                id="certImage"
-              />
-              <div class="frame-hover-hint">
-                <span>Click to View Full Certificate</span>
+          <div class="cert-body">
+            <div class="cert-frame-wrapper">
+              <div class="cert-frame" id="openCertModal" role="button" tabindex="0" title="Click to view full certificate">
+                <img 
+                  src="/certificates/technishal-genai.jpg" 
+                  alt="GenAI with Python Certificate - Yash Suthar" 
+                  class="certificate-image" 
+                  id="certImage"
+                />
+                <div class="frame-hover-hint">
+                  <span>View Full Photo &rarr;</span>
+                </div>
               </div>
             </div>
-          </div>
 
-          <div class="certificate-text-side">
-            <span class="cert-badge">&#10003; Course Completed</span>
-            <h3 class="cert-title">GenAI with Python</h3>
-            <p class="cert-desc">
-              Practical coursework introducing core principles of generative models, foundational Python programming, and hands-on prompt workflows.
-            </p>
+            <div class="cert-details">
+              <div class="cert-title-row">
+                <h3 class="cert-title">GenAI with Python</h3>
+                <span class="cert-badge">Course Completed</span>
+              </div>
+              <p class="cert-desc">
+                Coursework covering principles of generative models, foundational Python, and prompt techniques.
+              </p>
 
-            <div class="cert-topics-card">
-              <h4 class="topics-heading">Course Highlights</h4>
-              <ul class="topics-list">
-                <li><strong>Generative AI Principles:</strong> Understanding how generative models function and process requests.</li>
-                <li><strong>Python Programming:</strong> Core scripting, logic building, and handling data structures.</li>
-                <li><strong>Prompt Techniques:</strong> Structuring context and working with AI models effectively.</li>
-              </ul>
-            </div>
+              <div class="cert-topics-card">
+                <h4 class="topics-heading">Course Highlights</h4>
+                <ul class="topics-list">
+                  <li><strong>GenAI Principles:</strong> Model workflows &amp; architecture</li>
+                  <li><strong>Python Scripting:</strong> Data handling &amp; core logic</li>
+                  <li><strong>Prompt Techniques:</strong> Context structuring &amp; AI integration</li>
+                </ul>
+              </div>
 
-            <div class="cert-actions">
-              <button type="button" class="submit-action-btn" id="viewCertButton" style="margin-top: 0;">
+              <button type="button" class="submit-action-btn view-cert-btn" id="viewCertButton">
                 <span>View Full Certificate Photo</span>
               </button>
             </div>
           </div>
         </div>
-      </section>
+      </div>
 
       <!-- Reviews Section -->
       <section class="reviews-section fade-in" id="reviews">
@@ -105,9 +112,9 @@ import { reviews } from '../data/reviews.js';
           </p>
         </div>
 
-        <!-- Published Reviews (or Clean Empty State) -->
-        {reviews.length > 0 ? (
-          <div class="reviews-grid">
+        <!-- Published Reviews (Live from Google Sheets + Pre-rendered Fallback) -->
+        <div id="reviewsContainer" class="reviews-container">
+          <div class="reviews-grid" id="reviewsGrid" style={reviews.length > 0 ? "" : "display: none;"}>
             {reviews.map((rev) => {
               const t = (rev.projectType || '').toLowerCase();
               const category = t.includes('auto') || t.includes('car') || t.includes('shoot')
@@ -146,8 +153,8 @@ import { reviews } from '../data/reviews.js';
               );
             })}
           </div>
-        ) : (
-          <div class="empty-reviews-state">
+
+          <div class="empty-reviews-state" id="emptyReviewsState" style={reviews.length > 0 ? "display: none;" : ""}>
             <div class="empty-star-badge">&#9733;</div>
             <h3>No Reviews Published Yet</h3>
             <p>
@@ -158,7 +165,7 @@ import { reviews } from '../data/reviews.js';
               Leave a Review &darr;
             </a>
           </div>
-        )}
+        </div>
 
         <!-- Terminal Form to Submit a Review -->
         <div class="review-form-window" id="review-form">
@@ -384,6 +391,81 @@ import { reviews } from '../data/reviews.js';
       updateStarsDisplay(selectedRating, false);
     });
 
+    // Helper to safely escape user inputs
+    function escapeHTML(str) {
+      if (!str) return '';
+      return String(str)
+        .replace(/&/g, '&amp;')
+        .replace(/</g, '&lt;')
+        .replace(/>/g, '&gt;')
+        .replace(/"/g, '&quot;')
+        .replace(/'/g, '&#39;');
+    }
+
+    function createReviewCardHTML(rev) {
+      const t = (rev.projectType || '').toLowerCase();
+      const category = t.includes('auto') || t.includes('car') || t.includes('shoot')
+        ? 'automotive'
+        : (t.includes('edit') ? 'editing' : 'tech');
+
+      const name = rev.clientName || 'Anonymous';
+      const initial = name.charAt(0).toUpperCase();
+      const rating = Number(rev.rating) || 5;
+      const starsHtml = Array.from({ length: Math.min(Math.max(rating, 1), 5) })
+        .map(() => '<span class="star-char">&#9733;</span>')
+        .join('');
+
+      return `
+        <article class="review-card card-${category}">
+          <div class="card-header">
+            <div class="client-meta">
+              <span class="avatar-circle avatar-${category}">${initial}</span>
+              <h3 class="client-name">${escapeHTML(name)}</h3>
+            </div>
+            <span class="type-badge type-${category}">
+              ${escapeHTML(rev.projectType || 'Tech-related')}
+            </span>
+          </div>
+
+          <div class="stars-system" aria-label="${rating} out of 5 stars">
+            <div class="stars-gold">${starsHtml}</div>
+            <span class="rating-num">${rating.toFixed(1)} / 5.0</span>
+          </div>
+
+          <p class="review-quote">
+            "${escapeHTML(rev.comment)}"
+          </p>
+
+          <div class="card-footer">
+            <span class="verified-indicator">&#10003; Verified Project</span>
+          </div>
+        </article>
+      `;
+    }
+
+    const reviewsGrid = document.getElementById("reviewsGrid");
+    const emptyState = document.getElementById("emptyReviewsState");
+    const reviewsEndpoint = "https://script.google.com/macros/s/AKfycby04ELFZtQYqk2jRt6Tr5sOlijQ9GgEvhJssfV9_Txxa39sS3R49MpShwCBQnwd46pZ/exec";
+
+    async function loadReviewsFromSheet() {
+      try {
+        const res = await fetch(reviewsEndpoint);
+        if (!res.ok) return;
+        const data = await res.json();
+        if (Array.isArray(data) && data.length > 0) {
+          if (reviewsGrid && emptyState) {
+            reviewsGrid.innerHTML = data.map(createReviewCardHTML).join('');
+            reviewsGrid.style.display = 'grid';
+            emptyState.style.display = 'none';
+          }
+        }
+      } catch (e) {
+        console.warn('Could not load live reviews from sheet:', e);
+      }
+    }
+
+    loadReviewsFromSheet();
+
     // Review form async submission to Google Apps Script
     const reviewForm = document.getElementById("reviewSubmissionForm");
     const reviewStatus = document.getElementById("reviewStatus");
@@ -408,7 +490,7 @@ import { reviews } from '../data/reviews.js';
         };
 
         try {
-          await fetch("https://script.google.com/macros/s/AKfycby04ELFZtQYqk2jRt6Tr5sOlijQ9GgEvhJssfV9_Txxa39sS3R49MpShwCBQnwd46pZ/exec", {
+          await fetch(reviewsEndpoint, {
             method: "POST",
             mode: "no-cors",
             headers: {
@@ -418,8 +500,24 @@ import { reviews } from '../data/reviews.js';
           });
 
           reviewStatus.className = "form-status success";
-          reviewStatus.innerHTML = "&#10003; <strong>Review Submitted!</strong> Thank you for your feedback. Your review has been recorded in the database and will appear after moderation.";
+          reviewStatus.innerHTML = "&#10003; <strong>Review Submitted!</strong> Thank you for your feedback. Your review has been recorded in the database.";
           reviewStatus.style.display = "block";
+
+          // Instantly show the submitted review on the page
+          if (reviewsGrid) {
+            const newCardHtml = createReviewCardHTML({
+              clientName: payload.client_name,
+              projectType: payload.project_type,
+              rating: payload.stars_rating,
+              comment: payload.review_text
+            });
+            reviewsGrid.insertAdjacentHTML('afterbegin', newCardHtml);
+            reviewsGrid.style.display = 'grid';
+          }
+          if (emptyState) {
+            emptyState.style.display = 'none';
+          }
+
           reviewForm.reset();
           selectedRating = 5;
           updateStarsDisplay(5, false);
@@ -446,7 +544,7 @@ import { reviews } from '../data/reviews.js';
   }
 
   .content-container {
-    max-width: 780px;
+    max-width: 1060px;
     margin: 0 auto;
   }
 
@@ -504,21 +602,35 @@ import { reviews } from '../data/reviews.js';
     margin: 0 auto;
   }
 
-  /* Bio Card */
-  .bio-card {
+  /* Profile & Certificate Side-by-Side Grid */
+  .profile-cert-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: var(--space-xl);
+    margin-bottom: var(--space-2xl);
+    align-items: stretch;
+  }
+
+  .bio-card,
+  .cert-card {
     background: rgba(18, 18, 18, 0.75);
     border: 1px solid rgba(255, 255, 255, 0.08);
     border-radius: 8px;
     overflow: hidden;
     backdrop-filter: blur(10px);
-    margin-bottom: var(--space-2xl);
     box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
+    display: flex;
+    flex-direction: column;
+    height: 100%;
   }
 
-  .bio-header {
+  .window-header {
     background: rgba(26, 26, 26, 0.9);
     padding: 10px 16px;
     border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
   }
 
   .dots-row {
@@ -537,15 +649,30 @@ import { reviews } from '../data/reviews.js';
   .dot.yellow { background: #ffbd2e; }
   .dot.green { background: #27c93f; }
 
-  .bio-tag {
+  .window-tag {
     font-family: 'Fira Code', monospace;
     font-size: 0.75rem;
     color: var(--color-text-muted);
     margin-left: 6px;
   }
 
-  .bio-body {
-    padding: var(--space-xl) var(--space-lg);
+  .cert-status-pill {
+    font-family: 'Fira Code', monospace;
+    font-size: 0.7rem;
+    color: #27c93f;
+    background: rgba(39, 201, 63, 0.12);
+    border: 1px solid rgba(39, 201, 63, 0.3);
+    padding: 2px 8px;
+    border-radius: 10px;
+    letter-spacing: 0.04em;
+  }
+
+  .bio-body,
+  .cert-body {
+    padding: var(--space-lg);
+    display: flex;
+    flex-direction: column;
+    flex: 1;
   }
 
   .bio-text {
@@ -1011,27 +1138,9 @@ import { reviews } from '../data/reviews.js';
     letter-spacing: 0.02em;
   }
 
-  /* Certificate Section in About */
-  .cert-section {
-    margin-bottom: var(--space-2xl);
-    padding-top: var(--space-md);
-  }
-
-  .certificate-container {
-    background: rgba(18, 18, 18, 0.75);
-    border: 1px solid rgba(255, 255, 255, 0.08);
-    border-radius: 8px;
-    display: grid;
-    grid-template-columns: 1fr 1.15fr;
-    gap: var(--space-xl);
-    padding: var(--space-xl);
-    align-items: center;
-    backdrop-filter: blur(10px);
-  }
-
-  .certificate-preview-side {
-    display: flex;
-    flex-direction: column;
+  /* Certificate Card in Side-by-Side Grid */
+  .cert-frame-wrapper {
+    margin-bottom: var(--space-md);
   }
 
   .cert-frame {
@@ -1041,7 +1150,8 @@ import { reviews } from '../data/reviews.js';
     border: 1px solid rgba(255, 255, 255, 0.15);
     cursor: pointer;
     background: #080808;
-    aspect-ratio: 10 / 7;
+    aspect-ratio: 16 / 10;
+    max-height: 200px;
     transition: transform var(--transition-smooth), border-color var(--transition-smooth);
   }
 
@@ -1066,7 +1176,7 @@ import { reviews } from '../data/reviews.js';
     background: rgba(0, 0, 0, 0.7);
     color: #ffffff;
     font-family: var(--font-display);
-    font-size: 0.95rem;
+    font-size: 0.9rem;
     text-transform: uppercase;
     letter-spacing: 0.05em;
     opacity: 0;
@@ -1077,43 +1187,57 @@ import { reviews } from '../data/reviews.js';
     opacity: 1;
   }
 
+  .cert-details {
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+  }
+
+  .cert-title-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: var(--space-xs);
+    flex-wrap: wrap;
+  }
+
+  .cert-title {
+    font-size: 1.35rem;
+    margin: 0;
+  }
+
   .cert-badge {
     display: inline-block;
-    font-size: 0.75rem;
+    font-size: 0.7rem;
     padding: 3px 10px;
     background: rgba(39, 201, 63, 0.12);
     border: 1px solid rgba(39, 201, 63, 0.3);
     color: #27c93f;
     border-radius: 12px;
-    margin-bottom: var(--space-xs);
-  }
-
-  .cert-title {
-    font-size: 2rem;
-    margin-bottom: var(--space-xs);
   }
 
   .cert-desc {
     color: var(--color-text-muted);
-    font-size: 0.95rem;
-    line-height: 1.6;
-    margin-bottom: var(--space-md);
+    font-size: 0.88rem;
+    line-height: 1.5;
+    margin-bottom: var(--space-sm);
   }
 
   .cert-topics-card {
     background: rgba(0, 0, 0, 0.35);
     border: 1px solid rgba(255, 255, 255, 0.06);
     border-radius: 6px;
-    padding: var(--space-md);
-    margin-bottom: var(--space-lg);
+    padding: 10px 14px;
+    margin-bottom: var(--space-md);
   }
 
   .topics-heading {
-    font-size: 0.82rem;
+    font-size: 0.75rem;
     text-transform: uppercase;
     letter-spacing: 0.06em;
     color: var(--color-text-primary);
-    margin-bottom: var(--space-xs);
+    margin-bottom: 6px;
   }
 
   .topics-list {
@@ -1122,17 +1246,25 @@ import { reviews } from '../data/reviews.js';
     margin: 0;
     display: flex;
     flex-direction: column;
-    gap: 8px;
+    gap: 6px;
   }
 
   .topics-list li {
-    font-size: 0.88rem;
+    font-size: 0.82rem;
     color: var(--color-text-muted);
-    line-height: 1.5;
+    line-height: 1.4;
   }
 
   .topics-list strong {
     color: var(--color-text-primary);
+  }
+
+  .view-cert-btn {
+    margin-top: auto;
+    width: 100%;
+    justify-content: center;
+    padding: 10px;
+    font-size: 0.88rem;
   }
 
   /* Fullscreen Modal */
@@ -1249,10 +1381,10 @@ import { reviews } from '../data/reviews.js';
     border-color: rgba(255, 255, 255, 0.4);
   }
 
-  @media (max-width: 768px) {
-    .certificate-container {
+  @media (max-width: 860px) {
+    .profile-cert-grid {
       grid-template-columns: 1fr;
-      padding: var(--space-md);
+      gap: var(--space-lg);
     }
   }
 </style>
