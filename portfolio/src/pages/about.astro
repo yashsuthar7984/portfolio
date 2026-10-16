@@ -451,18 +451,64 @@ function getCategoryInfo(type: string) {
     const reviewsGrid = document.getElementById("reviewsGrid");
     const emptyState = document.getElementById("emptyReviewsState");
     const reviewsEndpoint = "https://script.google.com/macros/s/AKfycby04ELFZtQYqk2jRt6Tr5sOlijQ9GgEvhJssfV9_Txxa39sS3R49MpShwCBQnwd46pZ/exec";
+    const STORAGE_KEY = "portfolio_saved_reviews_v1";
+
+    function getStoredReviews() {
+      try {
+        const raw = localStorage.getItem(STORAGE_KEY);
+        return raw ? JSON.parse(raw) : [];
+      } catch (e) {
+        return [];
+      }
+    }
+
+    function saveReviewLocally(rev) {
+      try {
+        const list = getStoredReviews();
+        // Avoid adding duplicate comments
+        if (!list.some(r => r.comment === rev.comment && r.clientName === rev.clientName)) {
+          list.unshift(rev);
+          localStorage.setItem(STORAGE_KEY, JSON.stringify(list));
+        }
+      } catch (e) {}
+    }
+
+    // Render any locally submitted reviews so they persist on refresh
+    function renderLocalReviews() {
+      const stored = getStoredReviews();
+      if (stored.length > 0 && reviewsGrid) {
+        const existingComments = new Set(
+          Array.from(reviewsGrid.querySelectorAll('.review-quote')).map(el => el.textContent.trim().replace(/^“|”$/g, ''))
+        );
+        stored.forEach(r => {
+          if (!existingComments.has((r.comment || '').trim())) {
+            reviewsGrid.insertAdjacentHTML('afterbegin', createReviewCardHTML(r));
+            existingComments.add((r.comment || '').trim());
+          }
+        });
+        reviewsGrid.style.display = 'grid';
+        if (emptyState) emptyState.style.display = 'none';
+      }
+    }
+    renderLocalReviews();
 
     async function loadReviewsFromSheet() {
       try {
         const res = await fetch(reviewsEndpoint);
         if (!res.ok) return;
         const data = await res.json();
-        if (Array.isArray(data) && data.length > 0) {
-          if (reviewsGrid && emptyState) {
-            reviewsGrid.innerHTML = data.map(createReviewCardHTML).join('');
-            reviewsGrid.style.display = 'grid';
-            emptyState.style.display = 'none';
-          }
+        if (Array.isArray(data) && data.length > 0 && reviewsGrid) {
+          const existingComments = new Set(
+            Array.from(reviewsGrid.querySelectorAll('.review-quote')).map(el => el.textContent.trim().replace(/^“|”$/g, ''))
+          );
+          data.forEach(r => {
+            if (!existingComments.has((r.comment || '').trim())) {
+              reviewsGrid.insertAdjacentHTML('beforeend', createReviewCardHTML(r));
+              existingComments.add((r.comment || '').trim());
+            }
+          });
+          reviewsGrid.style.display = 'grid';
+          if (emptyState) emptyState.style.display = 'none';
         }
       } catch (e) {
         console.warn('Could not load live reviews from sheet:', e);
@@ -508,14 +554,19 @@ function getCategoryInfo(type: string) {
           reviewStatus.innerHTML = "&#10003; <strong>Review Submitted!</strong> Thank you for your feedback. Your review has been recorded in the database.";
           reviewStatus.style.display = "block";
 
+          const newRevObj = {
+            clientName: payload.client_name,
+            projectType: payload.project_type,
+            rating: payload.stars_rating,
+            comment: payload.review_text
+          };
+
+          // Save to localStorage so it stays permanent on refresh
+          saveReviewLocally(newRevObj);
+
           // Instantly show the submitted review on the page
           if (reviewsGrid) {
-            const newCardHtml = createReviewCardHTML({
-              clientName: payload.client_name,
-              projectType: payload.project_type,
-              rating: payload.stars_rating,
-              comment: payload.review_text
-            });
+            const newCardHtml = createReviewCardHTML(newRevObj);
             reviewsGrid.insertAdjacentHTML('afterbegin', newCardHtml);
             reviewsGrid.style.display = 'grid';
           }
